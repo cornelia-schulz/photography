@@ -1,5 +1,6 @@
 import React from 'react'
 import {getAllPhotos} from '../apiClient'
+import {withNamespaces} from 'react-i18next'
 
 class App extends React.Component {
   constructor(props){
@@ -30,4 +31,4 @@ class App extends React.Component {
   }
 
 }
-export default App
+export default withNamespaces('strings')(App)
