@@ -1,32 +1,31 @@
 import React from 'react'
-import {withNamespaces} from 'react-i18next'
 
 function Footer() {
     
     return (
         <footer>
-            <container>
-                <row>
-                    <col>
+            <div className="container">
+                <div className="row">
+                    <div className="footer-col">
                         <img src="/images/facebook.png" alt="Link to Facebook" />
-                    </col>
-                    <col>
+                    </div>
+                    <div className="footer-col">
                         <img src="/images/twitter.png" alt="Link to Twitter" />
-                    </col>
-                    <col>
+                    </div>
+                    <div className="footer-col">
                         <img src="/images/500px-logo.png" alt="Link to 500px" />
-                    </col>
-                    <col>
+                    </div>
+                    <div className="footer-col">
                         <img src="/images/flickr.png" alt="Link to Flickr" />
-                    </col>
-                    <col>
+                    </div>
+                    <div className="footer-col">
                         <img src="/images/instagram.png" alt="Link to Instagram" />
-                    </col>
-                </row>
-                <row>
-                    &copy; Cornelia Schulz 2019
-                </row>
-            </container>
+                    </div>
+                </div>
+                <div className="row bottom-row">
+                    <p>&copy; Cornelia Schulz 2019</p>
+                </div>
+            </div>
         </footer>
     )
 }
