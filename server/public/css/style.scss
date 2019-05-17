@@ -13,6 +13,17 @@ html {
 h1, h2, h3, h4, h5, h6 {
     font-family: 'Comfortaa', cursive;
 }
+img {
+    width: 100%;
+}
+a {
+    text-decoration: none;
+}
+
+a:hover {
+    text-decoration: none;
+}
+
 .container {
     width: 100%;
 }
@@ -21,7 +32,9 @@ h1, h2, h3, h4, h5, h6 {
     display: flex;
     width: 100%;
 }
-
+header .container {
+    padding: 15px;
+}
 header .header-left {
     width: 65%;
 }
@@ -30,6 +43,27 @@ header .header-left img {
     width: 100%;
 }
 
+header .header-right {
+    width: 20%;
+    margin-top: auto;
+    margin-bottom: auto;
+}
+
+header .header-right img {
+    width: 60%;
+    float: right;
+}
+
+header .row {
+    justify-content: space-between;
+}
+.favourites h1 {
+    padding-left: 15px;
+    font-size: 1.5rem;
+}
+footer .container {
+    padding: 10px;
+}
 footer .footer-col {
     width: 20%;
     background: lightsteelblue;
