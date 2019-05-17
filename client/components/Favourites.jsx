@@ -1,11 +1,11 @@
 import React, { useState, useEffect } from 'react'
-import { getAllPhotos } from '../apiClient'
+import { getAllFavourites } from '../apiClient'
 
 function Favourites() {
     const [photos, setPhotos] = useState([])
 
     useEffect(() => {
-        getAllPhotos()
+      getAllFavourites()
           .then(photos => {
             setPhotos(photos)
           })

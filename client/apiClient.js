@@ -10,3 +10,14 @@ export function getAllPhotos() {
       console.error(err)
     })
 }
+
+export function getAllFavourites() {
+  return request
+    .get('/api/v1/photos/favourites')
+    .then(res => {
+      return res.body
+    })
+    .catch(err => {
+      console.error(err)
+    })
+}

@@ -4,6 +4,7 @@ const db = knex(config)
 
 module.exports = {
   getAll,
+  getFavourites,
   getOne,
   createNew,
   updateOne,
@@ -11,6 +12,11 @@ module.exports = {
 }
 
 function getAll() {
+  return db('photos')
+  .select()
+}
+
+function getFavourites() {
   return db('photos')
   .select()
 }

@@ -16,6 +16,17 @@ router.get('/', (req, res) => {
     })
 })
 
+router.get('/favourites', (req, res) => {
+  db.getFavourites()
+    .then(photos => {
+      res.json(photos)
+    })
+    .catch(err => {
+      console.error(err)
+      res.status(500).send('Unable to get favourites from database')
+    })
+})
+
 router.get('/:id', (req, res) => {
   const id = Number(req.params.id)
   db.getOne(id)

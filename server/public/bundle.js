@@ -100,6 +100,7 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 exports.getAllPhotos = getAllPhotos;
+exports.getAllFavourites = getAllFavourites;
 
 var _superagent = __webpack_require__(/*! superagent */ "./node_modules/superagent/lib/client.js");
 
@@ -109,6 +110,14 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 
 function getAllPhotos() {
   return _superagent2.default.get('/api/v1/photos').then(function (res) {
+    return res.body;
+  }).catch(function (err) {
+    console.error(err);
+  });
+}
+
+function getAllFavourites() {
+  return _superagent2.default.get('/api/v1/photos/favourites').then(function (res) {
     return res.body;
   }).catch(function (err) {
     console.error(err);
@@ -241,7 +250,7 @@ function Favourites() {
         setPhotos = _useState2[1];
 
     (0, _react.useEffect)(function () {
-        (0, _apiClient.getAllPhotos)().then(function (photos) {
+        (0, _apiClient.getAllFavourites)().then(function (photos) {
             setPhotos(photos);
         });
     });
@@ -1438,7 +1447,7 @@ module.exports = exports['default'];
 
 exports = module.exports = __webpack_require__(/*! ../../../node_modules/css-loader/dist/runtime/api.js */ "./node_modules/css-loader/dist/runtime/api.js")(false);
 // Module
-exports.push([module.i, "/* * {\r\n    background: #000 !important;\r\n    color: #0f0 !important;\r\n    outline: solid #f00 1px !important;\r\n  } */\nhtml {\n  box-sizing: border-box;\n  font-family: 'Lato', sans-serif; }\n\n*, *:before, *:after {\n  box-sizing: inherit; }\n\nh1, h2, h3, h4, h5, h6 {\n  font-family: 'Comfortaa', cursive; }\n\nimg {\n  width: 100%; }\n\na {\n  text-decoration: none; }\n\na:hover {\n  text-decoration: none; }\n\n.container {\n  width: 100%; }\n\n.row {\n  display: flex;\n  width: 100%; }\n\nheader .container {\n  padding: 15px; }\n\nheader .header-left {\n  width: 65%; }\n\nheader .header-left img {\n  width: 100%; }\n\nheader .header-right {\n  width: 20%;\n  margin-top: auto;\n  margin-bottom: auto; }\n\nheader .header-right img {\n  width: 60%;\n  float: right; }\n\nheader .row {\n  justify-content: space-between; }\n\n.favourites h1 {\n  padding-left: 15px;\n  font-size: 1.5rem; }\n\nfooter .footer-col {\n  width: 20%;\n  background: lightsteelblue;\n  border-radius: 50%;\n  padding: 2px;\n  margin: 5px; }\n\nfooter .footer-col img {\n  width: 100%;\n  padding: 10px; }\n\nfooter .bottom-row p {\n  margin: 5px auto; }\n", ""]);
+exports.push([module.i, "/* * {\r\n    background: #000 !important;\r\n    color: #0f0 !important;\r\n    outline: solid #f00 1px !important;\r\n  } */\nhtml {\n  box-sizing: border-box;\n  font-family: 'Lato', sans-serif; }\n\n*, *:before, *:after {\n  box-sizing: inherit; }\n\nh1, h2, h3, h4, h5, h6 {\n  font-family: 'Comfortaa', cursive; }\n\nimg {\n  width: 100%; }\n\na {\n  text-decoration: none; }\n\na:hover {\n  text-decoration: none; }\n\n.container {\n  width: 100%; }\n\n.row {\n  display: flex;\n  width: 100%; }\n\nheader .container {\n  padding: 15px; }\n\nheader .header-left {\n  width: 65%; }\n\nheader .header-left img {\n  width: 100%; }\n\nheader .header-right {\n  width: 20%;\n  margin-top: auto;\n  margin-bottom: auto; }\n\nheader .header-right img {\n  width: 60%;\n  float: right; }\n\nheader .row {\n  justify-content: space-between; }\n\n.favourites h1 {\n  padding-left: 15px;\n  font-size: 1.5rem; }\n\nfooter .container {\n  padding: 10px; }\n\nfooter .footer-col {\n  width: 20%;\n  border-radius: 50%;\n  padding: 2px;\n  margin: 5px; }\n\nfooter .footer-col img {\n  width: 100%;\n  padding: 10px; }\n\nfooter .bottom-row p {\n  margin: 5px auto; }\n", ""]);
 
 
 
