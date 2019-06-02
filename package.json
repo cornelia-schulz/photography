@@ -14,7 +14,7 @@
     ]
   },
   "scripts": {
-    "dev": "webpack & nodemon server --watch",
+    "dev": "webpack && nodemon server --watch",
     "start": "webpack",
     "build": "webpack"
   },

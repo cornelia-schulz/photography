@@ -315,27 +315,47 @@ function Footer() {
                 _react2.default.createElement(
                     "div",
                     { className: "footer-col" },
-                    _react2.default.createElement("img", { src: "/images/facebook.png", alt: "Link to Facebook" })
+                    _react2.default.createElement(
+                        "a",
+                        { href: "https://www.facebook.com/corneliaschulzphotography/", target: "_blank" },
+                        _react2.default.createElement("img", { src: "/images/facebook.png", alt: "Link to Facebook" })
+                    )
                 ),
                 _react2.default.createElement(
                     "div",
                     { className: "footer-col" },
-                    _react2.default.createElement("img", { src: "/images/twitter.png", alt: "Link to Twitter" })
+                    _react2.default.createElement(
+                        "a",
+                        { href: "https://twitter.com/Schulz_Images", target: "_blank" },
+                        _react2.default.createElement("img", { src: "/images/twitter.png", alt: "Link to Twitter" })
+                    )
                 ),
                 _react2.default.createElement(
                     "div",
                     { className: "footer-col" },
-                    _react2.default.createElement("img", { src: "/images/500px-logo.png", alt: "Link to 500px" })
+                    _react2.default.createElement(
+                        "a",
+                        { href: "https://500px.com/corneliaschulz", target: "_blank" },
+                        _react2.default.createElement("img", { src: "/images/500px-logo.png", alt: "Link to 500px" })
+                    )
                 ),
                 _react2.default.createElement(
                     "div",
                     { className: "footer-col" },
-                    _react2.default.createElement("img", { src: "/images/flickr.png", alt: "Link to Flickr" })
+                    _react2.default.createElement(
+                        "a",
+                        { href: "https://www.flickr.com/photos/cornelia-schulz/", target: "_blank" },
+                        _react2.default.createElement("img", { src: "/images/flickr.png", alt: "Link to Flickr" })
+                    )
                 ),
                 _react2.default.createElement(
                     "div",
                     { className: "footer-col" },
-                    _react2.default.createElement("img", { src: "/images/instagram.png", alt: "Link to Instagram" })
+                    _react2.default.createElement(
+                        "a",
+                        { href: "https://www.instagram.com/corneliaschulzphotography/?hl=en", target: "_blank" },
+                        _react2.default.createElement("img", { src: "/images/instagram.png", alt: "Link to Instagram" })
+                    )
                 )
             ),
             _react2.default.createElement(
