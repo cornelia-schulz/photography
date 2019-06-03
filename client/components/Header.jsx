@@ -12,6 +12,12 @@ function Header() {
                     <div className="header-right">
                         <img src="/images/menu.png" alt="Mobile menu" />
                     </div>
+                    <ul className="mobile-menu hidden">
+                        <li>Home</li>
+                        <li>Galleries</li>
+                        <li>About</li>
+                        <li>Contact</li>
+                    </ul>
                 </div>
             </div>
         </header>

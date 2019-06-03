@@ -1,8 +1,8 @@
-/* * {
-    background: #000 !important;
-    color: #0f0 !important;
-    outline: solid #f00 1px !important;
-  } */
+// * {
+//     background: #000 !important;
+//     color: #0f0 !important;
+//     outline: solid #f00 1px !important;
+//   }
 html {
     box-sizing: border-box;
     font-family: 'Lato', sans-serif;
@@ -19,15 +19,12 @@ img {
 a {
     text-decoration: none;
 }
-
 a:hover {
     text-decoration: none;
 }
-
 .container {
     width: 100%;
 }
-
 .row {
     display: flex;
     width: 100%;
@@ -38,24 +35,31 @@ header .container {
 header .header-left {
     width: 65%;
 }
-
 header .header-left img {
     width: 100%;
 }
-
 header .header-right {
     width: 20%;
     margin-top: auto;
     margin-bottom: auto;
 }
-
 header .header-right img {
     width: 60%;
     float: right;
 }
+header .mobile-menu {
+    width: 100%;
+    text-align: right;
 
+    li {
+        height: 2rem;
+        border-bottom: 1px solid #e5e5e5;
+        padding: 10px;
+    }
+}
 header .row {
     justify-content: space-between;
+    flex-wrap: wrap;
 }
 .favourites h1 {
     padding-left: 15px;
@@ -70,12 +74,10 @@ footer .footer-col {
     padding: 2px;
     margin: 5px;
 }
-
 footer .footer-col img {
     width: 100%;
     padding: 10px;
 }
-
 footer .bottom-row p {
     margin: 5px auto;
 }
