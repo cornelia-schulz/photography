@@ -126,6 +126,43 @@ function getAllFavourites() {
 
 /***/ }),
 
+/***/ "./client/components/About.jsx":
+/*!*************************************!*\
+  !*** ./client/components/About.jsx ***!
+  \*************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+
+var _react = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+
+var _react2 = _interopRequireDefault(_react);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function About() {
+
+    return _react2.default.createElement(
+        "div",
+        { className: "about" },
+        _react2.default.createElement(
+            "h1",
+            null,
+            "About me"
+        )
+    );
+}
+
+exports.default = About;
+
+/***/ }),
+
 /***/ "./client/components/App.jsx":
 /*!***********************************!*\
   !*** ./client/components/App.jsx ***!
@@ -165,6 +202,18 @@ var _Footer2 = _interopRequireDefault(_Footer);
 var _Favourites = __webpack_require__(/*! ./Favourites */ "./client/components/Favourites.jsx");
 
 var _Favourites2 = _interopRequireDefault(_Favourites);
+
+var _About = __webpack_require__(/*! ./About */ "./client/components/About.jsx");
+
+var _About2 = _interopRequireDefault(_About);
+
+var _Contact = __webpack_require__(/*! ./Contact */ "./client/components/Contact.jsx");
+
+var _Contact2 = _interopRequireDefault(_Contact);
+
+var _Galleries = __webpack_require__(/*! ./Galleries */ "./client/components/Galleries.jsx");
+
+var _Galleries2 = _interopRequireDefault(_Galleries);
 
 var _reactI18next = __webpack_require__(/*! react-i18next */ "./node_modules/react-i18next/dist/es/index.js");
 
@@ -206,7 +255,10 @@ var App = function (_React$Component) {
         _reactRouterDom.BrowserRouter,
         null,
         _react2.default.createElement(_reactRouterDom.Route, { path: '/', component: _Header2.default }),
-        _react2.default.createElement(_reactRouterDom.Route, { path: '/', component: _Favourites2.default }),
+        _react2.default.createElement(_reactRouterDom.Route, { path: '/about', component: _About2.default }),
+        _react2.default.createElement(_reactRouterDom.Route, { path: '/contact', component: _Contact2.default }),
+        _react2.default.createElement(_reactRouterDom.Route, { path: '/galleries', component: _Galleries2.default }),
+        _react2.default.createElement(_reactRouterDom.Route, { exact: true, path: '/', component: _Favourites2.default }),
         _react2.default.createElement(_reactRouterDom.Route, { path: '/', component: _Footer2.default })
       );
     }
@@ -216,6 +268,43 @@ var App = function (_React$Component) {
 }(_react2.default.Component);
 
 exports.default = App;
+
+/***/ }),
+
+/***/ "./client/components/Contact.jsx":
+/*!***************************************!*\
+  !*** ./client/components/Contact.jsx ***!
+  \***************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+
+var _react = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+
+var _react2 = _interopRequireDefault(_react);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function Contact() {
+
+    return _react2.default.createElement(
+        "div",
+        { className: "about" },
+        _react2.default.createElement(
+            "h1",
+            null,
+            "Contact me"
+        )
+    );
+}
+
+exports.default = Contact;
 
 /***/ }),
 
@@ -230,7 +319,7 @@ exports.default = App;
 
 
 Object.defineProperty(exports, "__esModule", {
-    value: true
+  value: true
 });
 
 var _slicedToArray = function () { function sliceIterator(arr, i) { var _arr = []; var _n = true; var _d = false; var _e = undefined; try { for (var _i = arr[Symbol.iterator](), _s; !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i["return"]) _i["return"](); } finally { if (_d) throw _e; } } return _arr; } return function (arr, i) { if (Array.isArray(arr)) { return arr; } else if (Symbol.iterator in Object(arr)) { return sliceIterator(arr, i); } else { throw new TypeError("Invalid attempt to destructure non-iterable instance"); } }; }();
@@ -241,43 +330,58 @@ var _react2 = _interopRequireDefault(_react);
 
 var _apiClient = __webpack_require__(/*! ../apiClient */ "./client/apiClient.js");
 
+var _reactPureLifecycle = __webpack_require__(/*! react-pure-lifecycle */ "./node_modules/react-pure-lifecycle/es/index.js");
+
+var _reactPureLifecycle2 = _interopRequireDefault(_reactPureLifecycle);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
+var _isMounted = false;
+
+var methods = {
+  componentWillUnmount: function componentWillUnmount() {
+    _isMounted = false;
+  }
+};
+
 function Favourites() {
-    var _useState = (0, _react.useState)([]),
-        _useState2 = _slicedToArray(_useState, 2),
-        photos = _useState2[0],
-        setPhotos = _useState2[1];
+  var _useState = (0, _react.useState)([]),
+      _useState2 = _slicedToArray(_useState, 2),
+      photos = _useState2[0],
+      setPhotos = _useState2[1];
 
-    (0, _react.useEffect)(function () {
-        (0, _apiClient.getAllFavourites)().then(function (photos) {
-            setPhotos(photos);
-        });
+  (0, _react.useEffect)(function () {
+    _isMounted = true;
+    (0, _apiClient.getAllFavourites)().then(function (photos) {
+      if (_isMounted) {
+        setPhotos(photos);
+      }
     });
+  });
 
-    return _react2.default.createElement(
-        'div',
-        { className: 'favourites' },
-        _react2.default.createElement(
-            'h1',
-            null,
-            'Personal Favourites'
-        ),
-        _react2.default.createElement(
-            'ul',
-            null,
-            photos.map(function (photo) {
-                return _react2.default.createElement(
-                    'li',
-                    { key: photo.id },
-                    _react2.default.createElement('img', { src: photo.link, alt: photo.title })
-                );
-            })
-        )
-    );
+  return _react2.default.createElement(
+    'div',
+    { className: 'favourites' },
+    _react2.default.createElement(
+      'h1',
+      null,
+      'Personal Favourites'
+    ),
+    _react2.default.createElement(
+      'ul',
+      null,
+      photos.map(function (photo) {
+        return _react2.default.createElement(
+          'li',
+          { key: photo.id },
+          _react2.default.createElement('img', { src: photo.link, alt: photo.title })
+        );
+      })
+    )
+  );
 }
 
-exports.default = Favourites;
+exports.default = (0, _reactPureLifecycle2.default)(methods)(Favourites);
 
 /***/ }),
 
@@ -375,6 +479,43 @@ exports.default = Footer;
 
 /***/ }),
 
+/***/ "./client/components/Galleries.jsx":
+/*!*****************************************!*\
+  !*** ./client/components/Galleries.jsx ***!
+  \*****************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+
+var _react = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+
+var _react2 = _interopRequireDefault(_react);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function Galleries() {
+
+    return _react2.default.createElement(
+        "div",
+        { className: "about" },
+        _react2.default.createElement(
+            "h1",
+            null,
+            "Galleries"
+        )
+    );
+}
+
+exports.default = Galleries;
+
+/***/ }),
+
 /***/ "./client/components/Header.jsx":
 /*!**************************************!*\
   !*** ./client/components/Header.jsx ***!
@@ -395,6 +536,8 @@ var _react = __webpack_require__(/*! react */ "./node_modules/react/index.js");
 
 var _react2 = _interopRequireDefault(_react);
 
+var _reactRouterDom = __webpack_require__(/*! react-router-dom */ "./node_modules/react-router-dom/esm/react-router-dom.js");
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function Header() {
@@ -410,46 +553,62 @@ function Header() {
     (0, _react.useEffect)(function () {});
 
     return _react2.default.createElement(
-        "header",
+        'header',
         null,
         _react2.default.createElement(
-            "div",
-            { className: "container" },
+            'div',
+            { className: 'container' },
             _react2.default.createElement(
-                "div",
-                { className: "row" },
+                'div',
+                { className: 'row' },
                 _react2.default.createElement(
-                    "div",
-                    { className: "header-left" },
-                    _react2.default.createElement("img", { src: "/images/CS_photgraphy_black.png", alt: "Cornelia Schulz Photography Logo" })
+                    'div',
+                    { className: 'header-left' },
+                    _react2.default.createElement('img', { src: '/images/CS_photgraphy_black.png', alt: 'Cornelia Schulz Photography Logo' })
                 ),
                 _react2.default.createElement(
-                    "button",
-                    { onClick: toggleMenu, className: "header-right" },
-                    _react2.default.createElement("img", { src: "/images/menu.png", alt: "Mobile menu" })
+                    'button',
+                    { onClick: toggleMenu, className: 'header-right' },
+                    _react2.default.createElement('img', { src: '/images/menu.png', alt: 'Mobile menu' })
                 ),
                 menuIsOpen && _react2.default.createElement(
-                    "ul",
-                    { className: "mobile-menu hidden" },
+                    'ul',
+                    { className: 'mobile-menu hidden' },
                     _react2.default.createElement(
-                        "li",
+                        'li',
                         null,
-                        "Home"
+                        _react2.default.createElement(
+                            _reactRouterDom.Link,
+                            { to: '/' },
+                            'Home'
+                        )
                     ),
                     _react2.default.createElement(
-                        "li",
+                        'li',
                         null,
-                        "Galleries"
+                        _react2.default.createElement(
+                            _reactRouterDom.Link,
+                            { to: '/galleries' },
+                            'Galleries'
+                        )
                     ),
                     _react2.default.createElement(
-                        "li",
+                        'li',
                         null,
-                        "About"
+                        _react2.default.createElement(
+                            _reactRouterDom.Link,
+                            { to: '/about' },
+                            'About'
+                        )
                     ),
                     _react2.default.createElement(
-                        "li",
+                        'li',
                         null,
-                        "Contact"
+                        _react2.default.createElement(
+                            _reactRouterDom.Link,
+                            { to: '/contact' },
+                            'Contact'
+                        )
                     )
                 )
             )
@@ -29414,6 +29573,440 @@ if (false) {} else {
   module.exports = __webpack_require__(/*! ./cjs/react-is.development.js */ "./node_modules/react-is/cjs/react-is.development.js");
 }
 
+
+/***/ }),
+
+/***/ "./node_modules/react-pure-lifecycle/es/components.js":
+/*!************************************************************!*\
+  !*** ./node_modules/react-pure-lifecycle/es/components.js ***!
+  \************************************************************/
+/*! exports provided: getClassHoc, getFunctionHoc */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "getClassHoc", function() { return getClassHoc; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "getFunctionHoc", function() { return getFunctionHoc; });
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _utils__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./utils */ "./node_modules/react-pure-lifecycle/es/utils.js");
+var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+// external dependencies
+
+
+// utils
+
+
+/**
+ * @function getClassHoc
+ *
+ * @description
+ * for class-based components, use inheritance inversion to retain state, overriding the lifecycle methods
+ *
+ * @param {ReactComponent} PassedComponent the component to wrap in an HOC
+ * @param {Object} methods the methods to apply to the HOC
+ * @param {Object} options the options for customizing implementation
+ * @param {boolean} options.injectProps should the props be injected into the lifecycle methods
+ * @returns {ReactComponent} HOC inheriting from PassedComponent with lifecycle methods
+ */
+var getClassHoc = function getClassHoc(PassedComponent, methods, _ref) {
+  var _class, _temp;
+
+  var injectProps = _ref.injectProps;
+
+  var displayName = Object(_utils__WEBPACK_IMPORTED_MODULE_1__["getComponentDisplayName"])(PassedComponent);
+
+  return _temp = _class = function (_PassedComponent) {
+    _inherits(PureLifecycleClass, _PassedComponent);
+
+    function PureLifecycleClass() {
+      _classCallCheck(this, PureLifecycleClass);
+
+      for (var _len = arguments.length, args = Array(_len), _key = 0; _key < _len; _key++) {
+        args[_key] = arguments[_key];
+      }
+
+      var _this = _possibleConstructorReturn(this, _PassedComponent.call.apply(_PassedComponent, [this].concat(args)));
+
+      Object(_utils__WEBPACK_IMPORTED_MODULE_1__["setLifecycleMethods"])(_this, methods, injectProps);
+      return _this;
+    }
+
+    PureLifecycleClass.prototype.render = function render() {
+      return _PassedComponent.prototype.render.call(this);
+    };
+
+    return PureLifecycleClass;
+  }(PassedComponent), _class.displayName = displayName, _temp;
+};
+
+/**
+ * @function getFunctionHoc
+ *
+ * @description
+ * for function-based components, use a props proxy wrapper and add the lifecycle methods
+ *
+ * @param {ReactComponent} PassedComponent the component to wrap in an HOC
+ * @param {Object} passedMethods the methods to apply to the HOC
+ * @param {Object} options the options for customizing implementation
+ * @param {boolean} options.injectProps should the props be injected into the lifecycle methods
+ * @param {boolean} options.usePureComponent should the HOC be a PureComponent
+ * @returns {ReactComponent} HOC wrapping PassedComponent with lifecycle methods
+ */
+var getFunctionHoc = function getFunctionHoc(PassedComponent, passedMethods, _ref2) {
+  var _class2, _temp2;
+
+  var injectProps = _ref2.injectProps,
+      usePureComponent = _ref2.usePureComponent;
+
+  var ComponentToExtend = usePureComponent ? react__WEBPACK_IMPORTED_MODULE_0__["PureComponent"] : react__WEBPACK_IMPORTED_MODULE_0__["Component"];
+  var displayName = Object(_utils__WEBPACK_IMPORTED_MODULE_1__["getComponentDisplayName"])(PassedComponent);
+
+  var methods = _extends({}, passedMethods);
+  var childContextTypes = PassedComponent.childContextTypes ? _extends({}, PassedComponent.childContextTypes) : undefined;
+
+  if (childContextTypes) {
+    // eslint-disable-next-line no-param-reassign
+    delete PassedComponent.childContextTypes;
+  }
+
+  return _temp2 = _class2 = function (_ComponentToExtend) {
+    _inherits(PureLifecycleFunctional, _ComponentToExtend);
+
+    function PureLifecycleFunctional() {
+      _classCallCheck(this, PureLifecycleFunctional);
+
+      for (var _len2 = arguments.length, args = Array(_len2), _key2 = 0; _key2 < _len2; _key2++) {
+        args[_key2] = arguments[_key2];
+      }
+
+      var _this2 = _possibleConstructorReturn(this, _ComponentToExtend.call.apply(_ComponentToExtend, [this].concat(args)));
+
+      Object(_utils__WEBPACK_IMPORTED_MODULE_1__["setLifecycleMethods"])(_this2, methods, injectProps);
+      return _this2;
+    }
+
+    PureLifecycleFunctional.prototype.render = function render() {
+      return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(PassedComponent, this.props);
+    };
+
+    return PureLifecycleFunctional;
+  }(ComponentToExtend), _class2.displayName = displayName, _class2.propTypes = PassedComponent.propTypes, _class2.defaultProps = PassedComponent.defaultProps, _class2.contextTypes = PassedComponent.contextTypes, _class2.childContextTypes = childContextTypes, _temp2;
+};
+
+/***/ }),
+
+/***/ "./node_modules/react-pure-lifecycle/es/constants.js":
+/*!***********************************************************!*\
+  !*** ./node_modules/react-pure-lifecycle/es/constants.js ***!
+  \***********************************************************/
+/*! exports provided: DEFAULT_OPTIONS, FUNCTION_NAME_REGEXP, IS_PRODUCTION, LIFECYCLE_METHODS */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "DEFAULT_OPTIONS", function() { return DEFAULT_OPTIONS; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "FUNCTION_NAME_REGEXP", function() { return FUNCTION_NAME_REGEXP; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "IS_PRODUCTION", function() { return IS_PRODUCTION; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "LIFECYCLE_METHODS", function() { return LIFECYCLE_METHODS; });
+/**
+ * @constant {Object} DEFAULT_OPTIONS
+ */
+var DEFAULT_OPTIONS = {
+  injectProps: true,
+  usePureComponent: true
+};
+
+/**
+ * @constant {RegExp} FUNCTION_NAME_REGEXP
+ */
+var FUNCTION_NAME_REGEXP = /function ([^\(]+)?\(/;
+
+/**
+ * @constant {boolean} IS_PRODUCTION
+ * @default
+ */
+var IS_PRODUCTION = "development" === 'production';
+
+/**
+ * @constant {Object} LIFECYCLE_METHODS
+ */
+var LIFECYCLE_METHODS = {
+  UNSAFE_componentWillMount: true,
+  UNSAFE_componentWillReceiveProps: true,
+  UNSAFE_componentWillUpdate: true,
+  componentDidCatch: true,
+  componentDidMount: true,
+  componentDidUpdate: true,
+  componentWillMount: true,
+  componentWillReceiveProps: true,
+  componentWillUnmount: true,
+  componentWillUpdate: true,
+  getChildContext: true,
+  getSnapshotBeforeUpdate: true,
+  shouldComponentUpdate: true
+};
+
+/***/ }),
+
+/***/ "./node_modules/react-pure-lifecycle/es/index.js":
+/*!*******************************************************!*\
+  !*** ./node_modules/react-pure-lifecycle/es/index.js ***!
+  \*******************************************************/
+/*! exports provided: getChildContext, UNSAFE_componentWillMount, componentWillMount, componentDidMount, UNSAFE_componentWillReceiveProps, componentWillReceiveProps, shouldComponentUpdate, UNSAFE_componentWillUpdate, componentWillUpdate, getSnapshotBeforeUpdate, componentDidUpdate, componentDidCatch, componentWillUnmount, default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "getChildContext", function() { return getChildContext; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "UNSAFE_componentWillMount", function() { return UNSAFE_componentWillMount; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "componentWillMount", function() { return componentWillMount; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "componentDidMount", function() { return componentDidMount; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "UNSAFE_componentWillReceiveProps", function() { return UNSAFE_componentWillReceiveProps; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "componentWillReceiveProps", function() { return componentWillReceiveProps; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "shouldComponentUpdate", function() { return shouldComponentUpdate; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "UNSAFE_componentWillUpdate", function() { return UNSAFE_componentWillUpdate; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "componentWillUpdate", function() { return componentWillUpdate; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "getSnapshotBeforeUpdate", function() { return getSnapshotBeforeUpdate; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "componentDidUpdate", function() { return componentDidUpdate; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "componentDidCatch", function() { return componentDidCatch; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "componentWillUnmount", function() { return componentWillUnmount; });
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _components__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./components */ "./node_modules/react-pure-lifecycle/es/components.js");
+/* harmony import */ var _constants__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./constants */ "./node_modules/react-pure-lifecycle/es/constants.js");
+/* harmony import */ var _utils__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./utils */ "./node_modules/react-pure-lifecycle/es/utils.js");
+var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
+
+// external dependencies
+
+
+//components
+
+
+// constants
+
+
+// utils
+
+
+/**
+ * @function addLifecycleMethods
+ *
+ * @description
+ * add the lifecycle hooks to the component and return it
+ *
+ * @param {Object} [methods={}] the methods passed
+ * @param {Object} [optionsPassed={}] the options passed
+ * @returns {function(PassedComponent: ReactComponent): ReactComponent} the component augmented with lifecycle methods
+ */
+var addLifecycleMethods = function addLifecycleMethods() {
+  var methods = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
+  var optionsPassed = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {};
+
+  if (!Object(_utils__WEBPACK_IMPORTED_MODULE_3__["isPlainObject"])(methods)) {
+    throw new TypeError('Methods passed must be in the form of a plain object.');
+  }
+
+  if (!Object(_utils__WEBPACK_IMPORTED_MODULE_3__["isPlainObject"])(optionsPassed)) {
+    throw new TypeError('Options passed must be in the form of a plain object.');
+  }
+
+  return function (PassedComponent) {
+    var getHoc = Object(_utils__WEBPACK_IMPORTED_MODULE_3__["isReactClass"])(PassedComponent) ? _components__WEBPACK_IMPORTED_MODULE_1__["getClassHoc"] : _components__WEBPACK_IMPORTED_MODULE_1__["getFunctionHoc"];
+
+    return getHoc(PassedComponent, methods, _extends({}, _constants__WEBPACK_IMPORTED_MODULE_2__["DEFAULT_OPTIONS"], optionsPassed));
+  };
+};
+
+var _Object$keys$reduce = Object.keys(_constants__WEBPACK_IMPORTED_MODULE_2__["LIFECYCLE_METHODS"]).reduce(function (exportsObject, method) {
+  // eslint-disable-next-line no-param-reassign
+  exportsObject[method] = Object(_utils__WEBPACK_IMPORTED_MODULE_3__["createSingleLifecycleMethodDecorator"])(method, addLifecycleMethods);
+
+  return exportsObject;
+}, {}),
+    getChildContext = _Object$keys$reduce.getChildContext,
+    UNSAFE_componentWillMount = _Object$keys$reduce.UNSAFE_componentWillMount,
+    componentWillMount = _Object$keys$reduce.componentWillMount,
+    componentDidMount = _Object$keys$reduce.componentDidMount,
+    UNSAFE_componentWillReceiveProps = _Object$keys$reduce.UNSAFE_componentWillReceiveProps,
+    componentWillReceiveProps = _Object$keys$reduce.componentWillReceiveProps,
+    shouldComponentUpdate = _Object$keys$reduce.shouldComponentUpdate,
+    UNSAFE_componentWillUpdate = _Object$keys$reduce.UNSAFE_componentWillUpdate,
+    componentWillUpdate = _Object$keys$reduce.componentWillUpdate,
+    getSnapshotBeforeUpdate = _Object$keys$reduce.getSnapshotBeforeUpdate,
+    componentDidUpdate = _Object$keys$reduce.componentDidUpdate,
+    componentDidCatch = _Object$keys$reduce.componentDidCatch,
+    componentWillUnmount = _Object$keys$reduce.componentWillUnmount;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/* harmony default export */ __webpack_exports__["default"] = (addLifecycleMethods);
+
+/***/ }),
+
+/***/ "./node_modules/react-pure-lifecycle/es/utils.js":
+/*!*******************************************************!*\
+  !*** ./node_modules/react-pure-lifecycle/es/utils.js ***!
+  \*******************************************************/
+/*! exports provided: createSingleLifecycleMethodDecorator, getComponentDisplayName, isPlainObject, isReactClass, getInvalidMethodWarning, getLifecycleMethodWithPropsInjected, setLifecycleMethods */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "createSingleLifecycleMethodDecorator", function() { return createSingleLifecycleMethodDecorator; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "getComponentDisplayName", function() { return getComponentDisplayName; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "isPlainObject", function() { return isPlainObject; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "isReactClass", function() { return isReactClass; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "getInvalidMethodWarning", function() { return getInvalidMethodWarning; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "getLifecycleMethodWithPropsInjected", function() { return getLifecycleMethodWithPropsInjected; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "setLifecycleMethods", function() { return setLifecycleMethods; });
+/* harmony import */ var _constants__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./constants */ "./node_modules/react-pure-lifecycle/es/constants.js");
+// constants
+
+
+/**
+ * @function createSingleLifecycleMethodDecorator
+ *
+ * @description
+ * partial application that will return the decorator for the
+ * specific method based on the function passed
+ *
+ * @param {function} method the method to add as a lifecycle method
+ * @param {function} addMethods the method that will add the lifecycle methods to the component
+ * @returns {function(ReactComponent, Object): ReactComponent} the decorator for a specific method
+ */
+var createSingleLifecycleMethodDecorator = function createSingleLifecycleMethodDecorator(method, addMethods) {
+  return function (fn, options) {
+    var _addMethods;
+
+    if (typeof fn !== 'function') {
+      throw new TypeError('Parameter passed to ' + method + ' must be a function.');
+    }
+
+    return addMethods((_addMethods = {}, _addMethods[method] = fn, _addMethods), options);
+  };
+};
+
+/**
+ * @function getComponentDisplayName
+ *
+ * @description
+ * get the name to display for the component
+ *
+ * @param {ReactComponent} ReactComponent the component to get the name of
+ * @returns {string} the display name of ReactComponent
+ */
+var getComponentDisplayName = function getComponentDisplayName(ReactComponent) {
+  var componentName = ReactComponent.displayName || ReactComponent.name || (_constants__WEBPACK_IMPORTED_MODULE_0__["FUNCTION_NAME_REGEXP"].exec(ReactComponent.toString()) || [])[1] || 'Component';
+
+  return 'PureLifecycle(' + componentName + ')';
+};
+
+/**
+ * @function isPlainObject
+ *
+ * @description
+ * is the object passed a plain object
+ *
+ * @param {any} object the object to test
+ * @returns {boolean} is the object a plain object
+ */
+var isPlainObject = function isPlainObject(object) {
+  return typeof object === 'object' && !!object && object.constructor === Object;
+};
+
+/**
+ * @function isReactClass
+ *
+ * @description
+ * is the component passed a react class
+ *
+ * @param {ReactComponent} ComponentToTest the component to test
+ * @returns {boolean} is ComponentToTest a react component instantiated via the class
+ */
+var isReactClass = function isReactClass(ComponentToTest) {
+  return !!(ComponentToTest && ComponentToTest.prototype) && typeof ComponentToTest.prototype.isReactComponent === 'object';
+};
+
+/**
+ * @function getInvalidMethodWarning
+ *
+ * @description
+ * get the warning message to display in non-production environments when the method is invalid
+ *
+ * @param {string} methodName the name of the invalid method
+ * @returns {string} the message to display in the warning
+ */
+var getInvalidMethodWarning = function getInvalidMethodWarning(methodName) {
+  return _constants__WEBPACK_IMPORTED_MODULE_0__["LIFECYCLE_METHODS"][methodName] ? 'The value passed for ' + methodName + ' is not a function, skipping.' : 'The key ' + methodName + ' is not a valid lifecycle method, skipping.';
+};
+
+/**
+ * @function getLifecycleMethodWithPropsInjected
+ *
+ * @description
+ * create a higher-order function that will inject the component's props as the first argument
+ *
+ * @param {ReactComponent} component the component whose props to retrieve
+ * @param {function} method the method to call
+ * @returns {function(...Array<*>): *} the higher-order function with props injected as argument
+ */
+var getLifecycleMethodWithPropsInjected = function getLifecycleMethodWithPropsInjected(component, method) {
+  return function () {
+    for (var _len = arguments.length, args = Array(_len), _key = 0; _key < _len; _key++) {
+      args[_key] = arguments[_key];
+    }
+
+    return method.apply(undefined, [component.props].concat(args));
+  };
+};
+
+/**
+ * @function setLifecycleMethods
+ *
+ * @description
+ * assign the lifecycle methods to the instance
+ *
+ * @param {ReactComponent} component the component whose methods will be augmented
+ * @param {Object} methods the methods to apply to the component
+ * @param {boolean} injectProps should the props be injected as the method's first parameter
+ * @returns {ReactComponent} the augmented component
+ */
+var setLifecycleMethods = function setLifecycleMethods(component, methods, injectProps) {
+  return Object.keys(methods).reduce(function (instance, methodName) {
+    var method = methods[methodName];
+
+    if (_constants__WEBPACK_IMPORTED_MODULE_0__["LIFECYCLE_METHODS"][methodName] && typeof method === 'function') {
+      // eslint-disable-next-line no-param-reassign
+      instance[methodName] = injectProps ? getLifecycleMethodWithPropsInjected(component, method) : method;
+    } else if (!_constants__WEBPACK_IMPORTED_MODULE_0__["IS_PRODUCTION"]) {
+      // eslint-disable-next-line no-console
+      console.warn(getInvalidMethodWarning(methodName));
+    }
+
+    return instance;
+  }, component);
+};
 
 /***/ }),
 

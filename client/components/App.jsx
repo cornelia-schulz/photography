@@ -5,6 +5,9 @@ import styles from '../../server/public/css/style.scss'
 import Header from './Header'
 import Footer from './Footer'
 import Favourites from './Favourites'
+import About from './About'
+import Contact from './Contact'
+import Galleries from './Galleries'
 import { useTranslation, Trans } from 'react-i18next'
 
 class App extends React.Component {
@@ -26,15 +29,10 @@ class App extends React.Component {
     return(
       <Router>
         <Route path='/' component={Header} />
-        {/* <div className="container">
-        <h1>Photos</h1>
-          <ul>
-            {this.state.photos.map(photo => {
-              return <li key={photo.id}>{photo.title}</li>
-            })}
-          </ul>
-        </div>  */}
-        <Route path='/' component={Favourites} />
+        <Route path='/about' component={About} />
+        <Route path='/contact' component={Contact} />
+        <Route path='/galleries' component={Galleries} />
+        <Route exact path='/' component={Favourites} />
         <Route path='/' component={Footer} />
       </Router>  
     )

@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react'
+import { Link } from 'react-router-dom'
 
 function Header() {
     const [menuIsOpen, setMenuIsOpen] = useState(false)
@@ -20,10 +21,10 @@ function Header() {
                         <img src="/images/menu.png" alt="Mobile menu" />
                     </button>
                     {menuIsOpen &&<ul className="mobile-menu hidden">
-                        <li>Home</li>
-                        <li>Galleries</li>
-                        <li>About</li>
-                        <li>Contact</li>
+                        <li><Link to="/">Home</Link></li>
+                        <li><Link to="/galleries">Galleries</Link></li>
+                        <li><Link to="/about">About</Link></li>
+                        <li><Link to="/contact">Contact</Link></li>
                     </ul>}
                 </div>
             </div>

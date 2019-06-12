@@ -1,13 +1,24 @@
 import React, { useState, useEffect } from 'react'
 import { getAllFavourites } from '../apiClient'
+import lifecycle from 'react-pure-lifecycle'
+let _isMounted = false
+
+const methods = {
+  componentWillUnmount() {
+    _isMounted = false
+  }
+}
 
 function Favourites() {
     const [photos, setPhotos] = useState([])
 
     useEffect(() => {
+      _isMounted = true
       getAllFavourites()
           .then(photos => {
-            setPhotos(photos)
+            if(_isMounted) {
+              setPhotos(photos)
+            }
           })
       })
 
@@ -25,4 +36,4 @@ function Favourites() {
     )
 }
 
-export default Favourites
+export default lifecycle(methods)(Favourites)
