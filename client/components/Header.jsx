@@ -1,6 +1,13 @@
-import React from 'react'
+import React, { useState, useEffect } from 'react'
 
 function Header() {
+    const [menuIsOpen, setMenuIsOpen] = useState(false)
+
+    function toggleMenu () {
+        menuIsOpen ? setMenuIsOpen(false) : setMenuIsOpen(true)
+    }
+
+    useEffect(() => {})
 
     return (
         <header>
@@ -9,15 +16,15 @@ function Header() {
                     <div className="header-left">
                         <img src="/images/CS_photgraphy_black.png" alt="Cornelia Schulz Photography Logo" />
                     </div>
-                    <div className="header-right">
+                    <button onClick={toggleMenu} className="header-right">
                         <img src="/images/menu.png" alt="Mobile menu" />
-                    </div>
-                    <ul className="mobile-menu hidden">
+                    </button>
+                    {menuIsOpen &&<ul className="mobile-menu hidden">
                         <li>Home</li>
                         <li>Galleries</li>
                         <li>About</li>
                         <li>Contact</li>
-                    </ul>
+                    </ul>}
                 </div>
             </div>
         </header>

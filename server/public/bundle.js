@@ -389,6 +389,8 @@ Object.defineProperty(exports, "__esModule", {
     value: true
 });
 
+var _slicedToArray = function () { function sliceIterator(arr, i) { var _arr = []; var _n = true; var _d = false; var _e = undefined; try { for (var _i = arr[Symbol.iterator](), _s; !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i["return"]) _i["return"](); } finally { if (_d) throw _e; } } return _arr; } return function (arr, i) { if (Array.isArray(arr)) { return arr; } else if (Symbol.iterator in Object(arr)) { return sliceIterator(arr, i); } else { throw new TypeError("Invalid attempt to destructure non-iterable instance"); } }; }();
+
 var _react = __webpack_require__(/*! react */ "./node_modules/react/index.js");
 
 var _react2 = _interopRequireDefault(_react);
@@ -396,6 +398,16 @@ var _react2 = _interopRequireDefault(_react);
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function Header() {
+    var _useState = (0, _react.useState)(false),
+        _useState2 = _slicedToArray(_useState, 2),
+        menuIsOpen = _useState2[0],
+        setMenuIsOpen = _useState2[1];
+
+    function toggleMenu() {
+        menuIsOpen ? setMenuIsOpen(false) : setMenuIsOpen(true);
+    }
+
+    (0, _react.useEffect)(function () {});
 
     return _react2.default.createElement(
         "header",
@@ -412,13 +424,13 @@ function Header() {
                     _react2.default.createElement("img", { src: "/images/CS_photgraphy_black.png", alt: "Cornelia Schulz Photography Logo" })
                 ),
                 _react2.default.createElement(
-                    "div",
-                    { className: "header-right" },
+                    "button",
+                    { onClick: toggleMenu, className: "header-right" },
                     _react2.default.createElement("img", { src: "/images/menu.png", alt: "Mobile menu" })
                 ),
-                _react2.default.createElement(
+                menuIsOpen && _react2.default.createElement(
                     "ul",
-                    { "class": "mobile-menu" },
+                    { className: "mobile-menu hidden" },
                     _react2.default.createElement(
                         "li",
                         null,
@@ -1491,7 +1503,7 @@ module.exports = exports['default'];
 
 exports = module.exports = __webpack_require__(/*! ../../../node_modules/css-loader/dist/runtime/api.js */ "./node_modules/css-loader/dist/runtime/api.js")(false);
 // Module
-exports.push([module.i, "html {\n  box-sizing: border-box;\n  font-family: 'Lato', sans-serif; }\n\n*, *:before, *:after {\n  box-sizing: inherit; }\n\nh1, h2, h3, h4, h5, h6 {\n  font-family: 'Comfortaa', cursive; }\n\nimg {\n  width: 100%; }\n\na {\n  text-decoration: none; }\n\na:hover {\n  text-decoration: none; }\n\n.container {\n  width: 100%; }\n\n.row {\n  display: flex;\n  width: 100%; }\n\nheader .container {\n  padding: 15px; }\n\nheader .header-left {\n  width: 65%; }\n\nheader .header-left img {\n  width: 100%; }\n\nheader .header-right {\n  width: 20%;\n  margin-top: auto;\n  margin-bottom: auto; }\n\nheader .header-right img {\n  width: 60%;\n  float: right; }\n\nheader .mobile-menu {\n  width: 100%;\n  text-align: right; }\n  header .mobile-menu li {\n    height: 2rem;\n    border-bottom: 1px solid #e5e5e5; }\n\nheader .row {\n  justify-content: space-between;\n  flex-wrap: wrap; }\n\n.favourites h1 {\n  padding-left: 15px;\n  font-size: 1.5rem; }\n\nfooter .container {\n  padding: 10px; }\n\nfooter .footer-col {\n  width: 20%;\n  border-radius: 50%;\n  padding: 2px;\n  margin: 5px; }\n\nfooter .footer-col img {\n  width: 100%;\n  padding: 10px; }\n\nfooter .bottom-row p {\n  margin: 5px auto; }\n", ""]);
+exports.push([module.i, "html {\n  box-sizing: border-box;\n  font-family: 'Lato', sans-serif; }\n\n*, *:before, *:after {\n  box-sizing: inherit; }\n\nh1, h2, h3, h4, h5, h6 {\n  font-family: 'Comfortaa', cursive; }\n\nimg {\n  width: 100%; }\n\na {\n  text-decoration: none; }\n\na:hover {\n  text-decoration: none; }\n\n.container {\n  width: 100%; }\n\n.row {\n  display: flex;\n  width: 100%; }\n\nheader .container {\n  padding: 15px; }\n\nheader .header-left {\n  width: 65%; }\n\nheader .header-left img {\n  width: 100%; }\n\nheader .header-right {\n  width: 20%;\n  margin-top: auto;\n  margin-bottom: auto; }\n\nheader .header-right img {\n  width: 60%;\n  float: right; }\n\nheader .mobile-menu {\n  width: 100%;\n  text-align: right; }\n  header .mobile-menu li {\n    height: 2rem;\n    border-bottom: 1px solid #e5e5e5;\n    padding: 10px; }\n\nheader .row {\n  justify-content: space-between;\n  flex-wrap: wrap; }\n\n.favourites h1 {\n  padding-left: 15px;\n  font-size: 1.5rem; }\n\nfooter .container {\n  padding: 10px; }\n\nfooter .footer-col {\n  width: 20%;\n  border-radius: 50%;\n  padding: 2px;\n  margin: 5px; }\n\nfooter .footer-col img {\n  width: 100%;\n  padding: 10px; }\n\nfooter .bottom-row p {\n  margin: 5px auto; }\n", ""]);
 
 
 
