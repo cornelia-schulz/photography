@@ -18,7 +18,8 @@ function Header() {
                         <img src="/images/CS_photgraphy_black.png" alt="Cornelia Schulz Photography Logo" />
                     </div>
                     <button onClick={toggleMenu} className="header-right">
-                        <img src="/images/menu.png" alt="Mobile menu" />
+                        {!menuIsOpen &&<img src="/images/menu.png" alt="Open mobile menu" />}
+                        {menuIsOpen &&<img src="/images/close.png" alt="Close mobile menu" />}
                     </button>
                     {menuIsOpen &&<ul className="mobile-menu hidden">
                         <li><Link to="/">Home</Link></li>
