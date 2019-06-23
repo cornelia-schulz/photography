@@ -15,9 +15,16 @@ function Header() {
             <div className="container">
                 <div className="row">
                     <div className="header-left">
-                        <img src="/images/CS_photgraphy_black.png" alt="Cornelia Schulz Photography Logo" />
+                        <a href="/"><img src="/images/CS_photgraphy_black.png" alt="Cornelia Schulz Photography Logo" /></a>
                     </div>
-                    <button onClick={toggleMenu} className="header-right">
+                    <nav className="header-right">
+                        <ul>
+                            <li className="nav-link"><Link to="/galleries">Galleries</Link></li>
+                            <li className="nav-link"><Link to="/about">About</Link></li>
+                            <li className="nav-link"><Link to="/contact">Contact</Link></li>
+                        </ul>
+                    </nav>
+                    <button onClick={toggleMenu} className="header-right-mobile">
                         {!menuIsOpen &&<img src="/images/menu.png" alt="Open mobile menu" />}
                         {menuIsOpen &&<img src="/images/close.png" alt="Close mobile menu" />}
                     </button>

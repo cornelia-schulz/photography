@@ -19,19 +19,6 @@ const CSSLoader = {
   }
 }
 
-const postCSSLoader = {
-  loader: 'postcss-loader',
-  options: {
-    ident: 'postcss',
-    sourceMap: true,
-    plugins: () => [
-      autoprefixer({
-        browsers: ['>1%', 'last 4 versions', 'Firefox ESR', 'not ie < 9']
-      })
-    ]
-  }
-}
-
 module.exports = {
   mode: 'development',
   entry: './client/index.js',
@@ -52,10 +39,10 @@ module.exports = {
       //query: { overrides: [ '../node_modules/lib/locales' ] }
     },
     {
-      test: /\.scss$/,
+      test: /\.(sass|scss|css)$/,
       use: [
         {
-          loader: "style-loader" // creates style nodes from JS strings
+          loader: "style-loader"
         },
         {
           loader: "css-loader" // translates CSS into CommonJS
@@ -68,7 +55,7 @@ module.exports = {
   ]
   },
   resolve: {
-    extensions: ['.js', '.jsx']
+    extensions: ['.js', '.jsx', 'scss']
   },
   devtool: 'source-map'
 }
