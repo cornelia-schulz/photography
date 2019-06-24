@@ -23,7 +23,7 @@ function Favourites() {
       })
 
     return (
-        <div className="favourites">
+        <div className="favourites container">
         <h1>Personal Favourites</h1>
         <ul>
             {photos.map(photo => {
