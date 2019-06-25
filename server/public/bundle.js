@@ -215,6 +215,10 @@ var _Galleries = __webpack_require__(/*! ./Galleries */ "./client/components/Gal
 
 var _Galleries2 = _interopRequireDefault(_Galleries);
 
+var _Banner = __webpack_require__(/*! ./Banner */ "./client/components/Banner.jsx");
+
+var _Banner2 = _interopRequireDefault(_Banner);
+
 var _reactI18next = __webpack_require__(/*! react-i18next */ "./node_modules/react-i18next/dist/es/index.js");
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
@@ -255,6 +259,7 @@ var App = function (_React$Component) {
         _reactRouterDom.BrowserRouter,
         null,
         _react2.default.createElement(_reactRouterDom.Route, { path: '/', component: _Header2.default }),
+        _react2.default.createElement(_reactRouterDom.Route, { path: '/', component: _Banner2.default }),
         _react2.default.createElement(_reactRouterDom.Route, { path: '/about', component: _About2.default }),
         _react2.default.createElement(_reactRouterDom.Route, { path: '/contact', component: _Contact2.default }),
         _react2.default.createElement(_reactRouterDom.Route, { path: '/galleries', component: _Galleries2.default }),
@@ -268,6 +273,37 @@ var App = function (_React$Component) {
 }(_react2.default.Component);
 
 exports.default = App;
+
+/***/ }),
+
+/***/ "./client/components/Banner.jsx":
+/*!**************************************!*\
+  !*** ./client/components/Banner.jsx ***!
+  \**************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+
+var _react = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+
+var _react2 = _interopRequireDefault(_react);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function Banner() {
+    return _react2.default.createElement(
+        "div",
+        { "class": "banner" },
+        _react2.default.createElement("img", { src: "images/Mt-cook-banner.jpg", alt: "Mt Cook banner image" })
+    );
+}
+exports.default = Banner;
 
 /***/ }),
 
