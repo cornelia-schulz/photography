@@ -150,11 +150,26 @@ function About() {
 
     return _react2.default.createElement(
         "div",
-        { className: "about" },
+        { className: "about container" },
         _react2.default.createElement(
             "h1",
             null,
             "About me"
+        ),
+        _react2.default.createElement(
+            "p",
+            null,
+            "Quite simply, I just love taking photos. Blending this with my fascination with the natural world provides me with heaps of inspiration."
+        ),
+        _react2.default.createElement(
+            "p",
+            null,
+            "I feel lucky too, just having lived in New Zealand and now Australia, both breathtaking and beautiful countries with such huge diversity of natural elements, wildlife and seasons!"
+        ),
+        _react2.default.createElement(
+            "p",
+            null,
+            "My philosophy is a simple one - keep things as real as possible. I think my style of photography is very natural and expressive, after all photography is about capturing mood, expression and emotion through the lens and portraying them with an artistic vision. It is about telling your story through beautiful images."
         )
     );
 }
@@ -1738,7 +1753,7 @@ module.exports = exports['default'];
 
 exports = module.exports = __webpack_require__(/*! ../../../node_modules/css-loader/dist/runtime/api.js */ "./node_modules/css-loader/dist/runtime/api.js")(false);
 // Module
-exports.push([module.i, "html {\n  box-sizing: border-box;\n  font-family: 'Lato', sans-serif; }\n\n*, *:before, *:after {\n  box-sizing: inherit; }\n\nh1, h2, h3, h4, h5, h6 {\n  font-family: 'Comfortaa', cursive; }\n\nimg {\n  width: 100%; }\n\na, a:visited {\n  text-decoration: none;\n  color: #111; }\n\na:hover {\n  text-decoration: none;\n  cursor: pointer; }\n\n.container {\n  width: 100%; }\n\n.row {\n  display: flex;\n  width: 100%; }\n\nheader .container {\n  padding: 15px; }\n\nheader .row {\n  justify-content: space-between;\n  flex-wrap: wrap; }\n\nheader .header-left {\n  width: 55%; }\n\nheader .header-left img {\n  width: 100%; }\n\nheader .header-right {\n  display: none; }\n\nheader .header-right-mobile {\n  width: 20%;\n  margin-top: auto;\n  margin-bottom: auto;\n  border: none; }\n  header .header-right-mobile img {\n    width: 60%;\n    float: right; }\n\nheader .header-right-mobile:focus {\n  outline: none; }\n\nheader .mobile-menu {\n  width: 100%;\n  text-align: right; }\n  header .mobile-menu li {\n    list-style-type: none;\n    height: 2rem;\n    border-bottom: 1px solid #e5e5e5;\n    padding: 10px; }\n\n@media only screen and (min-width: 769px) {\n  header .header-left img {\n    height: 100px;\n    width: auto; }\n  header .header-right {\n    display: block; }\n    header .header-right ul {\n      display: flex;\n      flex-direction: row; }\n      header .header-right ul li {\n        height: 100px;\n        padding: 10px;\n        display: flex;\n        flex-direction: column;\n        justify-content: center;\n        font-size: 20px;\n        width: 110px;\n        text-align: center; }\n  header .header-right-mobile {\n    display: none; } }\n\n.favourites h1 {\n  padding: 60px 0;\n  font-size: 1.5rem;\n  text-align: center; }\n\n@media only screen and (min-width: 769px) {\n  .favourites h1 {\n    text-align: left; } }\n\nfooter .container {\n  padding: 10px; }\n\nfooter .footer-col {\n  width: 20%;\n  border-radius: 50%;\n  padding: 2px;\n  margin: 5px; }\n\nfooter .footer-col img {\n  width: 100%;\n  padding: 10px; }\n\nfooter .bottom-row p {\n  margin: 5px auto; }\n\n@media only screen and (min-width: 769px) {\n  footer .footer-col {\n    text-align: center; }\n  footer .footer-col img {\n    width: auto;\n    height: 100px; } }\n\n@media only screen and (min-width: 1100px) {\n  .container {\n    width: 1028px;\n    margin: 0 auto; } }\n", ""]);
+exports.push([module.i, "html, body {\n  box-sizing: border-box;\n  font-family: 'Lato', sans-serif;\n  font-size: 16px;\n  line-height: 1.5rem; }\n\n*, *:before, *:after {\n  box-sizing: inherit; }\n\nh1, h2, h3, h4, h5, h6 {\n  font-family: 'Comfortaa', cursive; }\n\nh1 {\n  font-size: 24px; }\n\nimg {\n  width: 100%; }\n\na, a:visited {\n  text-decoration: none;\n  color: #111; }\n\na:hover {\n  text-decoration: none;\n  cursor: pointer; }\n\n.container {\n  width: 100%;\n  padding: 15px; }\n\n.row {\n  display: flex;\n  width: 100%; }\n\nheader .container {\n  padding: 15px; }\n\nheader .row {\n  justify-content: space-between;\n  flex-wrap: wrap; }\n\nheader .header-left {\n  width: 55%; }\n\nheader .header-left img {\n  width: 100%; }\n\nheader .header-right {\n  display: none; }\n\nheader .header-right-mobile {\n  width: 20%;\n  margin-top: auto;\n  margin-bottom: auto;\n  border: none; }\n  header .header-right-mobile img {\n    width: 60%;\n    float: right; }\n\nheader .header-right-mobile:focus {\n  outline: none; }\n\nheader .mobile-menu {\n  width: 100%;\n  text-align: right; }\n  header .mobile-menu li {\n    list-style-type: none;\n    height: 2rem;\n    border-bottom: 1px solid #e5e5e5;\n    padding: 10px; }\n\n@media only screen and (min-width: 769px) {\n  header .header-left img {\n    height: 100px;\n    width: auto; }\n  header .header-right {\n    display: block; }\n    header .header-right ul {\n      display: flex;\n      flex-direction: row; }\n      header .header-right ul li {\n        height: 100px;\n        padding: 10px;\n        display: flex;\n        flex-direction: column;\n        justify-content: center;\n        font-size: 20px;\n        width: 110px;\n        text-align: center; }\n  header .header-right-mobile {\n    display: none; } }\n\n.favourites h1 {\n  padding: 60px 0;\n  font-size: 1.5rem;\n  text-align: center; }\n\n@media only screen and (min-width: 769px) {\n  .favourites h1 {\n    text-align: left; } }\n\n.about p {\n  margin: 15px 0; }\n\nfooter .container {\n  padding: 10px; }\n\nfooter .footer-col {\n  width: 20%;\n  border-radius: 50%;\n  padding: 2px;\n  margin: 5px; }\n\nfooter .footer-col img {\n  width: 100%;\n  padding: 10px; }\n\nfooter .bottom-row p {\n  margin: 5px auto; }\n\n@media only screen and (min-width: 769px) {\n  footer .footer-col {\n    text-align: center; }\n  footer .footer-col img {\n    width: auto;\n    height: 100px; } }\n\n@media only screen and (min-width: 1100px) {\n  .container {\n    width: 1028px;\n    margin: 0 auto; } }\n", ""]);
 
 
 
