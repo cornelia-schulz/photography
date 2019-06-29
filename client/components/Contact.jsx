@@ -11,8 +11,8 @@ function Contact() {
                 <input id="contactName" type="text" />
                 <label for="contactEmail">Your email:</label>
                 <input id="contactEmail" type="email" />
-                <label for="contactMessage" rows="5">Your message:</label>
-                <textarea></textarea>
+                <label for="contactMessage">Your message:</label>
+                <textarea rows="8"></textarea>
             </form>
         </div>
     )
