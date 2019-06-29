@@ -29,10 +29,10 @@ function Header() {
                         {menuIsOpen &&<img src="/images/close.png" alt="Close mobile menu" />}
                     </button>
                     {menuIsOpen &&<ul className="mobile-menu hidden">
-                        <li><Link to="/">Home</Link></li>
-                        <li><Link to="/galleries">Galleries</Link></li>
-                        <li><Link to="/about">About</Link></li>
-                        <li><Link to="/contact">Contact</Link></li>
+                        <li onClick="toggleMenu()"><Link to="/">Home</Link></li>
+                        <li onClick="toggleMenu()"><Link to="/galleries">Galleries</Link></li>
+                        <li onClick="toggleMenu()"><Link to="/about">About</Link></li>
+                        <li onClick="toggleMenu()"><Link to="/contact">Contact</Link></li>
                     </ul>}
                 </div>
             </div>
