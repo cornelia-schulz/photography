@@ -12,6 +12,7 @@ html, body {
 h1, h2, h3, h4, h5, h6 {
     font-family: 'Comfortaa', cursive;
     font-weight: 600;
+    margin-bottom: 15px;
 }
 h1 {
     font-size: 24px;
@@ -149,6 +150,18 @@ header {
     }
     textarea:focus {
         outline: none;
+    }
+}
+.galleries {
+    .gallery {
+        width: 100%;
+        background-image: url('/images/pakiri-astro.jpg');
+        background-size: cover;
+    }
+    .gallery:after {
+        content: "";
+        display: block;
+        padding-bottom: 100%;
     }
 }
 footer {
