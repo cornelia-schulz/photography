@@ -21,3 +21,14 @@ export function getAllFavourites() {
       console.error(err)
     })
 }
+
+export function getAllGalleries() {
+  return request
+    .get('/api/v1/galleries')
+    .then(res => {
+      return res.body
+    })
+    .catch(err => {
+      console.error(err)
+    })
+}

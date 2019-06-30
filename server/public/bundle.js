@@ -101,6 +101,7 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.getAllPhotos = getAllPhotos;
 exports.getAllFavourites = getAllFavourites;
+exports.getAllGalleries = getAllGalleries;
 
 var _superagent = __webpack_require__(/*! superagent */ "./node_modules/superagent/lib/client.js");
 
@@ -118,6 +119,14 @@ function getAllPhotos() {
 
 function getAllFavourites() {
   return _superagent2.default.get('/api/v1/photos/favourites').then(function (res) {
+    return res.body;
+  }).catch(function (err) {
+    console.error(err);
+  });
+}
+
+function getAllGalleries() {
+  return _superagent2.default.get('/api/v1/galleries').then(function (res) {
     return res.body;
   }).catch(function (err) {
     console.error(err);
@@ -274,7 +283,8 @@ var App = function (_React$Component) {
         _reactRouterDom.BrowserRouter,
         null,
         _react2.default.createElement(_reactRouterDom.Route, { path: '/', component: _Header2.default }),
-        _react2.default.createElement(_reactRouterDom.Route, { path: '/', component: _Banner2.default }),
+        _react2.default.createElement(_reactRouterDom.Route, { exact: true, path: '/', component: _Banner2.default }),
+        _react2.default.createElement(_reactRouterDom.Route, { path: '/about', component: _Banner2.default }),
         _react2.default.createElement(_reactRouterDom.Route, { path: '/about', component: _About2.default }),
         _react2.default.createElement(_reactRouterDom.Route, { path: '/contact', component: _Contact2.default }),
         _react2.default.createElement(_reactRouterDom.Route, { path: '/galleries', component: _Galleries2.default }),
@@ -571,40 +581,75 @@ Object.defineProperty(exports, "__esModule", {
     value: true
 });
 
+var _slicedToArray = function () { function sliceIterator(arr, i) { var _arr = []; var _n = true; var _d = false; var _e = undefined; try { for (var _i = arr[Symbol.iterator](), _s; !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i["return"]) _i["return"](); } finally { if (_d) throw _e; } } return _arr; } return function (arr, i) { if (Array.isArray(arr)) { return arr; } else if (Symbol.iterator in Object(arr)) { return sliceIterator(arr, i); } else { throw new TypeError("Invalid attempt to destructure non-iterable instance"); } }; }();
+
 var _react = __webpack_require__(/*! react */ "./node_modules/react/index.js");
 
 var _react2 = _interopRequireDefault(_react);
 
+var _apiClient = __webpack_require__(/*! ../apiClient */ "./client/apiClient.js");
+
+var _reactPureLifecycle = __webpack_require__(/*! react-pure-lifecycle */ "./node_modules/react-pure-lifecycle/es/index.js");
+
+var _reactPureLifecycle2 = _interopRequireDefault(_reactPureLifecycle);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
+var _isMounted = false;
+
+var methods = {
+    componentWillUnmount: function componentWillUnmount() {
+        _isMounted = false;
+    }
+};
+
 function Galleries() {
+    var _useState = (0, _react.useState)([]),
+        _useState2 = _slicedToArray(_useState, 2),
+        galleries = _useState2[0],
+        setGalleries = _useState2[1];
+
+    (0, _react.useEffect)(function () {
+        _isMounted = true;
+        (0, _apiClient.getAllGalleries)().then(function (galleries) {
+            if (_isMounted) {
+                setGalleries(galleries);
+            }
+        });
+    });
 
     return _react2.default.createElement(
-        "div",
-        { className: "galleries container" },
+        'div',
+        { className: 'galleries container' },
         _react2.default.createElement(
-            "h1",
+            'h1',
             null,
-            "Galleries"
+            'Galleries'
         ),
         _react2.default.createElement(
-            "div",
-            { className: "gallery-image-container" },
-            _react2.default.createElement("div", { className: "gallery" }),
-            _react2.default.createElement(
-                "div",
-                { className: "gallery-overlay" },
-                _react2.default.createElement(
-                    "p",
-                    { className: "gallery-overlay-text" },
-                    "Astro"
-                )
-            )
+            'div',
+            null,
+            galleries.map(function (gallery) {
+                return _react2.default.createElement(
+                    'div',
+                    { className: 'gallery-image-container' },
+                    _react2.default.createElement('div', { className: 'gallery', style: { backgroundImage: 'url(' + gallery.cover_image + ')' } }),
+                    _react2.default.createElement(
+                        'div',
+                        { className: 'gallery-overlay' },
+                        _react2.default.createElement(
+                            'p',
+                            { className: 'gallery-overlay-text' },
+                            gallery.name
+                        )
+                    )
+                );
+            })
         )
     );
 }
 
-exports.default = Galleries;
+exports.default = (0, _reactPureLifecycle2.default)(methods)(Galleries);
 
 /***/ }),
 
@@ -1794,7 +1839,7 @@ module.exports = exports['default'];
 
 exports = module.exports = __webpack_require__(/*! ../../../node_modules/css-loader/dist/runtime/api.js */ "./node_modules/css-loader/dist/runtime/api.js")(false);
 // Module
-exports.push([module.i, "html, body {\n  box-sizing: border-box;\n  font-family: 'Lato', sans-serif;\n  font-size: 16px;\n  line-height: 1.5rem; }\n\n*, *:before, *:after {\n  box-sizing: inherit; }\n\nh1, h2, h3, h4, h5, h6 {\n  font-family: 'Comfortaa', cursive;\n  font-weight: 600;\n  margin-bottom: 15px; }\n\nh1 {\n  font-size: 24px; }\n\nimg {\n  width: 100%; }\n\na, a:visited {\n  text-decoration: none;\n  color: #111; }\n\na:hover {\n  text-decoration: none;\n  cursor: pointer; }\n\n.container {\n  width: 100%;\n  padding: 15px; }\n\n.row {\n  display: flex;\n  width: 100%; }\n\nheader .container {\n  padding: 15px; }\n\nheader .row {\n  justify-content: space-between;\n  flex-wrap: wrap; }\n\nheader .header-left {\n  width: 55%; }\n\nheader .header-left img {\n  width: 100%; }\n\nheader .header-right {\n  display: none; }\n\nheader .header-right-mobile {\n  width: 20%;\n  margin-top: auto;\n  margin-bottom: auto;\n  border: none; }\n  header .header-right-mobile img {\n    width: 60%;\n    float: right; }\n\nheader .header-right-mobile:focus {\n  outline: none; }\n\nheader .mobile-menu {\n  width: 100%;\n  text-align: right; }\n  header .mobile-menu li {\n    list-style-type: none;\n    line-height: 2rem;\n    border-bottom: 1px solid #e5e5e5;\n    padding: 10px; }\n\n@media only screen and (min-width: 769px) {\n  header .header-left img {\n    height: 100px;\n    width: auto; }\n  header .header-right {\n    display: block; }\n    header .header-right ul {\n      display: flex;\n      flex-direction: row; }\n      header .header-right ul li {\n        height: 100px;\n        padding: 10px;\n        display: flex;\n        flex-direction: column;\n        justify-content: center;\n        font-size: 20px;\n        width: 110px;\n        text-align: center; }\n  header .header-right-mobile {\n    display: none; } }\n\n.favourites h1 {\n  padding: 60px 0;\n  font-size: 1.5rem;\n  text-align: center; }\n\n@media only screen and (min-width: 769px) {\n  .favourites h1 {\n    text-align: left; } }\n\n.about p {\n  margin: 15px 0; }\n\n.contact p {\n  margin: 5px 0 15px; }\n\n.contact label {\n  color: #494949; }\n\n.contact input {\n  width: 100%;\n  height: 2.5rem;\n  border: none;\n  border-bottom: 1px solid #494949;\n  margin: 5px 0 15px; }\n\n.contact input:focus {\n  outline: none; }\n\n.contact textarea {\n  width: 100%;\n  border: none;\n  border-bottom: 1px solid #494949;\n  margin: 5px 0 15px; }\n\n.contact textarea:focus {\n  outline: none; }\n\n.galleries .gallery-image-container {\n  position: relative; }\n\n.galleries .gallery {\n  width: 100%;\n  background-image: url(\"/images/pakiri-astro.jpg\");\n  background-size: cover; }\n\n.galleries .gallery:after {\n  content: \"\";\n  display: block;\n  padding-bottom: 100%; }\n\n.galleries .gallery-overlay {\n  position: absolute;\n  background: linear-gradient(rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.7));\n  top: 0;\n  width: 100%;\n  height: 100%; }\n\n.galleries .gallery-overlay-text {\n  color: #fff;\n  position: absolute;\n  bottom: 18px;\n  font-size: 40px;\n  left: 40%; }\n\nfooter .container {\n  padding: 10px; }\n\nfooter .footer-col {\n  width: 20%;\n  border-radius: 50%;\n  padding: 2px;\n  margin: 5px; }\n\nfooter .footer-col img {\n  width: 100%;\n  padding: 10px; }\n\nfooter .bottom-row p {\n  margin: 5px auto; }\n\n@media only screen and (min-width: 769px) {\n  footer .footer-col {\n    text-align: center; }\n  footer .footer-col img {\n    width: auto;\n    height: 100px; } }\n\n@media only screen and (min-width: 1100px) {\n  .container {\n    width: 1028px;\n    margin: 0 auto; } }\n", ""]);
+exports.push([module.i, "html, body {\n  box-sizing: border-box;\n  font-family: 'Lato', sans-serif;\n  font-size: 16px;\n  line-height: 1.5rem; }\n\n*, *:before, *:after {\n  box-sizing: inherit; }\n\nh1, h2, h3, h4, h5, h6 {\n  font-family: 'Comfortaa', cursive;\n  font-weight: 600;\n  margin-bottom: 15px; }\n\nh1 {\n  font-size: 24px; }\n\nimg {\n  width: 100%; }\n\na, a:visited {\n  text-decoration: none;\n  color: #111; }\n\na:hover {\n  text-decoration: none;\n  cursor: pointer; }\n\n.container {\n  width: 100%;\n  padding: 15px; }\n\n.row {\n  display: flex;\n  width: 100%; }\n\nheader .container {\n  padding: 15px; }\n\nheader .row {\n  justify-content: space-between;\n  flex-wrap: wrap; }\n\nheader .header-left {\n  width: 55%; }\n\nheader .header-left img {\n  width: 100%; }\n\nheader .header-right {\n  display: none; }\n\nheader .header-right-mobile {\n  width: 20%;\n  margin-top: auto;\n  margin-bottom: auto;\n  border: none; }\n  header .header-right-mobile img {\n    width: 60%;\n    float: right; }\n\nheader .header-right-mobile:focus {\n  outline: none; }\n\nheader .mobile-menu {\n  width: 100%;\n  text-align: right; }\n  header .mobile-menu li {\n    list-style-type: none;\n    line-height: 2rem;\n    border-bottom: 1px solid #e5e5e5;\n    padding: 10px; }\n\n@media only screen and (min-width: 769px) {\n  header .header-left img {\n    height: 100px;\n    width: auto; }\n  header .header-right {\n    display: block; }\n    header .header-right ul {\n      display: flex;\n      flex-direction: row; }\n      header .header-right ul li {\n        height: 100px;\n        padding: 10px;\n        display: flex;\n        flex-direction: column;\n        justify-content: center;\n        font-size: 20px;\n        width: 110px;\n        text-align: center; }\n  header .header-right-mobile {\n    display: none; } }\n\n.favourites h1 {\n  padding: 60px 0;\n  font-size: 1.5rem;\n  text-align: center; }\n\n@media only screen and (min-width: 769px) {\n  .favourites h1 {\n    text-align: left; } }\n\n.about p {\n  margin: 15px 0; }\n\n.contact p {\n  margin: 5px 0 15px; }\n\n.contact label {\n  color: #494949; }\n\n.contact input {\n  width: 100%;\n  height: 2.5rem;\n  border: none;\n  border-bottom: 1px solid #494949;\n  margin: 5px 0 15px; }\n\n.contact input:focus {\n  outline: none; }\n\n.contact textarea {\n  width: 100%;\n  border: none;\n  border-bottom: 1px solid #494949;\n  margin: 5px 0 15px; }\n\n.contact textarea:focus {\n  outline: none; }\n\n.galleries .gallery-image-container {\n  position: relative; }\n\n.galleries .gallery {\n  width: 100%;\n  background-image: url(\"/images/pakiri-astro.jpg\");\n  background-size: cover;\n  margin: 10px 0; }\n\n.galleries .gallery:after {\n  content: \"\";\n  display: block;\n  padding-bottom: 100%; }\n\n.galleries .gallery-overlay {\n  position: absolute;\n  background: linear-gradient(rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.7));\n  top: 0;\n  width: 100%;\n  height: 100%; }\n\n.galleries .gallery-overlay-text {\n  color: #fff;\n  position: absolute;\n  bottom: 18px;\n  font-size: 40px;\n  left: 40%; }\n\nfooter .container {\n  padding: 10px; }\n\nfooter .footer-col {\n  width: 20%;\n  border-radius: 50%;\n  padding: 2px;\n  margin: 5px; }\n\nfooter .footer-col img {\n  width: 100%;\n  padding: 10px; }\n\nfooter .bottom-row p {\n  margin: 5px auto; }\n\n@media only screen and (min-width: 769px) {\n  footer .footer-col {\n    text-align: center; }\n  footer .footer-col img {\n    width: auto;\n    height: 100px; } }\n\n@media only screen and (min-width: 1100px) {\n  .container {\n    width: 1028px;\n    margin: 0 auto; } }\n", ""]);
 
 
 

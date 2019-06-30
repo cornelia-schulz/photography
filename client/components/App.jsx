@@ -30,7 +30,8 @@ class App extends React.Component {
     return(
       <Router>
         <Route path='/' component={Header} />
-        <Route path='/' component={Banner} />
+        <Route exact path='/' component={Banner} />
+        <Route path='/about' component={Banner} />
         <Route path='/about' component={About} />
         <Route path='/contact' component={Contact} />
         <Route path='/galleries' component={Galleries} />
