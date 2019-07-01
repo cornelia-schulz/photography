@@ -15,13 +15,14 @@ function Galleries() {
 
     useEffect(() => {
         _isMounted = true
+        console.log('running')
         getAllGalleries()
             .then(galleries => {
                 if(_isMounted) {
                     setGalleries(galleries)
                 }
             })
-    })
+    }, [galleries])
 
     return(
         <div className="galleries container">

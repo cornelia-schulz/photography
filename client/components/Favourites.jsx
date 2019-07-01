@@ -20,7 +20,7 @@ function Favourites() {
               setPhotos(photos)
             }
           })
-      })
+      }, [photos])
 
     return (
         <div className="favourites container">

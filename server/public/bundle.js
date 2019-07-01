@@ -445,7 +445,7 @@ function Favourites() {
         setPhotos(photos);
       }
     });
-  });
+  }, [photos]);
 
   return _react2.default.createElement(
     'div',
@@ -611,12 +611,13 @@ function Galleries() {
 
     (0, _react.useEffect)(function () {
         _isMounted = true;
+        console.log('running');
         (0, _apiClient.getAllGalleries)().then(function (galleries) {
             if (_isMounted) {
                 setGalleries(galleries);
             }
         });
-    });
+    }, [galleries]);
 
     return _react2.default.createElement(
         'div',
