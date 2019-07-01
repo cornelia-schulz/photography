@@ -26,7 +26,7 @@ function Galleries() {
     return(
         <div className="galleries container">
             <h1>Galleries</h1>
-            <div>
+            <div className="galleries-container">
                 {galleries.map(gallery => {
                     return <div className="gallery-image-container">
                         <div className="gallery" style={{backgroundImage: `url(${gallery.cover_image})`}}></div>
