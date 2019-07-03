@@ -127,6 +127,14 @@ header {
     }
 }
 .contact {
+    display: flex;
+    flex-direction: row;
+    label {
+        display: none;
+    }
+    .contact-left {
+        display: none;
+    }
     p {
         margin: 5px 0 15px;
     }
@@ -151,6 +159,19 @@ header {
     }
     textarea:focus {
         outline: none;
+    }
+    @media only screen and (min-width: 769px) {
+        .contact-left {
+            display: block;
+            height: 500px;
+            overflow: hidden;
+            width: 60%;
+            margin-right: 25px;
+            border-radius: 5px;
+        }
+        .contact-right {
+            padding-top: 25px;
+        }
     }
 }
 .galleries {

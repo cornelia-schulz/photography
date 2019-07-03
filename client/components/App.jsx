@@ -35,6 +35,7 @@ class App extends React.Component {
         <Route path='/about' component={About} />
         <Route path='/contact' component={Contact} />
         <Route path='/galleries' component={Galleries} />
+        <Route path='/galleries/:name' component={Gallery} />
         <Route exact path='/' component={Favourites} />
         <Route path='/' component={Footer} />
       </Router>  

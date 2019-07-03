@@ -32,3 +32,5 @@ export function getAllGalleries() {
       console.error(err)
     })
 }
+
+export function getGalleryImages() {}

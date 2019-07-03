@@ -102,6 +102,7 @@ Object.defineProperty(exports, "__esModule", {
 exports.getAllPhotos = getAllPhotos;
 exports.getAllFavourites = getAllFavourites;
 exports.getAllGalleries = getAllGalleries;
+exports.getGalleryImages = getGalleryImages;
 
 var _superagent = __webpack_require__(/*! superagent */ "./node_modules/superagent/lib/client.js");
 
@@ -132,6 +133,8 @@ function getAllGalleries() {
     console.error(err);
   });
 }
+
+function getGalleryImages() {}
 
 /***/ }),
 
@@ -288,6 +291,7 @@ var App = function (_React$Component) {
         _react2.default.createElement(_reactRouterDom.Route, { path: '/about', component: _About2.default }),
         _react2.default.createElement(_reactRouterDom.Route, { path: '/contact', component: _Contact2.default }),
         _react2.default.createElement(_reactRouterDom.Route, { path: '/galleries', component: _Galleries2.default }),
+        _react2.default.createElement(_reactRouterDom.Route, { path: '/galleries/:name', component: Gallery }),
         _react2.default.createElement(_reactRouterDom.Route, { exact: true, path: '/', component: _Favourites2.default }),
         _react2.default.createElement(_reactRouterDom.Route, { path: '/', component: _Footer2.default })
       );
@@ -350,44 +354,59 @@ var _react = __webpack_require__(/*! react */ "./node_modules/react/index.js");
 
 var _react2 = _interopRequireDefault(_react);
 
+var _reactScrollParallax = __webpack_require__(/*! react-scroll-parallax */ "./node_modules/react-scroll-parallax/cjs/index.js");
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function Contact() {
 
     return _react2.default.createElement(
-        "div",
-        { className: "contact container" },
+        'div',
+        { className: 'contact container' },
         _react2.default.createElement(
-            "h1",
-            null,
-            "Say hello"
+            'div',
+            { className: 'contact-left' },
+            _react2.default.createElement(
+                _reactScrollParallax.Parallax,
+                { className: 'custom-class', y: [-20, 20], tagOuter: 'figure' },
+                _react2.default.createElement('img', { src: '/images/contact.jpg', alt: 'Cornelia Schulz portrait with Moeraki Boulders' })
+            )
         ),
         _react2.default.createElement(
-            "p",
-            null,
-            "If you have any questions or just want to say hello, drop me a line below!"
-        ),
-        _react2.default.createElement(
-            "form",
-            null,
+            'div',
+            { className: 'contact-right' },
             _react2.default.createElement(
-                "label",
-                { "for": "contactName" },
-                "Your name:"
+                'h1',
+                null,
+                'Say hello!'
             ),
-            _react2.default.createElement("input", { id: "contactName", type: "text" }),
             _react2.default.createElement(
-                "label",
-                { "for": "contactEmail" },
-                "Your email:"
+                'p',
+                null,
+                'If you have any questions or just want to say hello, drop me a line below!'
             ),
-            _react2.default.createElement("input", { id: "contactEmail", type: "email" }),
             _react2.default.createElement(
-                "label",
-                { "for": "contactMessage" },
-                "Your message:"
-            ),
-            _react2.default.createElement("textarea", { rows: "8" })
+                'form',
+                null,
+                _react2.default.createElement(
+                    'label',
+                    { 'for': 'contactName' },
+                    'Your name:'
+                ),
+                _react2.default.createElement('input', { id: 'contactName', type: 'text', placeholder: 'Your name' }),
+                _react2.default.createElement(
+                    'label',
+                    { 'for': 'contactEmail' },
+                    'Your email:'
+                ),
+                _react2.default.createElement('input', { id: 'contactEmail', type: 'email', placeholder: 'Your email', required: true }),
+                _react2.default.createElement(
+                    'label',
+                    { 'for': 'contactMessage' },
+                    'Your message:'
+                ),
+                _react2.default.createElement('textarea', { rows: '8', placeholder: 'Your message' })
+            )
         )
     );
 }
@@ -871,13 +890,19 @@ var _App = __webpack_require__(/*! ./components/App */ "./client/components/App.
 
 var _App2 = _interopRequireDefault(_App);
 
+var _reactScrollParallax = __webpack_require__(/*! react-scroll-parallax */ "./node_modules/react-scroll-parallax/cjs/index.js");
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 _reactDom2.default.render(_react2.default.createElement(
     _reactRouterDom.BrowserRouter,
     null,
-    _react2.default.createElement(_App2.default, null)
-), document.getElementById("app"));
+    _react2.default.createElement(
+        _reactScrollParallax.ParallaxProvider,
+        null,
+        _react2.default.createElement(_App2.default, null)
+    )
+), document.getElementById('app'));
 
 /***/ }),
 
@@ -1840,7 +1865,7 @@ module.exports = exports['default'];
 
 exports = module.exports = __webpack_require__(/*! ../../../node_modules/css-loader/dist/runtime/api.js */ "./node_modules/css-loader/dist/runtime/api.js")(false);
 // Module
-exports.push([module.i, "html, body {\n  box-sizing: border-box;\n  font-family: 'Lato', sans-serif;\n  font-size: 16px;\n  line-height: 1.5rem; }\n\n*, *:before, *:after {\n  box-sizing: inherit; }\n\nh1, h2, h3, h4, h5, h6 {\n  font-family: 'Comfortaa', cursive;\n  font-weight: 600;\n  margin-bottom: 15px; }\n\nh1 {\n  font-size: 24px; }\n\nimg {\n  width: 100%; }\n\na, a:visited {\n  text-decoration: none;\n  color: #111; }\n\na:hover {\n  text-decoration: none;\n  cursor: pointer; }\n\n.container {\n  width: 100%;\n  padding: 15px; }\n\n.row {\n  display: flex;\n  width: 100%; }\n\nheader .container {\n  padding: 15px; }\n\nheader .row {\n  justify-content: space-between;\n  flex-wrap: wrap; }\n\nheader .header-left {\n  width: 55%; }\n\nheader .header-left img {\n  width: 100%; }\n\nheader .header-right {\n  display: none; }\n\nheader .header-right-mobile {\n  width: 20%;\n  margin-top: auto;\n  margin-bottom: auto;\n  border: none;\n  background: transparent; }\n  header .header-right-mobile img {\n    width: 60%;\n    float: right; }\n\nheader .header-right-mobile:focus {\n  outline: none; }\n\nheader .mobile-menu {\n  width: 100%;\n  text-align: right; }\n  header .mobile-menu li {\n    list-style-type: none;\n    line-height: 2rem;\n    border-bottom: 1px solid #e5e5e5;\n    padding: 10px; }\n\n@media only screen and (min-width: 769px) {\n  header .header-left img {\n    height: 100px;\n    width: auto; }\n  header .header-right {\n    display: block; }\n    header .header-right ul {\n      display: flex;\n      flex-direction: row; }\n      header .header-right ul li {\n        height: 100px;\n        padding: 10px;\n        display: flex;\n        flex-direction: column;\n        justify-content: center;\n        font-size: 20px;\n        width: 110px;\n        text-align: center; }\n  header .header-right-mobile {\n    display: none; } }\n\n.favourites h1 {\n  padding: 60px 0;\n  font-size: 1.5rem;\n  text-align: center; }\n\n@media only screen and (min-width: 769px) {\n  .favourites h1 {\n    text-align: left; } }\n\n.about p {\n  margin: 15px 0; }\n\n.contact p {\n  margin: 5px 0 15px; }\n\n.contact label {\n  color: #494949; }\n\n.contact input {\n  width: 100%;\n  height: 2.5rem;\n  border: none;\n  border-bottom: 1px solid #494949;\n  margin: 5px 0 15px; }\n\n.contact input:focus {\n  outline: none; }\n\n.contact textarea {\n  width: 100%;\n  border: none;\n  border-bottom: 1px solid #494949;\n  margin: 5px 0 15px; }\n\n.contact textarea:focus {\n  outline: none; }\n\n.galleries .gallery-image-container {\n  position: relative; }\n\n.galleries .gallery {\n  width: 100%;\n  background-image: url(\"/images/pakiri-astro.jpg\");\n  background-size: cover;\n  margin: 10px 0; }\n\n.galleries .gallery:after {\n  content: \"\";\n  display: block;\n  padding-bottom: 100%; }\n\n.galleries .gallery-overlay {\n  position: absolute;\n  background: linear-gradient(rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.7));\n  top: 0;\n  width: 100%;\n  height: 100%;\n  text-align: center;\n  display: flex;\n  flex-direction: column;\n  justify-content: flex-end; }\n\n.galleries .gallery-overlay-text {\n  color: #fff;\n  font-size: 40px;\n  margin-bottom: 20px; }\n\n@media only screen and (min-width: 769px) {\n  .galleries .galleries-container {\n    display: flex;\n    flex-direction: row; }\n  .galleries .gallery-image-container {\n    width: 33.3%;\n    margin: 5px; }\n  .galleries .gallery {\n    margin: 0; } }\n\nfooter .container {\n  padding: 10px; }\n\nfooter .footer-col {\n  width: 20%;\n  border-radius: 50%;\n  padding: 2px;\n  margin: 5px; }\n\nfooter .footer-col img {\n  width: 100%;\n  padding: 10px; }\n\nfooter .bottom-row p {\n  margin: 5px auto; }\n\n@media only screen and (min-width: 769px) {\n  footer .footer-col {\n    text-align: center; }\n  footer .footer-col img {\n    width: auto;\n    height: 100px; } }\n\n@media only screen and (min-width: 1100px) {\n  .container {\n    width: 1028px;\n    margin: 0 auto; } }\n", ""]);
+exports.push([module.i, "html, body {\n  box-sizing: border-box;\n  font-family: 'Lato', sans-serif;\n  font-size: 16px;\n  line-height: 1.5rem; }\n\n*, *:before, *:after {\n  box-sizing: inherit; }\n\nh1, h2, h3, h4, h5, h6 {\n  font-family: 'Comfortaa', cursive;\n  font-weight: 600;\n  margin-bottom: 15px; }\n\nh1 {\n  font-size: 24px; }\n\nimg {\n  width: 100%; }\n\na, a:visited {\n  text-decoration: none;\n  color: #111; }\n\na:hover {\n  text-decoration: none;\n  cursor: pointer; }\n\n.container {\n  width: 100%;\n  padding: 15px; }\n\n.row {\n  display: flex;\n  width: 100%; }\n\nheader .container {\n  padding: 15px; }\n\nheader .row {\n  justify-content: space-between;\n  flex-wrap: wrap; }\n\nheader .header-left {\n  width: 55%; }\n\nheader .header-left img {\n  width: 100%; }\n\nheader .header-right {\n  display: none; }\n\nheader .header-right-mobile {\n  width: 20%;\n  margin-top: auto;\n  margin-bottom: auto;\n  border: none;\n  background: transparent; }\n  header .header-right-mobile img {\n    width: 60%;\n    float: right; }\n\nheader .header-right-mobile:focus {\n  outline: none; }\n\nheader .mobile-menu {\n  width: 100%;\n  text-align: right; }\n  header .mobile-menu li {\n    list-style-type: none;\n    line-height: 2rem;\n    border-bottom: 1px solid #e5e5e5;\n    padding: 10px; }\n\n@media only screen and (min-width: 769px) {\n  header .header-left img {\n    height: 100px;\n    width: auto; }\n  header .header-right {\n    display: block; }\n    header .header-right ul {\n      display: flex;\n      flex-direction: row; }\n      header .header-right ul li {\n        height: 100px;\n        padding: 10px;\n        display: flex;\n        flex-direction: column;\n        justify-content: center;\n        font-size: 20px;\n        width: 110px;\n        text-align: center; }\n  header .header-right-mobile {\n    display: none; } }\n\n.favourites h1 {\n  padding: 60px 0;\n  font-size: 1.5rem;\n  text-align: center; }\n\n@media only screen and (min-width: 769px) {\n  .favourites h1 {\n    text-align: left; } }\n\n.about p {\n  margin: 15px 0; }\n\n.contact {\n  display: flex;\n  flex-direction: row; }\n  .contact label {\n    display: none; }\n  .contact .contact-left {\n    display: none; }\n  .contact p {\n    margin: 5px 0 15px; }\n  .contact label {\n    color: #494949; }\n  .contact input {\n    width: 100%;\n    height: 2.5rem;\n    border: none;\n    border-bottom: 1px solid #494949;\n    margin: 5px 0 15px; }\n  .contact input:focus {\n    outline: none; }\n  .contact textarea {\n    width: 100%;\n    border: none;\n    border-bottom: 1px solid #494949;\n    margin: 5px 0 15px; }\n  .contact textarea:focus {\n    outline: none; }\n  @media only screen and (min-width: 769px) {\n    .contact .contact-left {\n      display: block;\n      height: 500px;\n      overflow: hidden;\n      width: 60%;\n      margin-right: 25px;\n      border-radius: 5px; }\n    .contact .contact-right {\n      padding-top: 25px; } }\n\n.galleries .gallery-image-container {\n  position: relative; }\n\n.galleries .gallery {\n  width: 100%;\n  background-image: url(\"/images/pakiri-astro.jpg\");\n  background-size: cover;\n  margin: 10px 0; }\n\n.galleries .gallery:after {\n  content: \"\";\n  display: block;\n  padding-bottom: 100%; }\n\n.galleries .gallery-overlay {\n  position: absolute;\n  background: linear-gradient(rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.7));\n  top: 0;\n  width: 100%;\n  height: 100%;\n  text-align: center;\n  display: flex;\n  flex-direction: column;\n  justify-content: flex-end; }\n\n.galleries .gallery-overlay-text {\n  color: #fff;\n  font-size: 40px;\n  margin-bottom: 20px; }\n\n@media only screen and (min-width: 769px) {\n  .galleries .galleries-container {\n    display: flex;\n    flex-direction: row; }\n  .galleries .gallery-image-container {\n    width: 33.3%;\n    margin: 5px; }\n  .galleries .gallery {\n    margin: 0; } }\n\nfooter .container {\n  padding: 10px; }\n\nfooter .footer-col {\n  width: 20%;\n  border-radius: 50%;\n  padding: 2px;\n  margin: 5px; }\n\nfooter .footer-col img {\n  width: 100%;\n  padding: 10px; }\n\nfooter .bottom-row p {\n  margin: 5px auto; }\n\n@media only screen and (min-width: 769px) {\n  footer .footer-col {\n    text-align: center; }\n  footer .footer-col img {\n    width: auto;\n    height: 100px; } }\n\n@media only screen and (min-width: 1100px) {\n  .container {\n    width: 1028px;\n    margin: 0 auto; } }\n", ""]);
 
 
 
@@ -31695,6 +31720,1731 @@ function pathToRegexp (path, keys, options) {
   return stringToRegexp(/** @type {string} */ (path), /** @type {!Array} */ (keys), options)
 }
 
+
+/***/ }),
+
+/***/ "./node_modules/react-scroll-parallax/cjs/classes/Bounds.js":
+/*!******************************************************************!*\
+  !*** ./node_modules/react-scroll-parallax/cjs/classes/Bounds.js ***!
+  \******************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = void 0;
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+var Bounds = function Bounds(rect, offsets, view) {
+  _classCallCheck(this, Bounds);
+
+  var y0 = offsets.y0,
+      y1 = offsets.y1,
+      x1 = offsets.x1,
+      x0 = offsets.x0; // Y offsets
+
+  var yPercent = y1.unit === '%' && y0.unit === '%';
+  var y0Px = y0.value;
+  var y1Px = y1.value;
+
+  if (yPercent) {
+    var h100 = rect.height / 100;
+    y0Px = y0.value * h100;
+    y1Px = y1.value * h100;
+  } // X offsets
+
+
+  var xPercent = x1.unit === '%' && x0.unit === '%';
+  var x0Px = x0.value;
+  var x1Px = x1.value;
+
+  if (xPercent) {
+    var _h = rect.width / 100;
+
+    x0Px = x0.value * _h;
+    x1Px = x1.value * _h;
+  }
+
+  var totalAbsOffY = Math.abs(y0Px) + Math.abs(y1Px);
+  this.totalDistY = view.height + rect.height + totalAbsOffY;
+  var totalDistTrueY = view.height + rect.height + (y1Px > y0Px ? totalAbsOffY * -1 : totalAbsOffY);
+  var totalAbsOffX = Math.abs(x0Px) + Math.abs(x1Px);
+  this.totalDistX = view.width + rect.width + totalAbsOffX;
+  var totalDistTrueX = view.width + rect.width + (x1Px > x0Px ? totalAbsOffX * -1 : totalAbsOffX); // const speed = totalDistTrueY / originTotalDistY;
+
+  var multiplierY = rect.originTotalDistY / totalDistTrueY;
+  var multiplierX = rect.originTotalDistX / totalDistTrueX;
+  this.top = rect.top;
+  this.bottom = rect.bottom;
+
+  if (y0Px < 0) {
+    this.top = this.top + y0Px * multiplierY;
+  }
+
+  if (y1Px > 0) {
+    this.bottom = this.bottom + y1Px * multiplierY;
+  }
+
+  this.left = rect.left;
+  this.right = rect.right;
+
+  if (x0Px < 0) {
+    this.left = this.left + x0Px * multiplierX;
+  }
+
+  if (x1Px > 0) {
+    this.right = this.right + x1Px * multiplierX;
+  }
+};
+
+var _default = Bounds;
+exports.default = _default;
+
+/***/ }),
+
+/***/ "./node_modules/react-scroll-parallax/cjs/classes/Element.js":
+/*!*******************************************************************!*\
+  !*** ./node_modules/react-scroll-parallax/cjs/classes/Element.js ***!
+  \*******************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.Element = void 0;
+
+var _index = __webpack_require__(/*! ../utils/index */ "./node_modules/react-scroll-parallax/cjs/utils/index.js");
+
+var _index2 = __webpack_require__(/*! ../helpers/index */ "./node_modules/react-scroll-parallax/cjs/helpers/index.js");
+
+var _constants = __webpack_require__(/*! ../constants */ "./node_modules/react-scroll-parallax/cjs/constants.js");
+
+var _Bounds = _interopRequireDefault(__webpack_require__(/*! ./Bounds */ "./node_modules/react-scroll-parallax/cjs/classes/Bounds.js"));
+
+var _Rect = _interopRequireDefault(__webpack_require__(/*! ./Rect */ "./node_modules/react-scroll-parallax/cjs/classes/Rect.js"));
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; var ownKeys = Object.keys(source); if (typeof Object.getOwnPropertySymbols === 'function') { ownKeys = ownKeys.concat(Object.getOwnPropertySymbols(source).filter(function (sym) { return Object.getOwnPropertyDescriptor(source, sym).enumerable; })); } ownKeys.forEach(function (key) { _defineProperty(target, key, source[key]); }); } return target; }
+
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
+
+function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
+
+var Element =
+/*#__PURE__*/
+function () {
+  function Element(options) {
+    _classCallCheck(this, Element);
+
+    this.elInner = options.elInner;
+    this.elOuter = options.elOuter;
+    this.props = options.props;
+    this.scrollAxis = options.scrollAxis;
+    this.id = (0, _index.createId)();
+    this.offsets = (0, _index2.getOffsets)(this.props);
+    this.isInView = null;
+    this.percent = 0;
+    this.updatePosition = options.scrollAxis === _constants.VERTICAL ? this._updatePositionVertical : this._updatePositionHorizontal;
+  }
+
+  _createClass(Element, [{
+    key: "updateProps",
+    value: function updateProps(nextProps) {
+      this.props = _objectSpread({}, this.props, nextProps);
+      this.offsets = (0, _index2.getOffsets)(nextProps);
+      return this;
+    }
+  }, {
+    key: "setCachedAttributes",
+    value: function setCachedAttributes(view, scroll) {
+      this.rect = new _Rect.default(this.elOuter, view, scroll);
+      this.bounds = new _Bounds.default(this.rect, this.offsets, view);
+      return this;
+    }
+  }, {
+    key: "_updatePositionHorizontal",
+    value: function _updatePositionHorizontal(view, scroll) {
+      this.isInView = (0, _index2.isElementInView)(this.bounds.left, this.bounds.right, view.width, scroll.x);
+      if (!this.isInView) return this;
+      this.percent = (0, _index2.percentMoved)(this.rect.left, this.rect.originTotalDistX, view.width, scroll.x);
+      (0, _index2.setParallaxStyles)(this.elInner, this.offsets, this.percent);
+      return this;
+    }
+  }, {
+    key: "_updatePositionVertical",
+    value: function _updatePositionVertical(view, scroll) {
+      this.isInView = (0, _index2.isElementInView)(this.bounds.top, this.bounds.bottom, view.height, scroll.y);
+      if (!this.isInView) return this;
+      this.percent = (0, _index2.percentMoved)(this.rect.top, this.rect.originTotalDistY, view.height, scroll.y);
+      (0, _index2.setParallaxStyles)(this.elInner, this.offsets, this.percent);
+      return this;
+    }
+  }]);
+
+  return Element;
+}();
+
+exports.Element = Element;
+
+/***/ }),
+
+/***/ "./node_modules/react-scroll-parallax/cjs/classes/ParallaxController.js":
+/*!******************************************************************************!*\
+  !*** ./node_modules/react-scroll-parallax/cjs/classes/ParallaxController.js ***!
+  \******************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = void 0;
+
+var _utils = __webpack_require__(/*! ../utils */ "./node_modules/react-scroll-parallax/cjs/utils/index.js");
+
+var _helpers = __webpack_require__(/*! ../helpers */ "./node_modules/react-scroll-parallax/cjs/helpers/index.js");
+
+var _View = __webpack_require__(/*! ./View */ "./node_modules/react-scroll-parallax/cjs/classes/View.js");
+
+var _Scroll = __webpack_require__(/*! ./Scroll */ "./node_modules/react-scroll-parallax/cjs/classes/Scroll.js");
+
+var _Element = __webpack_require__(/*! ./Element */ "./node_modules/react-scroll-parallax/cjs/classes/Element.js");
+
+var _constants = __webpack_require__(/*! ../constants */ "./node_modules/react-scroll-parallax/cjs/constants.js");
+
+function _toConsumableArray(arr) { return _arrayWithoutHoles(arr) || _iterableToArray(arr) || _nonIterableSpread(); }
+
+function _nonIterableSpread() { throw new TypeError("Invalid attempt to spread non-iterable instance"); }
+
+function _iterableToArray(iter) { if (Symbol.iterator in Object(iter) || Object.prototype.toString.call(iter) === "[object Arguments]") return Array.from(iter); }
+
+function _arrayWithoutHoles(arr) { if (Array.isArray(arr)) { for (var i = 0, arr2 = new Array(arr.length); i < arr.length; i++) { arr2[i] = arr[i]; } return arr2; } }
+
+function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; var ownKeys = Object.keys(source); if (typeof Object.getOwnPropertySymbols === 'function') { ownKeys = ownKeys.concat(Object.getOwnPropertySymbols(source).filter(function (sym) { return Object.getOwnPropertyDescriptor(source, sym).enumerable; })); } ownKeys.forEach(function (key) { _defineProperty(target, key, source[key]); }); } return target; }
+
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
+/**
+ * -------------------------------------------------------
+ * Parallax Controller
+ * -------------------------------------------------------
+ *
+ * The global controller for setting up window scroll/resize
+ * listeners, managing and caching parallax element positions,
+ * determining which elements are inside the viewport based on
+ * scroll position, and then updating parallax element styles
+ * based on x/y offsets and current scroll position.
+ *
+ */
+function ParallaxController(_ref) {
+  var _ref$scrollAxis = _ref.scrollAxis,
+      scrollAxis = _ref$scrollAxis === void 0 ? _constants.VERTICAL : _ref$scrollAxis,
+      scrollContainer = _ref.scrollContainer;
+  // All parallax elements to be updated
+  var elements = [];
+  var hasScrollContainer = !!scrollContainer;
+  var viewEl = scrollContainer || window; // Scroll and View
+
+  var x = hasScrollContainer ? viewEl.scrollLeft : window.pageXOffset;
+  var y = hasScrollContainer ? viewEl.scrollTop : window.pageYOffset;
+  var scroll = new _Scroll.Scroll(x, y);
+  var view = new _View.View({
+    width: 0,
+    height: 0,
+    scrollContainer: scrollContainer
+  }); // Ticking
+
+  var ticking = false; // Passive support
+
+  var supportsPassive = (0, _utils.testForPassiveScroll)();
+
+  function _addListeners(el) {
+    el.addEventListener('scroll', _handleScroll, supportsPassive ? {
+      passive: true
+    } : false);
+    window.addEventListener('resize', _handleResize, false);
+  }
+
+  function _removeListeners(el) {
+    el.removeEventListener('scroll', _handleScroll, supportsPassive ? {
+      passive: true
+    } : false);
+    window.removeEventListener('resize', _handleResize, false);
+  }
+
+  _addListeners(viewEl);
+
+  _setViewSize();
+  /**
+   * Window scroll handler sets scroll position
+   * and then calls '_updateAllElements()'.
+   */
+
+
+  function _handleScroll() {
+    // Save current scroll
+    // Supports IE 9 and up.
+    var nx = hasScrollContainer ? viewEl.scrollLeft : window.pageXOffset;
+    var ny = hasScrollContainer ? viewEl.scrollTop : window.pageYOffset;
+    scroll.setScroll(nx, ny); // Only called if the last animation request has been
+    // completed and there are parallax elements to update
+
+    if (!ticking && elements.length > 0) {
+      ticking = true;
+      window.requestAnimationFrame(_updateAllElements);
+    }
+  }
+  /**
+   * Window resize handler. Sets the new window inner height
+   * then updates parallax element attributes and positions.
+   */
+
+
+  function _handleResize() {
+    _setViewSize();
+
+    _updateAllElements({
+      updateCache: true
+    });
+  }
+  /**
+   * Update element positions.
+   * Determines if the element is in view based on the cached
+   * attributes, if so set the elements parallax styles.
+   */
+
+
+  function _updateAllElements() {
+    var _ref2 = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {},
+        updateCache = _ref2.updateCache;
+
+    elements.forEach(function (element) {
+      _updateElementPosition(element);
+
+      if (updateCache) {
+        element.setCachedAttributes(view, scroll);
+      }
+    }); // reset ticking so more animations can be called
+
+    ticking = false;
+  }
+  /**
+   * Update element positions.
+   * Determines if the element is in view based on the cached
+   * attributes, if so set the elements parallax styles.
+   */
+
+
+  function _updateElementPosition(element) {
+    if (element.props.disabled) return;
+    element.updatePosition(view, scroll);
+  }
+  /**
+   * Cache the window height.
+   */
+
+
+  function _setViewSize() {
+    if (hasScrollContainer) {
+      var _width = viewEl.offsetWidth;
+      var _height = viewEl.offsetHeight;
+      return view.setSize(_width, _height);
+    }
+
+    var html = document.documentElement;
+    var width = window.innerWidth || html.clientWidth;
+    var height = window.innerHeight || html.clientHeight;
+    return view.setSize(width, height);
+  }
+  /**
+   * -------------------------------------------------------
+   * Public methods
+   * -------------------------------------------------------
+   */
+
+  /**
+   * Gets the parallax elements in the controller
+   * @return {array} parallax elements
+   */
+
+
+  this.getElements = function () {
+    return elements;
+  };
+  /**
+   * Creates a new parallax element object with new id
+   * and options to store in the 'elements' array.
+   * @param {object} options
+   * @return {object} element
+   */
+
+
+  this.createElement = function (options) {
+    var newElement = new _Element.Element(_objectSpread({}, options, {
+      scrollAxis: scrollAxis
+    }));
+    newElement.setCachedAttributes(view, scroll);
+    elements = [].concat(_toConsumableArray(elements), [newElement]);
+
+    _updateElementPosition(newElement);
+
+    return newElement;
+  };
+  /**
+   * Remove an element by id
+   * @param {object} element
+   */
+
+
+  this.removeElementById = function (id) {
+    if (!elements) return;
+    elements = elements.filter(function (el) {
+      return el.id !== id;
+    });
+  };
+  /**
+   * Updates an existing parallax element object with new options.
+   * @param {object} element
+   * @param {object} options
+   */
+
+
+  this.updateElementPropsById = function (id, props) {
+    elements = elements.map(function (el) {
+      if (el.id === id) {
+        return el.updateProps(props);
+      }
+
+      return el;
+    });
+    this.update();
+  };
+  /**
+   * Remove element styles.
+   * @param {object} element
+   */
+
+
+  this.resetElementStyles = function (element) {
+    (0, _helpers.resetStyles)(element);
+  };
+  /**
+   * Updates all parallax element attributes and positions.
+   */
+
+
+  this.update = function () {
+    _setViewSize();
+
+    _updateAllElements({
+      updateCache: true
+    });
+  };
+
+  this.updateScrollContainer = function (el) {
+    // remove existing listeners with current el first
+    _removeListeners(viewEl);
+
+    viewEl = el;
+    hasScrollContainer = !!el;
+    view = new _View.View({
+      width: 0,
+      height: 0,
+      scrollContainer: el
+    });
+
+    _setViewSize();
+
+    _addListeners(viewEl);
+
+    _updateAllElements({
+      updateCache: true
+    });
+  };
+  /**
+   * Removes listeners, reset all styles then nullifies the global ParallaxController.
+   */
+
+
+  this.destroy = function () {
+    _removeListeners(viewEl);
+
+    elements.forEach(function (element) {
+      return (0, _helpers.resetStyles)(element);
+    });
+    elements = undefined;
+  };
+}
+/**
+ * Static method to instantiate the ParallaxController.
+ * @returns {Object} ParallaxController
+ */
+
+
+ParallaxController.init = function (options) {
+  var hasWindow = typeof window !== 'undefined';
+
+  if (!hasWindow) {
+    throw new Error('Looks like ParallaxController.init() was called on the server. This method must be called on the client.');
+  }
+
+  return new ParallaxController(options);
+};
+
+var _default = ParallaxController;
+exports.default = _default;
+
+/***/ }),
+
+/***/ "./node_modules/react-scroll-parallax/cjs/classes/Rect.js":
+/*!****************************************************************!*\
+  !*** ./node_modules/react-scroll-parallax/cjs/classes/Rect.js ***!
+  \****************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = void 0;
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+var Rect = function Rect(el, view, scroll) {
+  _classCallCheck(this, Rect);
+
+  var rect = el.getBoundingClientRect(); // rect is based on viewport -- must adjust for relative scroll container
+
+  if (view.scrollContainer) {
+    var scrollRect = view.scrollContainer.getBoundingClientRect();
+    rect = {
+      top: rect.top - scrollRect.top,
+      right: rect.right - scrollRect.left,
+      bottom: rect.bottom - scrollRect.top,
+      left: rect.left - scrollRect.left
+    };
+  }
+
+  this.height = el.offsetHeight;
+  this.width = el.offsetWidth;
+  this.left = rect.left + scroll.x;
+  this.right = rect.right + scroll.x;
+  this.top = rect.top + scroll.y;
+  this.bottom = rect.bottom + scroll.y;
+  this.originTotalDistY = view.height + this.height;
+  this.originTotalDistX = view.width + this.width;
+};
+
+var _default = Rect;
+exports.default = _default;
+
+/***/ }),
+
+/***/ "./node_modules/react-scroll-parallax/cjs/classes/Scroll.js":
+/*!******************************************************************!*\
+  !*** ./node_modules/react-scroll-parallax/cjs/classes/Scroll.js ***!
+  \******************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.Scroll = void 0;
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
+
+function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
+
+var Scroll =
+/*#__PURE__*/
+function () {
+  function Scroll() {
+    _classCallCheck(this, Scroll);
+
+    this.setScroll.apply(this, arguments);
+  }
+
+  _createClass(Scroll, [{
+    key: "setScroll",
+    value: function setScroll(x, y) {
+      this.x = x;
+      this.y = y;
+      return this;
+    }
+  }]);
+
+  return Scroll;
+}();
+
+exports.Scroll = Scroll;
+
+/***/ }),
+
+/***/ "./node_modules/react-scroll-parallax/cjs/classes/View.js":
+/*!****************************************************************!*\
+  !*** ./node_modules/react-scroll-parallax/cjs/classes/View.js ***!
+  \****************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.View = void 0;
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
+
+function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
+
+var View =
+/*#__PURE__*/
+function () {
+  function View(_ref) {
+    var width = _ref.width,
+        height = _ref.height,
+        scrollContainer = _ref.scrollContainer;
+
+    _classCallCheck(this, View);
+
+    this.scrollContainer = scrollContainer;
+    this.setSize(width, height);
+  }
+
+  _createClass(View, [{
+    key: "setSize",
+    value: function setSize(width, height) {
+      this.width = width;
+      this.height = height;
+      return this;
+    }
+  }]);
+
+  return View;
+}();
+
+exports.View = View;
+
+/***/ }),
+
+/***/ "./node_modules/react-scroll-parallax/cjs/components/Parallax.js":
+/*!***********************************************************************!*\
+  !*** ./node_modules/react-scroll-parallax/cjs/components/Parallax.js ***!
+  \***********************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = void 0;
+
+var _react = _interopRequireWildcard(__webpack_require__(/*! react */ "./node_modules/react/index.js"));
+
+var _propTypes = _interopRequireDefault(__webpack_require__(/*! prop-types */ "./node_modules/prop-types/index.js"));
+
+var _ParallaxController = _interopRequireDefault(__webpack_require__(/*! ../classes/ParallaxController */ "./node_modules/react-scroll-parallax/cjs/classes/ParallaxController.js"));
+
+var _withController = _interopRequireDefault(__webpack_require__(/*! ./withController */ "./node_modules/react-scroll-parallax/cjs/components/withController.js"));
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) { var desc = Object.defineProperty && Object.getOwnPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : {}; if (desc.get || desc.set) { Object.defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } } newObj.default = obj; return newObj; } }
+
+function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
+
+function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
+
+function _possibleConstructorReturn(self, call) { if (call && (_typeof(call) === "object" || typeof call === "function")) { return call; } return _assertThisInitialized(self); }
+
+function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf(o); }
+
+function _assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function"); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } }); if (superClass) _setPrototypeOf(subClass, superClass); }
+
+function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
+
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
+var Parallax =
+/*#__PURE__*/
+function (_Component) {
+  _inherits(Parallax, _Component);
+
+  function Parallax() {
+    var _getPrototypeOf2;
+
+    var _this;
+
+    _classCallCheck(this, Parallax);
+
+    for (var _len = arguments.length, args = new Array(_len), _key = 0; _key < _len; _key++) {
+      args[_key] = arguments[_key];
+    }
+
+    _this = _possibleConstructorReturn(this, (_getPrototypeOf2 = _getPrototypeOf(Parallax)).call.apply(_getPrototypeOf2, [this].concat(args)));
+
+    _defineProperty(_assertThisInitialized(_this), "mapRefOuter", function (ref) {
+      _this._outer = ref;
+    });
+
+    _defineProperty(_assertThisInitialized(_this), "mapRefInner", function (ref) {
+      _this._inner = ref;
+    });
+
+    return _this;
+  }
+
+  _createClass(Parallax, [{
+    key: "componentDidMount",
+    value: function componentDidMount() {
+      // Make sure the provided controller is an instance of the Parallax Controller
+      var isInstance = this.controller instanceof _ParallaxController.default; // Throw if neither context or global is available
+
+      if (!this.controller && !isInstance) {
+        throw new Error("Must wrap your application's <Parallax /> components in a <ParallaxProvider />.");
+      } // create a new parallax element and save the reference
+
+
+      this.element = this.controller.createElement(this._getElementOptions());
+    }
+  }, {
+    key: "componentDidUpdate",
+    value: function componentDidUpdate(prevProps) {
+      if (this.props.disabled !== prevProps.disabled || this.props.x[0] !== prevProps.x[0] || this.props.x[1] !== prevProps.x[1] || this.props.y[0] !== prevProps.y[0] || this.props.y[1] !== prevProps.y[1]) {
+        this.controller.updateElementPropsById(this.element.id, this._getElementOptions().props);
+      } // resets element styles when disabled
+
+
+      if (this.props.disabled !== prevProps.disabled && this.props.disabled) {
+        this.controller.resetElementStyles(this.element);
+      }
+    }
+  }, {
+    key: "componentWillUnmount",
+    value: function componentWillUnmount() {
+      this.controller.removeElementById(this.element.id);
+    }
+  }, {
+    key: "_getElementOptions",
+    value: function _getElementOptions() {
+      return {
+        elInner: this._inner,
+        elOuter: this._outer,
+        props: {
+          disabled: this.props.disabled,
+          x0: this.props.x[0],
+          x1: this.props.x[1],
+          y0: this.props.y[0],
+          y1: this.props.y[1]
+        }
+      };
+    }
+  }, {
+    key: "render",
+    value: function render() {
+      var _this$props = this.props,
+          children = _this$props.children,
+          className = _this$props.className,
+          Outer = _this$props.tagOuter,
+          Inner = _this$props.tagInner,
+          styleOuter = _this$props.styleOuter,
+          styleInner = _this$props.styleInner;
+      var rootClass = 'parallax-outer' + (className ? " ".concat(className) : '');
+      return _react.default.createElement(Outer, {
+        className: rootClass,
+        ref: this.mapRefOuter,
+        style: styleOuter
+      }, _react.default.createElement(Inner, {
+        className: "parallax-inner",
+        ref: this.mapRefInner,
+        style: styleInner
+      }, children));
+    }
+  }, {
+    key: "controller",
+    get: function get() {
+      return this.props.parallaxController;
+    }
+  }]);
+
+  return Parallax;
+}(_react.Component);
+
+_defineProperty(Parallax, "defaultProps", {
+  disabled: false,
+  tagInner: 'div',
+  tagOuter: 'div',
+  x: [0, 0],
+  y: [0, 0]
+});
+
+_defineProperty(Parallax, "propTypes", {
+  children: _propTypes.default.node,
+  className: _propTypes.default.string,
+  disabled: _propTypes.default.bool.isRequired,
+  parallaxController: _propTypes.default.object,
+  styleInner: _propTypes.default.object,
+  styleOuter: _propTypes.default.object,
+  tagInner: _propTypes.default.string.isRequired,
+  tagOuter: _propTypes.default.string.isRequired,
+  x: _propTypes.default.arrayOf(_propTypes.default.oneOfType([_propTypes.default.string, _propTypes.default.number])),
+  y: _propTypes.default.arrayOf(_propTypes.default.oneOfType([_propTypes.default.string, _propTypes.default.number]))
+});
+
+var _default = (0, _withController.default)(Parallax);
+
+exports.default = _default;
+
+/***/ }),
+
+/***/ "./node_modules/react-scroll-parallax/cjs/components/ParallaxBanner.js":
+/*!*****************************************************************************!*\
+  !*** ./node_modules/react-scroll-parallax/cjs/components/ParallaxBanner.js ***!
+  \*****************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = void 0;
+
+var _react = _interopRequireDefault(__webpack_require__(/*! react */ "./node_modules/react/index.js"));
+
+var _propTypes = _interopRequireDefault(__webpack_require__(/*! prop-types */ "./node_modules/prop-types/index.js"));
+
+var _Parallax = _interopRequireDefault(__webpack_require__(/*! ./Parallax */ "./node_modules/react-scroll-parallax/cjs/components/Parallax.js"));
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; var ownKeys = Object.keys(source); if (typeof Object.getOwnPropertySymbols === 'function') { ownKeys = ownKeys.concat(Object.getOwnPropertySymbols(source).filter(function (sym) { return Object.getOwnPropertyDescriptor(source, sym).enumerable; })); } ownKeys.forEach(function (key) { _defineProperty(target, key, source[key]); }); } return target; }
+
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
+var containerStyle = {
+  position: 'relative',
+  overflow: 'hidden',
+  width: '100%',
+  height: '50vh'
+};
+var absoluteStyle = {
+  position: 'absolute',
+  top: 0,
+  right: 0,
+  bottom: 0,
+  left: 0
+};
+
+var ParallaxBanner = function ParallaxBanner(_ref) {
+  var children = _ref.children,
+      className = _ref.className,
+      layers = _ref.layers,
+      style = _ref.style,
+      disabled = _ref.disabled;
+  return _react.default.createElement("div", {
+    style: _objectSpread({}, containerStyle, style),
+    className: 'parallax-banner' + (className ? " ".concat(className) : '')
+  }, layers.map(function (_ref2, i) {
+    var image = _ref2.image,
+        amount = _ref2.amount,
+        layerChildren = _ref2.children,
+        _ref2$expanded = _ref2.expanded,
+        expanded = _ref2$expanded === void 0 ? true : _ref2$expanded;
+    // if this is an expanded layer overwrite the top/bottom styles with negative margins
+    var expandedStyle = expanded ? {
+      top: Math.abs(amount) * 100 * -1 + '%',
+      bottom: Math.abs(amount) * 100 * -1 + '%'
+    } : {};
+    return _react.default.createElement(_Parallax.default, {
+      key: "layer-".concat(i),
+      y: [amount * -1 * 100 + '%', amount * 100 + '%'],
+      styleInner: absoluteStyle,
+      styleOuter: absoluteStyle,
+      disabled: disabled
+    }, image ? _react.default.createElement("div", {
+      className: "parallax-banner-layer-".concat(i),
+      style: _objectSpread({
+        backgroundImage: "url(".concat(image, ")"),
+        backgroundPosition: 'center',
+        backgroundSize: 'cover'
+      }, absoluteStyle, expandedStyle)
+    }) : _react.default.createElement("div", {
+      className: "parallax-banner-layer-".concat(i),
+      style: _objectSpread({}, absoluteStyle, expandedStyle)
+    }, layerChildren));
+  }), children);
+};
+
+ParallaxBanner.defaultProps = {
+  disabled: false
+};
+ParallaxBanner.propTypes = {
+  children: _propTypes.default.node,
+  className: _propTypes.default.string,
+  disabled: _propTypes.default.bool.isRequired,
+  layers: _propTypes.default.arrayOf(_propTypes.default.shape({
+    amount: _propTypes.default.number.isRequired,
+    children: _propTypes.default.oneOfType([_propTypes.default.node, _propTypes.default.func]),
+    expanded: _propTypes.default.bool,
+    image: _propTypes.default.string
+  })),
+  style: _propTypes.default.object
+};
+var _default = ParallaxBanner;
+exports.default = _default;
+
+/***/ }),
+
+/***/ "./node_modules/react-scroll-parallax/cjs/components/ParallaxProvider.js":
+/*!*******************************************************************************!*\
+  !*** ./node_modules/react-scroll-parallax/cjs/components/ParallaxProvider.js ***!
+  \*******************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = void 0;
+
+var _react = _interopRequireWildcard(__webpack_require__(/*! react */ "./node_modules/react/index.js"));
+
+var _propTypes = _interopRequireDefault(__webpack_require__(/*! prop-types */ "./node_modules/prop-types/index.js"));
+
+var _ParallaxContext = _interopRequireDefault(__webpack_require__(/*! ../helpers/ParallaxContext */ "./node_modules/react-scroll-parallax/cjs/helpers/ParallaxContext.js"));
+
+var _ParallaxController = _interopRequireDefault(__webpack_require__(/*! ../classes/ParallaxController */ "./node_modules/react-scroll-parallax/cjs/classes/ParallaxController.js"));
+
+var _constants = __webpack_require__(/*! ../constants */ "./node_modules/react-scroll-parallax/cjs/constants.js");
+
+var _validHTMLElement = _interopRequireDefault(__webpack_require__(/*! ../utils/validHTMLElement */ "./node_modules/react-scroll-parallax/cjs/utils/validHTMLElement.js"));
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) { var desc = Object.defineProperty && Object.getOwnPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : {}; if (desc.get || desc.set) { Object.defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } } newObj.default = obj; return newObj; } }
+
+function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
+
+function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
+
+function _possibleConstructorReturn(self, call) { if (call && (_typeof(call) === "object" || typeof call === "function")) { return call; } return _assertThisInitialized(self); }
+
+function _assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
+
+function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf(o); }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function"); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } }); if (superClass) _setPrototypeOf(subClass, superClass); }
+
+function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
+
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
+var createController = function createController(options) {
+  // Don't initialize on the server
+  var isServer = typeof window === 'undefined';
+
+  if (!isServer) {
+    // Must not be the server so kick it off...
+    return _ParallaxController.default.init(options);
+  }
+
+  return null;
+};
+
+var ParallaxProvider =
+/*#__PURE__*/
+function (_Component) {
+  _inherits(ParallaxProvider, _Component);
+
+  function ParallaxProvider(props) {
+    var _this;
+
+    _classCallCheck(this, ParallaxProvider);
+
+    _this = _possibleConstructorReturn(this, _getPrototypeOf(ParallaxProvider).call(this, props));
+    _this.controller = createController({
+      scrollAxis: props.scrollAxis,
+      scrollContainer: props.scrollContainer
+    });
+    return _this;
+  }
+
+  _createClass(ParallaxProvider, [{
+    key: "componentDidUpdate",
+    value: function componentDidUpdate(prevProps) {
+      if (prevProps.scrollContainer !== this.props.scrollContainer) {
+        this.controller.updateScrollContainer(this.props.scrollContainer);
+      }
+    }
+  }, {
+    key: "componentWillUnmount",
+    value: function componentWillUnmount() {
+      this.controller = this.controller.destroy();
+    }
+  }, {
+    key: "render",
+    value: function render() {
+      var children = this.props.children;
+      return _react.default.createElement(_ParallaxContext.default.Provider, {
+        value: this.controller
+      }, children);
+    }
+  }]);
+
+  return ParallaxProvider;
+}(_react.Component);
+
+exports.default = ParallaxProvider;
+
+_defineProperty(ParallaxProvider, "defaultProps", {
+  scrollAxis: _constants.VERTICAL
+});
+
+_defineProperty(ParallaxProvider, "propTypes", {
+  children: _propTypes.default.node.isRequired,
+  scrollAxis: _propTypes.default.oneOf([_constants.VERTICAL, _constants.HORIZONTAL]),
+  scrollContainer: _validHTMLElement.default
+});
+
+/***/ }),
+
+/***/ "./node_modules/react-scroll-parallax/cjs/components/withController.js":
+/*!*****************************************************************************!*\
+  !*** ./node_modules/react-scroll-parallax/cjs/components/withController.js ***!
+  \*****************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = void 0;
+
+var _react = _interopRequireWildcard(__webpack_require__(/*! react */ "./node_modules/react/index.js"));
+
+var _propTypes = _interopRequireDefault(__webpack_require__(/*! prop-types */ "./node_modules/prop-types/index.js"));
+
+var _ParallaxContext = _interopRequireDefault(__webpack_require__(/*! ../helpers/ParallaxContext */ "./node_modules/react-scroll-parallax/cjs/helpers/ParallaxContext.js"));
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) { var desc = Object.defineProperty && Object.getOwnPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : {}; if (desc.get || desc.set) { Object.defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } } newObj.default = obj; return newObj; } }
+
+function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
+
+function _extends() { _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; }; return _extends.apply(this, arguments); }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
+
+function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
+
+function _possibleConstructorReturn(self, call) { if (call && (_typeof(call) === "object" || typeof call === "function")) { return call; } return _assertThisInitialized(self); }
+
+function _assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
+
+function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf(o); }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function"); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } }); if (superClass) _setPrototypeOf(subClass, superClass); }
+
+function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
+
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
+var _default = function _default(WrappedComponent) {
+  var WithController =
+  /*#__PURE__*/
+  function (_Component) {
+    _inherits(WithController, _Component);
+
+    function WithController() {
+      _classCallCheck(this, WithController);
+
+      return _possibleConstructorReturn(this, _getPrototypeOf(WithController).apply(this, arguments));
+    }
+
+    _createClass(WithController, [{
+      key: "render",
+      value: function render() {
+        var _this = this;
+
+        return _react.default.createElement(_ParallaxContext.default.Consumer, null, function (controller) {
+          return _react.default.createElement(WrappedComponent, _extends({
+            parallaxController: controller
+          }, _this.props));
+        });
+      }
+    }]);
+
+    return WithController;
+  }(_react.Component);
+
+  _defineProperty(WithController, "propTypes", {
+    parallaxController: _propTypes.default.object
+  });
+
+  return WithController;
+};
+
+exports.default = _default;
+
+/***/ }),
+
+/***/ "./node_modules/react-scroll-parallax/cjs/constants.js":
+/*!*************************************************************!*\
+  !*** ./node_modules/react-scroll-parallax/cjs/constants.js ***!
+  \*************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.HORIZONTAL = exports.VERTICAL = void 0;
+var VERTICAL = 'vertical';
+exports.VERTICAL = VERTICAL;
+var HORIZONTAL = 'horizontal';
+exports.HORIZONTAL = HORIZONTAL;
+
+/***/ }),
+
+/***/ "./node_modules/react-scroll-parallax/cjs/helpers/ParallaxContext.js":
+/*!***************************************************************************!*\
+  !*** ./node_modules/react-scroll-parallax/cjs/helpers/ParallaxContext.js ***!
+  \***************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = void 0;
+
+var _react = _interopRequireDefault(__webpack_require__(/*! react */ "./node_modules/react/index.js"));
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+var ParallaxContext = _react.default.createContext(null);
+
+var _default = ParallaxContext;
+exports.default = _default;
+
+/***/ }),
+
+/***/ "./node_modules/react-scroll-parallax/cjs/helpers/elementStyles.js":
+/*!*************************************************************************!*\
+  !*** ./node_modules/react-scroll-parallax/cjs/helpers/elementStyles.js ***!
+  \*************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.setParallaxStyles = setParallaxStyles;
+exports.resetStyles = resetStyles;
+
+var _getParallaxOffsets2 = __webpack_require__(/*! ./getParallaxOffsets */ "./node_modules/react-scroll-parallax/cjs/helpers/getParallaxOffsets.js");
+
+/**
+ * Takes a parallax element and set the styles based on the
+ * offsets and percent the element has moved though the viewport.
+ * @param {object} element
+ * @param {number} percentMoved
+ */
+function setParallaxStyles(elInner, offsets, percentMoved) {
+  // Get the parallax X and Y offsets
+  var _getParallaxOffsets = (0, _getParallaxOffsets2.getParallaxOffsets)(offsets, percentMoved),
+      _getParallaxOffsets$x = _getParallaxOffsets.x,
+      xv = _getParallaxOffsets$x.value,
+      xu = _getParallaxOffsets$x.unit,
+      _getParallaxOffsets$y = _getParallaxOffsets.y,
+      yv = _getParallaxOffsets$y.value,
+      yu = _getParallaxOffsets$y.unit; // Apply styles
+
+
+  elInner.style.transform = "translate3d(".concat(xv).concat(xu, ", ").concat(yv).concat(yu, ", 0)");
+}
+/**
+ * Takes a parallax element and removes parallax offset styles.
+ * @param {object} element
+ */
+
+
+function resetStyles(element) {
+  var el = element.elInner;
+  el.style.transform = '';
+}
+
+/***/ }),
+
+/***/ "./node_modules/react-scroll-parallax/cjs/helpers/getOffsets.js":
+/*!**********************************************************************!*\
+  !*** ./node_modules/react-scroll-parallax/cjs/helpers/getOffsets.js ***!
+  \**********************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = getOffsets;
+
+var _index = __webpack_require__(/*! ../utils/index */ "./node_modules/react-scroll-parallax/cjs/utils/index.js");
+
+/**
+ * Takes a parallax element and parses the offset props to get the value
+ * and unit. Sets these values as offset object accessible on the element.
+ * @param {object} element
+ */
+function getOffsets(props) {
+  var y0Prop = props.y0,
+      y1Prop = props.y1,
+      x1Prop = props.x1,
+      x0Prop = props.x0;
+  var y0 = (0, _index.parseValueAndUnit)(y0Prop);
+  var y1 = (0, _index.parseValueAndUnit)(y1Prop);
+  var x0 = (0, _index.parseValueAndUnit)(x0Prop);
+  var x1 = (0, _index.parseValueAndUnit)(x1Prop);
+
+  if (x0.unit !== x1.unit || y0.unit !== y1.unit) {
+    throw new Error('Must provide matching units for the min and max offset values of each axis.');
+  }
+
+  var xUnit = x0.unit || '%';
+  var yUnit = y0.unit || '%';
+  return {
+    xUnit: xUnit,
+    yUnit: yUnit,
+    y0: y0,
+    y1: y1,
+    x0: x0,
+    x1: x1
+  };
+}
+
+/***/ }),
+
+/***/ "./node_modules/react-scroll-parallax/cjs/helpers/getParallaxOffsets.js":
+/*!******************************************************************************!*\
+  !*** ./node_modules/react-scroll-parallax/cjs/helpers/getParallaxOffsets.js ***!
+  \******************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.getParallaxOffsets = getParallaxOffsets;
+
+var _index = __webpack_require__(/*! ../utils/index */ "./node_modules/react-scroll-parallax/cjs/utils/index.js");
+
+/**
+ * Gets the parallax X and Y offsets to be applied to an element
+ * based upon the percent the element has moved in the viewport
+ * and the min/max offsets
+ * @returns {Object}
+ */
+function getParallaxOffsets(offsets, percentMoved) {
+  var y0 = offsets.y0,
+      y1 = offsets.y1,
+      x0 = offsets.x0,
+      x1 = offsets.x1;
+  var yUnit = y1.unit;
+  var xUnit = x1.unit;
+  var x = (0, _index.scaleBetween)(percentMoved, x0.value, x1.value, 0, 100);
+  var y = (0, _index.scaleBetween)(percentMoved, y0.value, y1.value, 0, 100);
+  return {
+    x: {
+      value: x,
+      unit: xUnit
+    },
+    y: {
+      value: y,
+      unit: yUnit
+    }
+  };
+}
+
+/***/ }),
+
+/***/ "./node_modules/react-scroll-parallax/cjs/helpers/index.js":
+/*!*****************************************************************!*\
+  !*** ./node_modules/react-scroll-parallax/cjs/helpers/index.js ***!
+  \*****************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+Object.defineProperty(exports, "ParallaxContext", {
+  enumerable: true,
+  get: function get() {
+    return _ParallaxContext2.default;
+  }
+});
+Object.defineProperty(exports, "percentMoved", {
+  enumerable: true,
+  get: function get() {
+    return _percentMoved.percentMoved;
+  }
+});
+Object.defineProperty(exports, "setParallaxStyles", {
+  enumerable: true,
+  get: function get() {
+    return _elementStyles.setParallaxStyles;
+  }
+});
+Object.defineProperty(exports, "resetStyles", {
+  enumerable: true,
+  get: function get() {
+    return _elementStyles.resetStyles;
+  }
+});
+Object.defineProperty(exports, "getParallaxOffsets", {
+  enumerable: true,
+  get: function get() {
+    return _getParallaxOffsets.getParallaxOffsets;
+  }
+});
+Object.defineProperty(exports, "isElementInView", {
+  enumerable: true,
+  get: function get() {
+    return _isElementInView.isElementInView;
+  }
+});
+Object.defineProperty(exports, "getOffsets", {
+  enumerable: true,
+  get: function get() {
+    return _getOffsets2.default;
+  }
+});
+
+var _ParallaxContext2 = _interopRequireDefault(__webpack_require__(/*! ./ParallaxContext */ "./node_modules/react-scroll-parallax/cjs/helpers/ParallaxContext.js"));
+
+var _percentMoved = __webpack_require__(/*! ./percentMoved */ "./node_modules/react-scroll-parallax/cjs/helpers/percentMoved.js");
+
+var _elementStyles = __webpack_require__(/*! ./elementStyles */ "./node_modules/react-scroll-parallax/cjs/helpers/elementStyles.js");
+
+var _getParallaxOffsets = __webpack_require__(/*! ./getParallaxOffsets */ "./node_modules/react-scroll-parallax/cjs/helpers/getParallaxOffsets.js");
+
+var _isElementInView = __webpack_require__(/*! ./isElementInView */ "./node_modules/react-scroll-parallax/cjs/helpers/isElementInView.js");
+
+var _getOffsets2 = _interopRequireDefault(__webpack_require__(/*! ./getOffsets */ "./node_modules/react-scroll-parallax/cjs/helpers/getOffsets.js"));
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+/***/ }),
+
+/***/ "./node_modules/react-scroll-parallax/cjs/helpers/isElementInView.js":
+/*!***************************************************************************!*\
+  !*** ./node_modules/react-scroll-parallax/cjs/helpers/isElementInView.js ***!
+  \***************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.isElementInView = isElementInView;
+
+/**
+ * Takes two values (start, end) and returns whether it is within
+ * the view size based on the cached position adjusted for current scroll.
+ * Only along a single dimension <--- [ --- a --- b --- ] -->
+ * @param {number} a - top/left
+ * @param {number} b - bottom/right
+ * @param {number} size - width/height
+ * @param {number} scroll - x/y
+ * @return {boolean} isInView
+ */
+function isElementInView(a, b, size, scroll) {
+  var ax = a - scroll;
+  var bx = b - scroll;
+  var aView = ax >= 0 && ax <= size;
+  var bInView = bx >= 0 && bx <= size;
+  var abCovering = ax <= 0 && bx >= size;
+  var isInView = aView || bInView || abCovering;
+  return isInView;
+}
+
+/***/ }),
+
+/***/ "./node_modules/react-scroll-parallax/cjs/helpers/percentMoved.js":
+/*!************************************************************************!*\
+  !*** ./node_modules/react-scroll-parallax/cjs/helpers/percentMoved.js ***!
+  \************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.percentMoved = percentMoved;
+
+/**
+ * Returns the percent (0 - 100) moved based on position in the viewport
+ * @param {number} a - the start value from cache
+ * @param {number} totalDist - total dist the element has to move to be 100% complete (view width/height + element width/height)
+ * @param {number} size - width/height of view
+ * @param {number} scroll - current scroll position x/y
+ * @return {number} percent moved
+ */
+function percentMoved(a, totalDist, size, scroll) {
+  // adjust cached value
+  var ax = a - scroll; // Percent the element has moved based on current and total distance to move
+
+  var percent = (ax * -1 + size) / totalDist * 100;
+  return percent;
+}
+
+/***/ }),
+
+/***/ "./node_modules/react-scroll-parallax/cjs/index.js":
+/*!*********************************************************!*\
+  !*** ./node_modules/react-scroll-parallax/cjs/index.js ***!
+  \*********************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+Object.defineProperty(exports, "withController", {
+  enumerable: true,
+  get: function get() {
+    return _withController2.default;
+  }
+});
+Object.defineProperty(exports, "Parallax", {
+  enumerable: true,
+  get: function get() {
+    return _Parallax2.default;
+  }
+});
+Object.defineProperty(exports, "ParallaxProvider", {
+  enumerable: true,
+  get: function get() {
+    return _ParallaxProvider2.default;
+  }
+});
+Object.defineProperty(exports, "ParallaxBanner", {
+  enumerable: true,
+  get: function get() {
+    return _ParallaxBanner2.default;
+  }
+});
+
+var _withController2 = _interopRequireDefault(__webpack_require__(/*! ./components/withController */ "./node_modules/react-scroll-parallax/cjs/components/withController.js"));
+
+var _Parallax2 = _interopRequireDefault(__webpack_require__(/*! ./components/Parallax */ "./node_modules/react-scroll-parallax/cjs/components/Parallax.js"));
+
+var _ParallaxProvider2 = _interopRequireDefault(__webpack_require__(/*! ./components/ParallaxProvider */ "./node_modules/react-scroll-parallax/cjs/components/ParallaxProvider.js"));
+
+var _ParallaxBanner2 = _interopRequireDefault(__webpack_require__(/*! ./components/ParallaxBanner */ "./node_modules/react-scroll-parallax/cjs/components/ParallaxBanner.js"));
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+/***/ }),
+
+/***/ "./node_modules/react-scroll-parallax/cjs/utils/createId.js":
+/*!******************************************************************!*\
+  !*** ./node_modules/react-scroll-parallax/cjs/utils/createId.js ***!
+  \******************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.createId = createId;
+
+/**
+ * Creates a unique id to distinguish parallax elements.
+ * @return {Number}
+ */
+var id = 0;
+
+function createId() {
+  ++id;
+  return id;
+}
+
+/***/ }),
+
+/***/ "./node_modules/react-scroll-parallax/cjs/utils/index.js":
+/*!***************************************************************!*\
+  !*** ./node_modules/react-scroll-parallax/cjs/utils/index.js ***!
+  \***************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+Object.defineProperty(exports, "parseValueAndUnit", {
+  enumerable: true,
+  get: function get() {
+    return _parseValueAndUnit2.default;
+  }
+});
+Object.defineProperty(exports, "scaleBetween", {
+  enumerable: true,
+  get: function get() {
+    return _scaleBetween2.default;
+  }
+});
+Object.defineProperty(exports, "testForPassiveScroll", {
+  enumerable: true,
+  get: function get() {
+    return _testForPassiveScroll2.default;
+  }
+});
+Object.defineProperty(exports, "createId", {
+  enumerable: true,
+  get: function get() {
+    return _createId.createId;
+  }
+});
+
+var _parseValueAndUnit2 = _interopRequireDefault(__webpack_require__(/*! ./parseValueAndUnit */ "./node_modules/react-scroll-parallax/cjs/utils/parseValueAndUnit.js"));
+
+var _scaleBetween2 = _interopRequireDefault(__webpack_require__(/*! ./scaleBetween */ "./node_modules/react-scroll-parallax/cjs/utils/scaleBetween.js"));
+
+var _testForPassiveScroll2 = _interopRequireDefault(__webpack_require__(/*! ./testForPassiveScroll */ "./node_modules/react-scroll-parallax/cjs/utils/testForPassiveScroll.js"));
+
+var _createId = __webpack_require__(/*! ./createId */ "./node_modules/react-scroll-parallax/cjs/utils/createId.js");
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+/***/ }),
+
+/***/ "./node_modules/react-scroll-parallax/cjs/utils/parseValueAndUnit.js":
+/*!***************************************************************************!*\
+  !*** ./node_modules/react-scroll-parallax/cjs/utils/parseValueAndUnit.js ***!
+  \***************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = parseValueAndUnit;
+
+/**
+ * Determines the unit of a string and parses the value
+ *
+ * @param {string} str
+ * @param {object} out
+ * @return {object} The parsed value and the unit if any
+ */
+function parseValueAndUnit(str) {
+  var out = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {
+    value: 0,
+    unit: 'px'
+  };
+  var isValid = typeof str === 'number' || typeof str === 'string';
+
+  if (!isValid) {
+    throw new Error('Invalid value provided. Must provide a value as a string or number');
+  }
+
+  str = String(str);
+  out.value = parseFloat(str, 10);
+  out.unit = str.match(/[\d.\-\+]*\s*(.*)/)[1] || '%'; // default to percent
+
+  var validUnits = ['px', '%'];
+  var isValidUnit = validUnits.find(function (unit) {
+    return unit === out.unit;
+  });
+
+  if (!isValidUnit) {
+    throw new Error('Invalid unit provided. Must provide a unit of px in or %');
+  }
+
+  return out;
+}
+
+/***/ }),
+
+/***/ "./node_modules/react-scroll-parallax/cjs/utils/scaleBetween.js":
+/*!**********************************************************************!*\
+  !*** ./node_modules/react-scroll-parallax/cjs/utils/scaleBetween.js ***!
+  \**********************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = scaleBetween;
+
+// Scale between AKA normalize
+function scaleBetween(value, newMin, newMax, oldMin, oldMax) {
+  return (newMax - newMin) * (value - oldMin) / (oldMax - oldMin) + newMin;
+}
+
+/***/ }),
+
+/***/ "./node_modules/react-scroll-parallax/cjs/utils/testForPassiveScroll.js":
+/*!******************************************************************************!*\
+  !*** ./node_modules/react-scroll-parallax/cjs/utils/testForPassiveScroll.js ***!
+  \******************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = testForPassiveScroll;
+
+function testForPassiveScroll() {
+  var supportsPassiveOption = false;
+
+  try {
+    var opts = Object.defineProperty({}, 'passive', {
+      get: function get() {
+        supportsPassiveOption = true;
+      }
+    });
+    window.addEventListener('test', null, opts);
+    window.removeEventListener('test', null, opts);
+  } catch (e) {}
+
+  return supportsPassiveOption;
+}
+
+/***/ }),
+
+/***/ "./node_modules/react-scroll-parallax/cjs/utils/validHTMLElement.js":
+/*!**************************************************************************!*\
+  !*** ./node_modules/react-scroll-parallax/cjs/utils/validHTMLElement.js ***!
+  \**************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = validHTMLElement;
+
+function validHTMLElement(props, propName) {
+  var componentName = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : 'ANONYMOUS';
+
+  if (typeof window === 'undefined') {
+    return null;
+  }
+
+  if (props[propName]) {
+    var value = props[propName];
+    var isValid = value instanceof window.Element;
+
+    if (!isValid) {
+      return new Error("Prop name \"".concat(propName, "\" in <").concat(componentName, "> must be an HTML DOM element."));
+    }
+  }
+
+  return null;
+}
 
 /***/ }),
 
