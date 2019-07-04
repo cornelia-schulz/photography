@@ -9,6 +9,7 @@ import About from './About'
 import Contact from './Contact'
 import Galleries from './Galleries'
 import Banner from './Banner'
+import Gallery from './Gallery'
 import { useTranslation, Trans } from 'react-i18next'
 
 class App extends React.Component {

@@ -134,7 +134,13 @@ function getAllGalleries() {
   });
 }
 
-function getGalleryImages() {}
+function getGalleryImages(gallery) {
+  return _superagent2.default.get('/api/v1/gallery/' + gallery).then(function (res) {
+    return res.body;
+  }).catch(function (err) {
+    console.error(err);
+  });
+}
 
 /***/ }),
 
@@ -246,6 +252,10 @@ var _Banner = __webpack_require__(/*! ./Banner */ "./client/components/Banner.js
 
 var _Banner2 = _interopRequireDefault(_Banner);
 
+var _Gallery = __webpack_require__(/*! ./Gallery */ "./client/components/Gallery.jsx");
+
+var _Gallery2 = _interopRequireDefault(_Gallery);
+
 var _reactI18next = __webpack_require__(/*! react-i18next */ "./node_modules/react-i18next/dist/es/index.js");
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
@@ -291,7 +301,7 @@ var App = function (_React$Component) {
         _react2.default.createElement(_reactRouterDom.Route, { path: '/about', component: _About2.default }),
         _react2.default.createElement(_reactRouterDom.Route, { path: '/contact', component: _Contact2.default }),
         _react2.default.createElement(_reactRouterDom.Route, { path: '/galleries', component: _Galleries2.default }),
-        _react2.default.createElement(_reactRouterDom.Route, { path: '/galleries/:name', component: Gallery }),
+        _react2.default.createElement(_reactRouterDom.Route, { path: '/galleries/:name', component: _Gallery2.default }),
         _react2.default.createElement(_reactRouterDom.Route, { exact: true, path: '/', component: _Favourites2.default }),
         _react2.default.createElement(_reactRouterDom.Route, { path: '/', component: _Footer2.default })
       );
@@ -655,12 +665,16 @@ function Galleries() {
                     { className: 'gallery-image-container' },
                     _react2.default.createElement('div', { className: 'gallery', style: { backgroundImage: 'url(' + gallery.cover_image + ')' } }),
                     _react2.default.createElement(
-                        'div',
-                        { className: 'gallery-overlay' },
+                        'a',
+                        { href: '/galleries/' + gallery.name },
                         _react2.default.createElement(
-                            'p',
-                            { className: 'gallery-overlay-text' },
-                            gallery.name
+                            'div',
+                            { className: 'gallery-overlay' },
+                            _react2.default.createElement(
+                                'p',
+                                { className: 'gallery-overlay-text' },
+                                gallery.name
+                            )
                         )
                     )
                 );
@@ -670,6 +684,74 @@ function Galleries() {
 }
 
 exports.default = (0, _reactPureLifecycle2.default)(methods)(Galleries);
+
+/***/ }),
+
+/***/ "./client/components/Gallery.jsx":
+/*!***************************************!*\
+  !*** ./client/components/Gallery.jsx ***!
+  \***************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+
+var _slicedToArray = function () { function sliceIterator(arr, i) { var _arr = []; var _n = true; var _d = false; var _e = undefined; try { for (var _i = arr[Symbol.iterator](), _s; !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i["return"]) _i["return"](); } finally { if (_d) throw _e; } } return _arr; } return function (arr, i) { if (Array.isArray(arr)) { return arr; } else if (Symbol.iterator in Object(arr)) { return sliceIterator(arr, i); } else { throw new TypeError("Invalid attempt to destructure non-iterable instance"); } }; }();
+
+var _react = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+
+var _react2 = _interopRequireDefault(_react);
+
+var _reactPureLifecycle = __webpack_require__(/*! react-pure-lifecycle */ "./node_modules/react-pure-lifecycle/es/index.js");
+
+var _reactPureLifecycle2 = _interopRequireDefault(_reactPureLifecycle);
+
+var _apiClient = __webpack_require__(/*! ../apiClient */ "./client/apiClient.js");
+
+var _useQueryParams = __webpack_require__(/*! use-query-params */ "./node_modules/use-query-params/esm/index.js");
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+var _isMounted = false;
+
+var methods = {
+    componentWillUnmount: function componentWillUnmount() {
+        _isMounted = false;
+    }
+};
+
+function Gallery() {
+    var _useState = (0, _react.useState)([]),
+        _useState2 = _slicedToArray(_useState, 2),
+        gallery = _useState2[0],
+        setGallery = _useState2[1];
+
+    (0, _react.useEffect)(function () {
+        _isMounted = true;
+        (0, _apiClient.getGalleryImages)().then(function (images) {
+            if (_isMounted) {
+                setGallery(images);
+            }
+        });
+    }, gallery);
+
+    return _react2.default.createElement(
+        'div',
+        { className: 'gallery container' },
+        _react2.default.createElement(
+            'h1',
+            null,
+            'Gallery'
+        )
+    );
+}
+
+exports.default = (0, _reactPureLifecycle2.default)(methods)(Gallery);
 
 /***/ }),
 
@@ -892,15 +974,21 @@ var _App2 = _interopRequireDefault(_App);
 
 var _reactScrollParallax = __webpack_require__(/*! react-scroll-parallax */ "./node_modules/react-scroll-parallax/cjs/index.js");
 
+var _useQueryParams = __webpack_require__(/*! use-query-params */ "./node_modules/use-query-params/esm/index.js");
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 _reactDom2.default.render(_react2.default.createElement(
     _reactRouterDom.BrowserRouter,
     null,
     _react2.default.createElement(
-        _reactScrollParallax.ParallaxProvider,
-        null,
-        _react2.default.createElement(_App2.default, null)
+        _useQueryParams.QueryParamProvider,
+        { ReactRouterRoute: _reactRouterDom.Route },
+        _react2.default.createElement(
+            _reactScrollParallax.ParallaxProvider,
+            null,
+            _react2.default.createElement(_App2.default, null)
+        )
     )
 ), document.getElementById('app'));
 
@@ -1964,6 +2052,112 @@ function toComment(sourceMap) {
   var data = 'sourceMappingURL=data:application/json;charset=utf-8;base64,' + base64;
   return '/*# ' + data + ' */';
 }
+
+/***/ }),
+
+/***/ "./node_modules/decode-uri-component/index.js":
+/*!****************************************************!*\
+  !*** ./node_modules/decode-uri-component/index.js ***!
+  \****************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+var token = '%[a-f0-9]{2}';
+var singleMatcher = new RegExp(token, 'gi');
+var multiMatcher = new RegExp('(' + token + ')+', 'gi');
+
+function decodeComponents(components, split) {
+	try {
+		// Try to decode the entire string first
+		return decodeURIComponent(components.join(''));
+	} catch (err) {
+		// Do nothing
+	}
+
+	if (components.length === 1) {
+		return components;
+	}
+
+	split = split || 1;
+
+	// Split the array in 2 parts
+	var left = components.slice(0, split);
+	var right = components.slice(split);
+
+	return Array.prototype.concat.call([], decodeComponents(left), decodeComponents(right));
+}
+
+function decode(input) {
+	try {
+		return decodeURIComponent(input);
+	} catch (err) {
+		var tokens = input.match(singleMatcher);
+
+		for (var i = 1; i < tokens.length; i++) {
+			input = decodeComponents(tokens, i).join('');
+
+			tokens = input.match(singleMatcher);
+		}
+
+		return input;
+	}
+}
+
+function customDecodeURIComponent(input) {
+	// Keep track of all the replacements and prefill the map with the `BOM`
+	var replaceMap = {
+		'%FE%FF': '\uFFFD\uFFFD',
+		'%FF%FE': '\uFFFD\uFFFD'
+	};
+
+	var match = multiMatcher.exec(input);
+	while (match) {
+		try {
+			// Decode as big chunks as possible
+			replaceMap[match[0]] = decodeURIComponent(match[0]);
+		} catch (err) {
+			var result = decode(match[0]);
+
+			if (result !== match[0]) {
+				replaceMap[match[0]] = result;
+			}
+		}
+
+		match = multiMatcher.exec(input);
+	}
+
+	// Add `%C2` at the end of the map to make sure it does not replace the combinator before everything else
+	replaceMap['%C2'] = '\uFFFD';
+
+	var entries = Object.keys(replaceMap);
+
+	for (var i = 0; i < entries.length; i++) {
+		// Replace all decoded components
+		var key = entries[i];
+		input = input.replace(new RegExp(key, 'g'), replaceMap[key]);
+	}
+
+	return input;
+}
+
+module.exports = function (encodedURI) {
+	if (typeof encodedURI !== 'string') {
+		throw new TypeError('Expected `encodedURI` to be of type `string`, got `' + typeof encodedURI + '`');
+	}
+
+	try {
+		encodedURI = encodedURI.replace(/\+/g, ' ');
+
+		// Try the built in decoder first
+		return decodeURIComponent(encodedURI);
+	} catch (err) {
+		// Fallback to a more advanced decoder
+		return customDecodeURIComponent(encodedURI);
+	}
+};
+
 
 /***/ }),
 
@@ -36641,6 +36835,1113 @@ if (false) {} else {
 
 /***/ }),
 
+/***/ "./node_modules/serialize-query-params/esm/decodeQueryParams.js":
+/*!**********************************************************************!*\
+  !*** ./node_modules/serialize-query-params/esm/decodeQueryParams.js ***!
+  \**********************************************************************/
+/*! exports provided: decodeQueryParams */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "decodeQueryParams", function() { return decodeQueryParams; });
+/**
+ * Convert the values in query to strings via the encode functions configured
+ * in paramConfigMap
+ *
+ * @param paramConfigMap Map from query name to { encode, decode } config
+ * @param query Query updates mapping param name to decoded value
+ */
+function decodeQueryParams(paramConfigMap, encodedQuery) {
+    var decodedQuery = {};
+    var paramNames = Object.keys(encodedQuery);
+    for (var _i = 0, paramNames_1 = paramNames; _i < paramNames_1.length; _i++) {
+        var paramName = paramNames_1[_i];
+        var encodedValue = encodedQuery[paramName];
+        if (encodedValue == null) {
+            decodedQuery[paramName] = undefined;
+            continue;
+        }
+        if (!paramConfigMap[paramName]) {
+            if (true) {
+                console.warn("Passing through parameter " + paramName + " during decoding since it was not configured.");
+            }
+            // NOTE: we could just not include it, but it is probably convenient to have
+            // it default to be a string type.
+            decodedQuery[paramName] = encodedValue;
+        }
+        else {
+            decodedQuery[paramName] = paramConfigMap[paramName].decode(encodedValue);
+        }
+    }
+    return decodedQuery;
+}
+
+
+/***/ }),
+
+/***/ "./node_modules/serialize-query-params/esm/encodeQueryParams.js":
+/*!**********************************************************************!*\
+  !*** ./node_modules/serialize-query-params/esm/encodeQueryParams.js ***!
+  \**********************************************************************/
+/*! exports provided: encodeQueryParams, default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "encodeQueryParams", function() { return encodeQueryParams; });
+/**
+ * Convert the values in query to strings via the encode functions configured
+ * in paramConfigMap
+ *
+ * @param paramConfigMap Map from query name to { encode, decode } config
+ * @param query Query updates mapping param name to decoded value
+ */
+function encodeQueryParams(paramConfigMap, query) {
+    var encodedQuery = {};
+    var paramNames = Object.keys(query);
+    for (var _i = 0, paramNames_1 = paramNames; _i < paramNames_1.length; _i++) {
+        var paramName = paramNames_1[_i];
+        var decodedValue = query[paramName];
+        if (decodedValue == null) {
+            encodedQuery[paramName] = undefined;
+            continue;
+        }
+        if (!paramConfigMap[paramName]) {
+            if (true) {
+                console.warn("Encoding parameter " + paramName + " as string since it was not configured.");
+            }
+            // NOTE: we could just not encode it, but it is probably convenient to have
+            // it be included by default as a string type.
+            encodedQuery[paramName] = String(decodedValue);
+        }
+        else {
+            encodedQuery[paramName] = paramConfigMap[paramName].encode(query[paramName]);
+        }
+    }
+    return encodedQuery;
+}
+/* harmony default export */ __webpack_exports__["default"] = (encodeQueryParams);
+
+
+/***/ }),
+
+/***/ "./node_modules/serialize-query-params/esm/index.js":
+/*!**********************************************************!*\
+  !*** ./node_modules/serialize-query-params/esm/index.js ***!
+  \**********************************************************/
+/*! exports provided: encodeDate, decodeDate, encodeBoolean, decodeBoolean, encodeNumber, decodeNumber, encodeString, decodeString, encodeJson, decodeJson, encodeArray, decodeArray, encodeNumericArray, decodeNumericArray, encodeDelimitedArray, decodeDelimitedArray, encodeDelimitedNumericArray, decodeDelimitedNumericArray, encodeObject, decodeObject, encodeNumericObject, decodeNumericObject, StringParam, NumberParam, ObjectParam, ArrayParam, NumericArrayParam, JsonParam, DateParam, DateTimeParam, BooleanParam, NumericObjectParam, DelimitedArrayParam, DelimitedNumericArrayParam, updateLocation, updateInLocation, encodeQueryParams, decodeQueryParams, stringify, parse, parseUrl, extract */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _serialize__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./serialize */ "./node_modules/serialize-query-params/esm/serialize.js");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "encodeDate", function() { return _serialize__WEBPACK_IMPORTED_MODULE_0__["encodeDate"]; });
+
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "decodeDate", function() { return _serialize__WEBPACK_IMPORTED_MODULE_0__["decodeDate"]; });
+
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "encodeBoolean", function() { return _serialize__WEBPACK_IMPORTED_MODULE_0__["encodeBoolean"]; });
+
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "decodeBoolean", function() { return _serialize__WEBPACK_IMPORTED_MODULE_0__["decodeBoolean"]; });
+
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "encodeNumber", function() { return _serialize__WEBPACK_IMPORTED_MODULE_0__["encodeNumber"]; });
+
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "decodeNumber", function() { return _serialize__WEBPACK_IMPORTED_MODULE_0__["decodeNumber"]; });
+
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "encodeString", function() { return _serialize__WEBPACK_IMPORTED_MODULE_0__["encodeString"]; });
+
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "decodeString", function() { return _serialize__WEBPACK_IMPORTED_MODULE_0__["decodeString"]; });
+
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "encodeJson", function() { return _serialize__WEBPACK_IMPORTED_MODULE_0__["encodeJson"]; });
+
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "decodeJson", function() { return _serialize__WEBPACK_IMPORTED_MODULE_0__["decodeJson"]; });
+
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "encodeArray", function() { return _serialize__WEBPACK_IMPORTED_MODULE_0__["encodeArray"]; });
+
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "decodeArray", function() { return _serialize__WEBPACK_IMPORTED_MODULE_0__["decodeArray"]; });
+
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "encodeNumericArray", function() { return _serialize__WEBPACK_IMPORTED_MODULE_0__["encodeNumericArray"]; });
+
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "decodeNumericArray", function() { return _serialize__WEBPACK_IMPORTED_MODULE_0__["decodeNumericArray"]; });
+
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "encodeDelimitedArray", function() { return _serialize__WEBPACK_IMPORTED_MODULE_0__["encodeDelimitedArray"]; });
+
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "decodeDelimitedArray", function() { return _serialize__WEBPACK_IMPORTED_MODULE_0__["decodeDelimitedArray"]; });
+
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "encodeDelimitedNumericArray", function() { return _serialize__WEBPACK_IMPORTED_MODULE_0__["encodeDelimitedNumericArray"]; });
+
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "decodeDelimitedNumericArray", function() { return _serialize__WEBPACK_IMPORTED_MODULE_0__["decodeDelimitedNumericArray"]; });
+
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "encodeObject", function() { return _serialize__WEBPACK_IMPORTED_MODULE_0__["encodeObject"]; });
+
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "decodeObject", function() { return _serialize__WEBPACK_IMPORTED_MODULE_0__["decodeObject"]; });
+
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "encodeNumericObject", function() { return _serialize__WEBPACK_IMPORTED_MODULE_0__["encodeNumericObject"]; });
+
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "decodeNumericObject", function() { return _serialize__WEBPACK_IMPORTED_MODULE_0__["decodeNumericObject"]; });
+
+/* harmony import */ var _params__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./params */ "./node_modules/serialize-query-params/esm/params.js");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "StringParam", function() { return _params__WEBPACK_IMPORTED_MODULE_1__["StringParam"]; });
+
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "NumberParam", function() { return _params__WEBPACK_IMPORTED_MODULE_1__["NumberParam"]; });
+
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "ObjectParam", function() { return _params__WEBPACK_IMPORTED_MODULE_1__["ObjectParam"]; });
+
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "ArrayParam", function() { return _params__WEBPACK_IMPORTED_MODULE_1__["ArrayParam"]; });
+
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "NumericArrayParam", function() { return _params__WEBPACK_IMPORTED_MODULE_1__["NumericArrayParam"]; });
+
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "JsonParam", function() { return _params__WEBPACK_IMPORTED_MODULE_1__["JsonParam"]; });
+
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "DateParam", function() { return _params__WEBPACK_IMPORTED_MODULE_1__["DateParam"]; });
+
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "DateTimeParam", function() { return _params__WEBPACK_IMPORTED_MODULE_1__["DateTimeParam"]; });
+
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "BooleanParam", function() { return _params__WEBPACK_IMPORTED_MODULE_1__["BooleanParam"]; });
+
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "NumericObjectParam", function() { return _params__WEBPACK_IMPORTED_MODULE_1__["NumericObjectParam"]; });
+
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "DelimitedArrayParam", function() { return _params__WEBPACK_IMPORTED_MODULE_1__["DelimitedArrayParam"]; });
+
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "DelimitedNumericArrayParam", function() { return _params__WEBPACK_IMPORTED_MODULE_1__["DelimitedNumericArrayParam"]; });
+
+/* harmony import */ var _updateLocation__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./updateLocation */ "./node_modules/serialize-query-params/esm/updateLocation.js");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "updateLocation", function() { return _updateLocation__WEBPACK_IMPORTED_MODULE_2__["updateLocation"]; });
+
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "updateInLocation", function() { return _updateLocation__WEBPACK_IMPORTED_MODULE_2__["updateInLocation"]; });
+
+/* harmony import */ var _encodeQueryParams__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./encodeQueryParams */ "./node_modules/serialize-query-params/esm/encodeQueryParams.js");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "encodeQueryParams", function() { return _encodeQueryParams__WEBPACK_IMPORTED_MODULE_3__["encodeQueryParams"]; });
+
+/* harmony import */ var _decodeQueryParams__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./decodeQueryParams */ "./node_modules/serialize-query-params/esm/decodeQueryParams.js");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "decodeQueryParams", function() { return _decodeQueryParams__WEBPACK_IMPORTED_MODULE_4__["decodeQueryParams"]; });
+
+/* harmony import */ var query_string__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! query-string */ "./node_modules/serialize-query-params/node_modules/query-string/index.js");
+/* harmony import */ var query_string__WEBPACK_IMPORTED_MODULE_5___default = /*#__PURE__*/__webpack_require__.n(query_string__WEBPACK_IMPORTED_MODULE_5__);
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "stringify", function() { return query_string__WEBPACK_IMPORTED_MODULE_5__["stringify"]; });
+
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "parse", function() { return query_string__WEBPACK_IMPORTED_MODULE_5__["parse"]; });
+
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "parseUrl", function() { return query_string__WEBPACK_IMPORTED_MODULE_5__["parseUrl"]; });
+
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "extract", function() { return query_string__WEBPACK_IMPORTED_MODULE_5__["extract"]; });
+
+
+
+
+
+
+// for convenience
+
+
+
+/***/ }),
+
+/***/ "./node_modules/serialize-query-params/esm/params.js":
+/*!***********************************************************!*\
+  !*** ./node_modules/serialize-query-params/esm/params.js ***!
+  \***********************************************************/
+/*! exports provided: StringParam, NumberParam, ObjectParam, ArrayParam, NumericArrayParam, JsonParam, DateParam, DateTimeParam, BooleanParam, NumericObjectParam, DelimitedArrayParam, DelimitedNumericArrayParam */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "StringParam", function() { return StringParam; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "NumberParam", function() { return NumberParam; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "ObjectParam", function() { return ObjectParam; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "ArrayParam", function() { return ArrayParam; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "NumericArrayParam", function() { return NumericArrayParam; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "JsonParam", function() { return JsonParam; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "DateParam", function() { return DateParam; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "DateTimeParam", function() { return DateTimeParam; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "BooleanParam", function() { return BooleanParam; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "NumericObjectParam", function() { return NumericObjectParam; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "DelimitedArrayParam", function() { return DelimitedArrayParam; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "DelimitedNumericArrayParam", function() { return DelimitedNumericArrayParam; });
+/* harmony import */ var _serialize__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./serialize */ "./node_modules/serialize-query-params/esm/serialize.js");
+
+/**
+ * String values
+ */
+var StringParam = {
+    encode: _serialize__WEBPACK_IMPORTED_MODULE_0__["encodeString"],
+    decode: _serialize__WEBPACK_IMPORTED_MODULE_0__["decodeString"],
+};
+/**
+ * Numbers (integers or floats)
+ */
+var NumberParam = {
+    encode: _serialize__WEBPACK_IMPORTED_MODULE_0__["encodeNumber"],
+    decode: _serialize__WEBPACK_IMPORTED_MODULE_0__["decodeNumber"],
+};
+/**
+ * For flat objects where values are strings
+ */
+var ObjectParam = {
+    encode: _serialize__WEBPACK_IMPORTED_MODULE_0__["encodeObject"],
+    decode: _serialize__WEBPACK_IMPORTED_MODULE_0__["decodeObject"],
+};
+/**
+ * For flat arrays of strings, filters out undefined values during decode
+ */
+var ArrayParam = {
+    encode: _serialize__WEBPACK_IMPORTED_MODULE_0__["encodeArray"],
+    decode: _serialize__WEBPACK_IMPORTED_MODULE_0__["decodeArray"],
+};
+/**
+ * For flat arrays of strings, filters out undefined values during decode
+ */
+var NumericArrayParam = {
+    encode: _serialize__WEBPACK_IMPORTED_MODULE_0__["encodeNumericArray"],
+    decode: _serialize__WEBPACK_IMPORTED_MODULE_0__["decodeNumericArray"],
+};
+/**
+ * For any type of data, encoded via JSON.stringify
+ */
+var JsonParam = {
+    encode: _serialize__WEBPACK_IMPORTED_MODULE_0__["encodeJson"],
+    decode: _serialize__WEBPACK_IMPORTED_MODULE_0__["decodeJson"],
+};
+/**
+ * For simple dates (YYYY-MM-DD)
+ */
+var DateParam = {
+    encode: _serialize__WEBPACK_IMPORTED_MODULE_0__["encodeDate"],
+    decode: _serialize__WEBPACK_IMPORTED_MODULE_0__["decodeDate"],
+};
+/**
+ * For dates in simplified extended ISO format (YYYY-MM-DDTHH:mm:ss.sssZ or ±YYYYYY-MM-DDTHH:mm:ss.sssZ)
+ */
+var DateTimeParam = {
+    encode: _serialize__WEBPACK_IMPORTED_MODULE_0__["encodeDateTime"],
+    decode: _serialize__WEBPACK_IMPORTED_MODULE_0__["decodeDateTime"],
+};
+/**
+ * For boolean values: 1 = true, 0 = false
+ */
+var BooleanParam = {
+    encode: _serialize__WEBPACK_IMPORTED_MODULE_0__["encodeBoolean"],
+    decode: _serialize__WEBPACK_IMPORTED_MODULE_0__["decodeBoolean"],
+};
+/**
+ * For flat objects where the values are numbers
+ */
+var NumericObjectParam = {
+    encode: _serialize__WEBPACK_IMPORTED_MODULE_0__["encodeNumericObject"],
+    decode: _serialize__WEBPACK_IMPORTED_MODULE_0__["decodeNumericObject"],
+};
+/**
+ * For flat arrays of strings, filters out undefined values during decode
+ */
+var DelimitedArrayParam = {
+    encode: _serialize__WEBPACK_IMPORTED_MODULE_0__["encodeDelimitedArray"],
+    decode: _serialize__WEBPACK_IMPORTED_MODULE_0__["decodeDelimitedArray"],
+};
+/**
+ * For flat arrays where the values are numbers, filters out undefined values during decode
+ */
+var DelimitedNumericArrayParam = {
+    encode: _serialize__WEBPACK_IMPORTED_MODULE_0__["encodeDelimitedNumericArray"],
+    decode: _serialize__WEBPACK_IMPORTED_MODULE_0__["decodeDelimitedNumericArray"],
+};
+
+
+/***/ }),
+
+/***/ "./node_modules/serialize-query-params/esm/serialize.js":
+/*!**************************************************************!*\
+  !*** ./node_modules/serialize-query-params/esm/serialize.js ***!
+  \**************************************************************/
+/*! exports provided: encodeDate, decodeDate, encodeDateTime, decodeDateTime, encodeBoolean, decodeBoolean, encodeNumber, decodeNumber, encodeString, decodeString, encodeJson, decodeJson, encodeArray, decodeArray, encodeNumericArray, decodeNumericArray, encodeDelimitedArray, decodeDelimitedArray, encodeDelimitedNumericArray, decodeDelimitedNumericArray, encodeObject, decodeObject, encodeNumericObject, decodeNumericObject */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "encodeDate", function() { return encodeDate; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "decodeDate", function() { return decodeDate; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "encodeDateTime", function() { return encodeDateTime; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "decodeDateTime", function() { return decodeDateTime; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "encodeBoolean", function() { return encodeBoolean; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "decodeBoolean", function() { return decodeBoolean; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "encodeNumber", function() { return encodeNumber; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "decodeNumber", function() { return decodeNumber; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "encodeString", function() { return encodeString; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "decodeString", function() { return decodeString; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "encodeJson", function() { return encodeJson; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "decodeJson", function() { return decodeJson; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "encodeArray", function() { return encodeArray; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "decodeArray", function() { return decodeArray; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "encodeNumericArray", function() { return encodeNumericArray; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "decodeNumericArray", function() { return decodeNumericArray; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "encodeDelimitedArray", function() { return encodeDelimitedArray; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "decodeDelimitedArray", function() { return decodeDelimitedArray; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "encodeDelimitedNumericArray", function() { return encodeDelimitedNumericArray; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "decodeDelimitedNumericArray", function() { return decodeDelimitedNumericArray; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "encodeObject", function() { return encodeObject; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "decodeObject", function() { return decodeObject; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "encodeNumericObject", function() { return encodeNumericObject; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "decodeNumericObject", function() { return decodeNumericObject; });
+/**
+ * Encodes a date as a string in YYYY-MM-DD format.
+ *
+ * @param {Date} date
+ * @return {String} the encoded date
+ */
+function encodeDate(date) {
+    if (date == null) {
+        return undefined;
+    }
+    var year = date.getFullYear();
+    var month = date.getMonth() + 1;
+    var day = date.getDate();
+    return year + "-" + (month < 10 ? "0" + month : month) + "-" + (day < 10 ? "0" + day : day);
+}
+/**
+ * Converts a date in the format 'YYYY-mm-dd...' into a proper date, because
+ * new Date() does not do that correctly. The date can be as complete or incomplete
+ * as necessary (aka, '2015', '2015-10', '2015-10-01').
+ * It will not work for dates that have times included in them.
+ *
+ * If an array is provided, only the first entry is used.
+ *
+ * @param  {String} input String date form like '2015-10-01'
+ * @return {Date} parsed date
+ */
+function decodeDate(input) {
+    if (input == null || !input.length) {
+        return undefined;
+    }
+    var dateString = input instanceof Array ? input[0] : input;
+    if (dateString == null || !dateString.length) {
+        return undefined;
+    }
+    var parts = dateString.split('-');
+    // may only be a year so won't even have a month
+    if (parts[1] != null) {
+        parts[1] -= 1; // Note: months are 0-based
+    }
+    else {
+        // just a year, set the month and day to the first
+        parts[1] = 0;
+        parts[2] = 1;
+    }
+    var decoded = new (Date.bind.apply(Date, [void 0].concat(parts)))();
+    if (isNaN(decoded.getTime())) {
+        return undefined;
+    }
+    return decoded;
+}
+/**
+ * Encodes a date as a string in ISO 8601 ("2019-05-28T10:58:40Z") format.
+ *
+ * @param {Date} date
+ * @return {String} the encoded date
+ */
+function encodeDateTime(date) {
+    if (date == null) {
+        return undefined;
+    }
+    return date.toISOString();
+}
+/**
+ * Converts a date in the https://en.wikipedia.org/wiki/ISO_8601 format.
+ * For allowed inputs see specs:
+ *  - https://tools.ietf.org/html/rfc2822#page-14
+ *  - http://www.ecma-international.org/ecma-262/5.1/#sec-15.9.1.15
+ *
+ * If an array is provided, only the first entry is used.
+ *
+ * @param  {String} input String date form like '1995-12-17T03:24:00'
+ * @return {Date} parsed date
+ */
+function decodeDateTime(input) {
+    if (input == null || !input.length) {
+        return undefined;
+    }
+    var dateString = input instanceof Array ? input[0] : input;
+    if (dateString == null || !dateString.length) {
+        return undefined;
+    }
+    var decoded = new Date(dateString);
+    if (isNaN(decoded.getTime())) {
+        return undefined;
+    }
+    return decoded;
+}
+/**
+ * Encodes a boolean as a string. true -> "1", false -> "0".
+ *
+ * @param {Boolean} bool
+ * @return {String} the encoded boolean
+ */
+function encodeBoolean(bool) {
+    if (bool === undefined) {
+        return undefined;
+    }
+    return bool ? '1' : '0';
+}
+/**
+ * Decodes a boolean from a string. "1" -> true, "0" -> false.
+ * Everything else maps to undefined.
+ *
+ * If an array is provided, only the first entry is used.
+ *
+ * @param {String} input the encoded boolean string
+ * @return {Boolean} the boolean value
+ */
+function decodeBoolean(input) {
+    if (input == null) {
+        return undefined;
+    }
+    var boolStr = input instanceof Array ? input[0] : input;
+    if (boolStr === '1') {
+        return true;
+    }
+    else if (boolStr === '0') {
+        return false;
+    }
+    return undefined;
+}
+/**
+ * Encodes a number as a string.
+ *
+ * @param {Number} num
+ * @return {String} the encoded number
+ */
+function encodeNumber(num) {
+    if (num == null) {
+        return undefined;
+    }
+    return String(num);
+}
+/**
+ * Decodes a number from a string. If the number is invalid,
+ * it returns undefined.
+ *
+ * If an array is provided, only the first entry is used.
+ *
+ * @param {String} input the encoded number string
+ * @return {Number} the number value
+ */
+function decodeNumber(input) {
+    if (input == null) {
+        return undefined;
+    }
+    var numStr = input instanceof Array ? input[0] : input;
+    if (numStr == null || numStr === '') {
+        return undefined;
+    }
+    var result = +numStr;
+    if (isNaN(result)) {
+        return undefined;
+    }
+    return result;
+}
+/**
+ * Encodes a string while safely handling null and undefined values.
+ *
+ * @param {String} str a string to encode
+ * @return {String} the encoded string
+ */
+function encodeString(str) {
+    if (str == null) {
+        return undefined;
+    }
+    return String(str);
+}
+/**
+ * Decodes a string while safely handling null and undefined values.
+ *
+ * If an array is provided, only the first entry is used.
+ *
+ * @param {String} input the encoded string
+ * @return {String} the string value
+ */
+function decodeString(input) {
+    if (input == null) {
+        return undefined;
+    }
+    var str = input instanceof Array ? input[0] : input;
+    if (str == null) {
+        return undefined;
+    }
+    return String(str);
+}
+/**
+ * Encodes anything as a JSON string.
+ *
+ * @param {Any} any The thing to be encoded
+ * @return {String} The JSON string representation of any
+ */
+function encodeJson(any) {
+    if (any == null) {
+        return undefined;
+    }
+    return JSON.stringify(any);
+}
+/**
+ * Decodes a JSON string into javascript
+ *
+ * If an array is provided, only the first entry is used.
+ *
+ * @param {String} input The JSON string representation
+ * @return {Any} The javascript representation
+ */
+function decodeJson(input) {
+    if (input == null) {
+        return undefined;
+    }
+    var jsonStr = input instanceof Array ? input[0] : input;
+    if (!jsonStr) {
+        return undefined;
+    }
+    var result;
+    try {
+        result = JSON.parse(jsonStr);
+    }
+    catch (e) {
+        /* ignore errors, returning undefined */
+    }
+    return result;
+}
+/**
+ * Encodes an array as a JSON string.
+ *
+ * @param {Array} array The array to be encoded
+ * @return {String[]} The array of strings to be put in the URL
+ * as repeated query parameters
+ */
+function encodeArray(array) {
+    if (!array) {
+        return undefined;
+    }
+    return array;
+}
+/**
+ * Decodes an array or singular value and returns it as an array
+ * or undefined if falsy. Filters out undefined values.
+ *
+ * @param {String | Array} input The input value
+ * @return {Array} The javascript representation
+ */
+function decodeArray(input) {
+    if (!input) {
+        return undefined;
+    }
+    if (!(input instanceof Array)) {
+        return [input];
+    }
+    return input
+        .map(function (item) { return (item === '' ? undefined : item); })
+        .filter(function (item) { return item !== undefined; });
+}
+/**
+ * Encodes a numeric array as a JSON string.
+ *
+ * @param {Array} array The array to be encoded
+ * @return {String[]} The array of strings to be put in the URL
+ * as repeated query parameters
+ */
+function encodeNumericArray(array) {
+    if (!array) {
+        return undefined;
+    }
+    return array.map(function (d) { return "" + d; });
+}
+/**
+ * Decodes an array or singular value and returns it as an array
+ * or undefined if falsy. Filters out undefined and NaN values.
+ *
+ * @param {String | Array} input The input value
+ * @return {Array} The javascript representation
+ */
+function decodeNumericArray(input) {
+    var arr = decodeArray(input);
+    if (!arr) {
+        return undefined;
+    }
+    return arr
+        .map(function (item) { return +item; })
+        .filter(function (item) { return item !== undefined && !isNaN(item); });
+}
+/**
+ * Encodes an array as a delimited string. For example,
+ * ['a', 'b'] -> 'a_b' with entrySeparator='_'
+ *
+ * @param array The array to be encoded
+ * @param entrySeparator The string used to delimit entries
+ * @return The array as a string with elements joined by the
+ * entry separator
+ */
+function encodeDelimitedArray(array, entrySeparator) {
+    if (entrySeparator === void 0) { entrySeparator = '_'; }
+    if (!array) {
+        return undefined;
+    }
+    return array.join(entrySeparator);
+}
+/**
+ * Decodes a delimited string into javascript array. For example,
+ * 'a_b' -> ['a', 'b'] with entrySeparator='_'
+ *
+ * If an array is provided as input, only the first entry is used.
+ *
+ * @param {String} input The JSON string representation
+ * @param entrySeparator The array as a string with elements joined by the
+ * entry separator
+ * @return {Array} The javascript representation
+ */
+function decodeDelimitedArray(input, entrySeparator) {
+    if (entrySeparator === void 0) { entrySeparator = '_'; }
+    if (input == null) {
+        return undefined;
+    }
+    var arrayStr = input instanceof Array ? input[0] : input;
+    if (!arrayStr) {
+        return undefined;
+    }
+    return arrayStr
+        .split(entrySeparator)
+        .map(function (item) { return (item === '' ? undefined : item); })
+        .filter(function (item) { return item !== undefined; });
+}
+/**
+ * Encodes a numeric array as a delimited string. (alias of encodeDelimitedArray)
+ * For example, [1, 2] -> '1_2' with entrySeparator='_'
+ *
+ * @param {Array} array The array to be encoded
+ * @return {String} The JSON string representation of array
+ */
+var encodeDelimitedNumericArray = encodeDelimitedArray;
+/**
+ * Decodes a delimited string into javascript array where all entries are numbers
+ * For example, '1_2' -> [1, 2] with entrySeparator='_'
+ *
+ * If an array is provided as input, only the first entry is used.
+ *
+ * @param {String} jsonStr The JSON string representation
+ * @return {Array} The javascript representation
+ */
+function decodeDelimitedNumericArray(arrayStr, entrySeparator) {
+    if (entrySeparator === void 0) { entrySeparator = '_'; }
+    var decoded = decodeDelimitedArray(arrayStr, entrySeparator);
+    if (!decoded) {
+        return undefined;
+    }
+    return decoded
+        .map(function (d) { return (d == null ? undefined : +d); })
+        .filter(function (d) { return d !== undefined && !isNaN(d); });
+}
+/**
+ * Encode simple objects as readable strings. Works only for simple,
+ * flat objects where values are numbers, strings.
+ *
+ * For example { foo: bar, boo: baz } -> "foo-bar_boo-baz"
+ *
+ * @param {Object} object The object to encode
+ * @param {String} keyValSeparator="-" The separator between keys and values
+ * @param {String} entrySeparator="_" The separator between entries
+ * @return {String} The encoded object
+ */
+function encodeObject(obj, keyValSeparator, entrySeparator) {
+    if (keyValSeparator === void 0) { keyValSeparator = '-'; }
+    if (entrySeparator === void 0) { entrySeparator = '_'; }
+    if (!obj || !Object.keys(obj).length) {
+        return undefined;
+    }
+    return Object.keys(obj)
+        .map(function (key) { return "" + key + keyValSeparator + obj[key]; })
+        .join(entrySeparator);
+}
+/**
+ * Decodes a simple object to javascript. Currently works only for simple,
+ * flat objects where values are strings.
+ *
+ * For example "foo-bar_boo-baz" -> { foo: bar, boo: baz }
+ *
+ * If an array is provided as input, only the first entry is used.
+ *
+ * @param {String} input The object string to decode
+ * @param {String} keyValSeparator="-" The separator between keys and values
+ * @param {String} entrySeparator="_" The separator between entries
+ * @return {Object} The javascript object
+ */
+function decodeObject(input, keyValSeparator, entrySeparator) {
+    if (keyValSeparator === void 0) { keyValSeparator = '-'; }
+    if (entrySeparator === void 0) { entrySeparator = '_'; }
+    if (input == null) {
+        return undefined;
+    }
+    var objStr = input instanceof Array ? input[0] : input;
+    if (!objStr || !objStr.length) {
+        return undefined;
+    }
+    var obj = {};
+    objStr.split(entrySeparator).forEach(function (entryStr) {
+        var _a = entryStr.split(keyValSeparator), key = _a[0], value = _a[1];
+        obj[key] = value === '' ? undefined : value;
+    });
+    return obj;
+}
+/**
+ * Encode simple objects as readable strings. Alias of encodeObject.
+ *
+ * For example { foo: 123, boo: 521 } -> "foo-123_boo-521"
+ *
+ * @param {Object} object The object to encode
+ * @param {String} keyValSeparator="-" The separator between keys and values
+ * @param {String} entrySeparator="_" The separator between entries
+ * @return {String} The encoded object
+ */
+var encodeNumericObject = encodeObject;
+/**
+ * Decodes a simple object to javascript where all values are numbers.
+ * Currently works only for simple, flat objects.
+ *
+ * For example "foo-123_boo-521" -> { foo: 123, boo: 521 }
+ *
+ * If an array is provided as input, only the first entry is used.
+ *
+ * @param {String} input The object string to decode
+ * @param {String} keyValSeparator="-" The separator between keys and values
+ * @param {String} entrySeparator="_" The separator between entries
+ * @return {Object} The javascript object
+ */
+function decodeNumericObject(input, keyValSeparator, entrySeparator) {
+    if (keyValSeparator === void 0) { keyValSeparator = '-'; }
+    if (entrySeparator === void 0) { entrySeparator = '_'; }
+    var decoded = decodeObject(input, keyValSeparator, entrySeparator);
+    if (!decoded) {
+        return undefined;
+    }
+    // convert to numbers
+    Object.keys(decoded).forEach(function (key) {
+        if (decoded[key] !== undefined) {
+            decoded[key] = decodeNumber(decoded[key]);
+        }
+    });
+    return decoded;
+}
+
+
+/***/ }),
+
+/***/ "./node_modules/serialize-query-params/esm/updateLocation.js":
+/*!*******************************************************************!*\
+  !*** ./node_modules/serialize-query-params/esm/updateLocation.js ***!
+  \*******************************************************************/
+/*! exports provided: updateLocation, updateInLocation */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "updateLocation", function() { return updateLocation; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "updateInLocation", function() { return updateInLocation; });
+/* harmony import */ var query_string__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! query-string */ "./node_modules/serialize-query-params/node_modules/query-string/index.js");
+/* harmony import */ var query_string__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(query_string__WEBPACK_IMPORTED_MODULE_0__);
+var __assign = (undefined && undefined.__assign) || function () {
+    __assign = Object.assign || function(t) {
+        for (var s, i = 1, n = arguments.length; i < n; i++) {
+            s = arguments[i];
+            for (var p in s) if (Object.prototype.hasOwnProperty.call(s, p))
+                t[p] = s[p];
+        }
+        return t;
+    };
+    return __assign.apply(this, arguments);
+};
+
+/**
+ * remove query params that are nully or an empty strings.
+ * note: these values are assumed to be already encoded as strings.
+ */
+function filterNully(query) {
+    var filteredQuery = Object.keys(query).reduce(function (queryAccumulator, queryParam) {
+        // get encoded value for this param
+        var encodedValue = query[queryParam];
+        // if it isn't null or empty string, add it to the accumulated obj
+        if (encodedValue != null && encodedValue !== '') {
+            queryAccumulator[queryParam] = encodedValue;
+        }
+        return queryAccumulator;
+    }, {});
+    return filteredQuery;
+}
+/**
+ * Update a location, wiping out parameters not included in encodedQuery
+ */
+function updateLocation(encodedQuery, location) {
+    var encodedSearchString = Object(query_string__WEBPACK_IMPORTED_MODULE_0__["stringify"])(filterNully(encodedQuery));
+    var newLocation = __assign({}, location, { key: "" + Date.now(), search: encodedSearchString.length ? "?" + encodedSearchString : '' });
+    return newLocation;
+}
+/**
+ * Update a location while retaining existing parameters
+ */
+function updateInLocation(encodedQueryReplacements, location) {
+    // if a query is there, use it, otherwise parse the search string
+    var currQuery = location.query || Object(query_string__WEBPACK_IMPORTED_MODULE_0__["parse"])(location.search);
+    var newQuery = __assign({}, currQuery, encodedQueryReplacements);
+    return updateLocation(filterNully(newQuery), location);
+}
+
+
+/***/ }),
+
+/***/ "./node_modules/serialize-query-params/node_modules/query-string/index.js":
+/*!********************************************************************************!*\
+  !*** ./node_modules/serialize-query-params/node_modules/query-string/index.js ***!
+  \********************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+var strictUriEncode = __webpack_require__(/*! strict-uri-encode */ "./node_modules/strict-uri-encode/index.js");
+var objectAssign = __webpack_require__(/*! object-assign */ "./node_modules/object-assign/index.js");
+var decodeComponent = __webpack_require__(/*! decode-uri-component */ "./node_modules/decode-uri-component/index.js");
+
+function encoderForArrayFormat(opts) {
+	switch (opts.arrayFormat) {
+		case 'index':
+			return function (key, value, index) {
+				return value === null ? [
+					encode(key, opts),
+					'[',
+					index,
+					']'
+				].join('') : [
+					encode(key, opts),
+					'[',
+					encode(index, opts),
+					']=',
+					encode(value, opts)
+				].join('');
+			};
+
+		case 'bracket':
+			return function (key, value) {
+				return value === null ? encode(key, opts) : [
+					encode(key, opts),
+					'[]=',
+					encode(value, opts)
+				].join('');
+			};
+
+		default:
+			return function (key, value) {
+				return value === null ? encode(key, opts) : [
+					encode(key, opts),
+					'=',
+					encode(value, opts)
+				].join('');
+			};
+	}
+}
+
+function parserForArrayFormat(opts) {
+	var result;
+
+	switch (opts.arrayFormat) {
+		case 'index':
+			return function (key, value, accumulator) {
+				result = /\[(\d*)\]$/.exec(key);
+
+				key = key.replace(/\[\d*\]$/, '');
+
+				if (!result) {
+					accumulator[key] = value;
+					return;
+				}
+
+				if (accumulator[key] === undefined) {
+					accumulator[key] = {};
+				}
+
+				accumulator[key][result[1]] = value;
+			};
+
+		case 'bracket':
+			return function (key, value, accumulator) {
+				result = /(\[\])$/.exec(key);
+				key = key.replace(/\[\]$/, '');
+
+				if (!result) {
+					accumulator[key] = value;
+					return;
+				} else if (accumulator[key] === undefined) {
+					accumulator[key] = [value];
+					return;
+				}
+
+				accumulator[key] = [].concat(accumulator[key], value);
+			};
+
+		default:
+			return function (key, value, accumulator) {
+				if (accumulator[key] === undefined) {
+					accumulator[key] = value;
+					return;
+				}
+
+				accumulator[key] = [].concat(accumulator[key], value);
+			};
+	}
+}
+
+function encode(value, opts) {
+	if (opts.encode) {
+		return opts.strict ? strictUriEncode(value) : encodeURIComponent(value);
+	}
+
+	return value;
+}
+
+function keysSorter(input) {
+	if (Array.isArray(input)) {
+		return input.sort();
+	} else if (typeof input === 'object') {
+		return keysSorter(Object.keys(input)).sort(function (a, b) {
+			return Number(a) - Number(b);
+		}).map(function (key) {
+			return input[key];
+		});
+	}
+
+	return input;
+}
+
+function extract(str) {
+	var queryStart = str.indexOf('?');
+	if (queryStart === -1) {
+		return '';
+	}
+	return str.slice(queryStart + 1);
+}
+
+function parse(str, opts) {
+	opts = objectAssign({arrayFormat: 'none'}, opts);
+
+	var formatter = parserForArrayFormat(opts);
+
+	// Create an object with no prototype
+	// https://github.com/sindresorhus/query-string/issues/47
+	var ret = Object.create(null);
+
+	if (typeof str !== 'string') {
+		return ret;
+	}
+
+	str = str.trim().replace(/^[?#&]/, '');
+
+	if (!str) {
+		return ret;
+	}
+
+	str.split('&').forEach(function (param) {
+		var parts = param.replace(/\+/g, ' ').split('=');
+		// Firefox (pre 40) decodes `%3D` to `=`
+		// https://github.com/sindresorhus/query-string/pull/37
+		var key = parts.shift();
+		var val = parts.length > 0 ? parts.join('=') : undefined;
+
+		// missing `=` should be `null`:
+		// http://w3.org/TR/2012/WD-url-20120524/#collect-url-parameters
+		val = val === undefined ? null : decodeComponent(val);
+
+		formatter(decodeComponent(key), val, ret);
+	});
+
+	return Object.keys(ret).sort().reduce(function (result, key) {
+		var val = ret[key];
+		if (Boolean(val) && typeof val === 'object' && !Array.isArray(val)) {
+			// Sort object keys, not values
+			result[key] = keysSorter(val);
+		} else {
+			result[key] = val;
+		}
+
+		return result;
+	}, Object.create(null));
+}
+
+exports.extract = extract;
+exports.parse = parse;
+
+exports.stringify = function (obj, opts) {
+	var defaults = {
+		encode: true,
+		strict: true,
+		arrayFormat: 'none'
+	};
+
+	opts = objectAssign(defaults, opts);
+
+	if (opts.sort === false) {
+		opts.sort = function () {};
+	}
+
+	var formatter = encoderForArrayFormat(opts);
+
+	return obj ? Object.keys(obj).sort(opts.sort).map(function (key) {
+		var val = obj[key];
+
+		if (val === undefined) {
+			return '';
+		}
+
+		if (val === null) {
+			return encode(key, opts);
+		}
+
+		if (Array.isArray(val)) {
+			var result = [];
+
+			val.slice().forEach(function (val2) {
+				if (val2 === undefined) {
+					return;
+				}
+
+				result.push(formatter(key, val2, result.length));
+			});
+
+			return result.join('&');
+		}
+
+		return encode(key, opts) + '=' + encode(val, opts);
+	}).filter(function (x) {
+		return x.length > 0;
+	}).join('&') : '';
+};
+
+exports.parseUrl = function (str, opts) {
+	return {
+		url: str.split('?')[0] || '',
+		query: parse(extract(str), opts)
+	};
+};
+
+
+/***/ }),
+
+/***/ "./node_modules/strict-uri-encode/index.js":
+/*!*************************************************!*\
+  !*** ./node_modules/strict-uri-encode/index.js ***!
+  \*************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+module.exports = function (str) {
+	return encodeURIComponent(str).replace(/[!'()*]/g, function (c) {
+		return '%' + c.charCodeAt(0).toString(16).toUpperCase();
+	});
+};
+
+
+/***/ }),
+
 /***/ "./node_modules/style-loader/lib/addStyles.js":
 /*!****************************************************!*\
   !*** ./node_modules/style-loader/lib/addStyles.js ***!
@@ -39133,6 +40434,398 @@ function warning(condition, message) {
 }
 
 /* harmony default export */ __webpack_exports__["default"] = (warning);
+
+
+/***/ }),
+
+/***/ "./node_modules/use-query-params/esm/QueryParamProvider.js":
+/*!*****************************************************************!*\
+  !*** ./node_modules/use-query-params/esm/QueryParamProvider.js ***!
+  \*****************************************************************/
+/*! exports provided: QueryParamContext, QueryParamProvider, default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "QueryParamContext", function() { return QueryParamContext; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "QueryParamProvider", function() { return QueryParamProvider; });
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
+var __assign = (undefined && undefined.__assign) || function () {
+    __assign = Object.assign || function(t) {
+        for (var s, i = 1, n = arguments.length; i < n; i++) {
+            s = arguments[i];
+            for (var p in s) if (Object.prototype.hasOwnProperty.call(s, p))
+                t[p] = s[p];
+        }
+        return t;
+    };
+    return __assign.apply(this, arguments);
+};
+
+/**
+ * Adapts standard DOM window history to work with our
+ * { replace, push } interface.
+ *
+ * @param history Standard history provided by DOM
+ */
+function adaptWindowHistory(history) {
+    return {
+        replace: function (location) {
+            history.replaceState(location.state, '', location.protocol + "//" + location.host + location.pathname + location.search);
+        },
+        push: function (location) {
+            history.pushState(location.state, '', location.protocol + "//" + location.host + location.pathname + location.search);
+        },
+    };
+}
+/**
+ * Adapts @reach/router history to work with our
+ * { replace, push } interface.
+ *
+ * @param history globalHistory from @reach/router
+ */
+function adaptReachHistory(history) {
+    return {
+        replace: function (location) {
+            history.navigate(location.protocol + "//" + location.host + location.pathname + location.search, { replace: true });
+        },
+        push: function (location) {
+            history.navigate(location.protocol + "//" + location.host + location.pathname + location.search, { replace: false });
+        },
+    };
+}
+/**
+ * Helper to produce the context value falling back to
+ * window history and location if not provided.
+ */
+function getContextValue(contextValue) {
+    if (contextValue === void 0) { contextValue = {}; }
+    var value = __assign({}, contextValue);
+    var hasWindow = typeof window !== 'undefined';
+    if (hasWindow) {
+        if (!value.history) {
+            value.history = adaptWindowHistory(window.history);
+        }
+        if (!value.location) {
+            value.location = window.location;
+        }
+    }
+    return value;
+}
+var QueryParamContext = react__WEBPACK_IMPORTED_MODULE_0__["createContext"](getContextValue());
+/**
+ * Context provider for query params to have access to the
+ * active routing system, enabling updates to the URL.
+ */
+function QueryParamProvider(_a) {
+    var children = _a.children, ReactRouterRoute = _a.ReactRouterRoute, reachHistory = _a.reachHistory, history = _a.history, location = _a.location;
+    // if we have React Router, use it to get the context value
+    if (ReactRouterRoute) {
+        return (react__WEBPACK_IMPORTED_MODULE_0__["createElement"](ReactRouterRoute, null, function (routeProps) {
+            return (react__WEBPACK_IMPORTED_MODULE_0__["createElement"](QueryParamContext.Provider, { value: getContextValue(routeProps) }, children));
+        }));
+    }
+    // if we are using reach router, use its history
+    if (reachHistory) {
+        return (react__WEBPACK_IMPORTED_MODULE_0__["createElement"](QueryParamContext.Provider, { value: getContextValue({
+                history: adaptReachHistory(reachHistory),
+                location: location,
+            }) }, children));
+    }
+    // neither reach nor react-router, so allow manual overrides
+    return (react__WEBPACK_IMPORTED_MODULE_0__["createElement"](QueryParamContext.Provider, { value: getContextValue({ history: history, location: location }) }, children));
+}
+/* harmony default export */ __webpack_exports__["default"] = (QueryParamProvider);
+
+
+/***/ }),
+
+/***/ "./node_modules/use-query-params/esm/index.js":
+/*!****************************************************!*\
+  !*** ./node_modules/use-query-params/esm/index.js ***!
+  \****************************************************/
+/*! exports provided: encodeDate, decodeDate, encodeBoolean, decodeBoolean, encodeNumber, decodeNumber, encodeString, decodeString, encodeJson, decodeJson, encodeArray, decodeArray, encodeNumericArray, decodeNumericArray, encodeDelimitedArray, decodeDelimitedArray, encodeDelimitedNumericArray, decodeDelimitedNumericArray, encodeObject, decodeObject, encodeNumericObject, decodeNumericObject, StringParam, NumberParam, ObjectParam, ArrayParam, NumericArrayParam, JsonParam, DateParam, DateTimeParam, BooleanParam, NumericObjectParam, DelimitedArrayParam, DelimitedNumericArrayParam, updateLocation, updateInLocation, encodeQueryParams, decodeQueryParams, stringify, parse, parseUrl, extract, useQueryParam, useQueryParams, updateUrlQuery, QueryParamProvider, QueryParamContext */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var serialize_query_params__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! serialize-query-params */ "./node_modules/serialize-query-params/esm/index.js");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "encodeDate", function() { return serialize_query_params__WEBPACK_IMPORTED_MODULE_0__["encodeDate"]; });
+
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "decodeDate", function() { return serialize_query_params__WEBPACK_IMPORTED_MODULE_0__["decodeDate"]; });
+
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "encodeBoolean", function() { return serialize_query_params__WEBPACK_IMPORTED_MODULE_0__["encodeBoolean"]; });
+
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "decodeBoolean", function() { return serialize_query_params__WEBPACK_IMPORTED_MODULE_0__["decodeBoolean"]; });
+
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "encodeNumber", function() { return serialize_query_params__WEBPACK_IMPORTED_MODULE_0__["encodeNumber"]; });
+
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "decodeNumber", function() { return serialize_query_params__WEBPACK_IMPORTED_MODULE_0__["decodeNumber"]; });
+
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "encodeString", function() { return serialize_query_params__WEBPACK_IMPORTED_MODULE_0__["encodeString"]; });
+
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "decodeString", function() { return serialize_query_params__WEBPACK_IMPORTED_MODULE_0__["decodeString"]; });
+
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "encodeJson", function() { return serialize_query_params__WEBPACK_IMPORTED_MODULE_0__["encodeJson"]; });
+
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "decodeJson", function() { return serialize_query_params__WEBPACK_IMPORTED_MODULE_0__["decodeJson"]; });
+
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "encodeArray", function() { return serialize_query_params__WEBPACK_IMPORTED_MODULE_0__["encodeArray"]; });
+
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "decodeArray", function() { return serialize_query_params__WEBPACK_IMPORTED_MODULE_0__["decodeArray"]; });
+
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "encodeNumericArray", function() { return serialize_query_params__WEBPACK_IMPORTED_MODULE_0__["encodeNumericArray"]; });
+
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "decodeNumericArray", function() { return serialize_query_params__WEBPACK_IMPORTED_MODULE_0__["decodeNumericArray"]; });
+
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "encodeDelimitedArray", function() { return serialize_query_params__WEBPACK_IMPORTED_MODULE_0__["encodeDelimitedArray"]; });
+
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "decodeDelimitedArray", function() { return serialize_query_params__WEBPACK_IMPORTED_MODULE_0__["decodeDelimitedArray"]; });
+
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "encodeDelimitedNumericArray", function() { return serialize_query_params__WEBPACK_IMPORTED_MODULE_0__["encodeDelimitedNumericArray"]; });
+
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "decodeDelimitedNumericArray", function() { return serialize_query_params__WEBPACK_IMPORTED_MODULE_0__["decodeDelimitedNumericArray"]; });
+
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "encodeObject", function() { return serialize_query_params__WEBPACK_IMPORTED_MODULE_0__["encodeObject"]; });
+
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "decodeObject", function() { return serialize_query_params__WEBPACK_IMPORTED_MODULE_0__["decodeObject"]; });
+
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "encodeNumericObject", function() { return serialize_query_params__WEBPACK_IMPORTED_MODULE_0__["encodeNumericObject"]; });
+
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "decodeNumericObject", function() { return serialize_query_params__WEBPACK_IMPORTED_MODULE_0__["decodeNumericObject"]; });
+
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "StringParam", function() { return serialize_query_params__WEBPACK_IMPORTED_MODULE_0__["StringParam"]; });
+
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "NumberParam", function() { return serialize_query_params__WEBPACK_IMPORTED_MODULE_0__["NumberParam"]; });
+
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "ObjectParam", function() { return serialize_query_params__WEBPACK_IMPORTED_MODULE_0__["ObjectParam"]; });
+
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "ArrayParam", function() { return serialize_query_params__WEBPACK_IMPORTED_MODULE_0__["ArrayParam"]; });
+
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "NumericArrayParam", function() { return serialize_query_params__WEBPACK_IMPORTED_MODULE_0__["NumericArrayParam"]; });
+
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "JsonParam", function() { return serialize_query_params__WEBPACK_IMPORTED_MODULE_0__["JsonParam"]; });
+
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "DateParam", function() { return serialize_query_params__WEBPACK_IMPORTED_MODULE_0__["DateParam"]; });
+
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "DateTimeParam", function() { return serialize_query_params__WEBPACK_IMPORTED_MODULE_0__["DateTimeParam"]; });
+
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "BooleanParam", function() { return serialize_query_params__WEBPACK_IMPORTED_MODULE_0__["BooleanParam"]; });
+
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "NumericObjectParam", function() { return serialize_query_params__WEBPACK_IMPORTED_MODULE_0__["NumericObjectParam"]; });
+
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "DelimitedArrayParam", function() { return serialize_query_params__WEBPACK_IMPORTED_MODULE_0__["DelimitedArrayParam"]; });
+
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "DelimitedNumericArrayParam", function() { return serialize_query_params__WEBPACK_IMPORTED_MODULE_0__["DelimitedNumericArrayParam"]; });
+
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "updateLocation", function() { return serialize_query_params__WEBPACK_IMPORTED_MODULE_0__["updateLocation"]; });
+
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "updateInLocation", function() { return serialize_query_params__WEBPACK_IMPORTED_MODULE_0__["updateInLocation"]; });
+
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "encodeQueryParams", function() { return serialize_query_params__WEBPACK_IMPORTED_MODULE_0__["encodeQueryParams"]; });
+
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "decodeQueryParams", function() { return serialize_query_params__WEBPACK_IMPORTED_MODULE_0__["decodeQueryParams"]; });
+
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "stringify", function() { return serialize_query_params__WEBPACK_IMPORTED_MODULE_0__["stringify"]; });
+
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "parse", function() { return serialize_query_params__WEBPACK_IMPORTED_MODULE_0__["parse"]; });
+
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "parseUrl", function() { return serialize_query_params__WEBPACK_IMPORTED_MODULE_0__["parseUrl"]; });
+
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "extract", function() { return serialize_query_params__WEBPACK_IMPORTED_MODULE_0__["extract"]; });
+
+/* harmony import */ var _useQueryParam__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./useQueryParam */ "./node_modules/use-query-params/esm/useQueryParam.js");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "useQueryParam", function() { return _useQueryParam__WEBPACK_IMPORTED_MODULE_1__["useQueryParam"]; });
+
+/* harmony import */ var _useQueryParams__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./useQueryParams */ "./node_modules/use-query-params/esm/useQueryParams.js");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "useQueryParams", function() { return _useQueryParams__WEBPACK_IMPORTED_MODULE_2__["useQueryParams"]; });
+
+/* harmony import */ var _updateUrlQuery__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./updateUrlQuery */ "./node_modules/use-query-params/esm/updateUrlQuery.js");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "updateUrlQuery", function() { return _updateUrlQuery__WEBPACK_IMPORTED_MODULE_3__["updateUrlQuery"]; });
+
+/* harmony import */ var _QueryParamProvider__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./QueryParamProvider */ "./node_modules/use-query-params/esm/QueryParamProvider.js");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "QueryParamProvider", function() { return _QueryParamProvider__WEBPACK_IMPORTED_MODULE_4__["QueryParamProvider"]; });
+
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "QueryParamContext", function() { return _QueryParamProvider__WEBPACK_IMPORTED_MODULE_4__["QueryParamContext"]; });
+
+
+
+
+
+
+
+
+/***/ }),
+
+/***/ "./node_modules/use-query-params/esm/updateUrlQuery.js":
+/*!*************************************************************!*\
+  !*** ./node_modules/use-query-params/esm/updateUrlQuery.js ***!
+  \*************************************************************/
+/*! exports provided: updateUrlQuery, default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "updateUrlQuery", function() { return updateUrlQuery; });
+/* harmony import */ var serialize_query_params__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! serialize-query-params */ "./node_modules/serialize-query-params/esm/index.js");
+
+/**
+ * Updates the URL to match the specified query changes.
+ * If replaceIn or pushIn are used as the updateType, then parameters
+ * not specified in queryReplacements are retained. If replace or push
+ * are used, only the values in queryReplacements will be available.
+ */
+function updateUrlQuery(queryReplacements, location, history, updateType) {
+    if (updateType === void 0) { updateType = 'replaceIn'; }
+    switch (updateType) {
+        case 'replaceIn':
+            history.replace(Object(serialize_query_params__WEBPACK_IMPORTED_MODULE_0__["updateInLocation"])(queryReplacements, location));
+            break;
+        case 'pushIn':
+            history.push(Object(serialize_query_params__WEBPACK_IMPORTED_MODULE_0__["updateInLocation"])(queryReplacements, location));
+            break;
+        case 'replace':
+            history.replace(Object(serialize_query_params__WEBPACK_IMPORTED_MODULE_0__["updateLocation"])(queryReplacements, location));
+            break;
+        case 'push':
+            history.push(Object(serialize_query_params__WEBPACK_IMPORTED_MODULE_0__["updateLocation"])(queryReplacements, location));
+            break;
+        default:
+    }
+}
+/* harmony default export */ __webpack_exports__["default"] = (updateUrlQuery);
+
+
+/***/ }),
+
+/***/ "./node_modules/use-query-params/esm/useQueryParam.js":
+/*!************************************************************!*\
+  !*** ./node_modules/use-query-params/esm/useQueryParam.js ***!
+  \************************************************************/
+/*! exports provided: useQueryParam */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "useQueryParam", function() { return useQueryParam; });
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var serialize_query_params__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! serialize-query-params */ "./node_modules/serialize-query-params/esm/index.js");
+/* harmony import */ var _QueryParamProvider__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./QueryParamProvider */ "./node_modules/use-query-params/esm/QueryParamProvider.js");
+/* harmony import */ var _updateUrlQuery__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./updateUrlQuery */ "./node_modules/use-query-params/esm/updateUrlQuery.js");
+
+
+
+
+/**
+ * Given a query param name and query parameter configuration ({ encode, decode })
+ * return the decoded value and a setter for updating it.
+ *
+ * The setter takes two arguments (newValue, updateType) where updateType
+ * is one of 'replace' | 'replaceIn' | 'push' | 'pushIn', defaulting to
+ * 'replaceIn'.
+ *
+ * You may optionally pass in a rawQuery object, otherwise the query is derived
+ * from the location available in the QueryParamContext.
+ *
+ * D = decoded type
+ * D2 = return value from decode (typically same as D)
+ */
+var useQueryParam = function (name, paramConfig, rawQuery) {
+    if (paramConfig === void 0) { paramConfig = serialize_query_params__WEBPACK_IMPORTED_MODULE_1__["StringParam"]; }
+    var _a = react__WEBPACK_IMPORTED_MODULE_0__["useContext"](_QueryParamProvider__WEBPACK_IMPORTED_MODULE_2__["QueryParamContext"]), history = _a.history, location = _a.location;
+    // read in the raw query
+    if (!rawQuery) {
+        rawQuery = react__WEBPACK_IMPORTED_MODULE_0__["useMemo"](function () { return Object(serialize_query_params__WEBPACK_IMPORTED_MODULE_1__["parse"])(location.search) || {}; }, [
+            location.search,
+        ]);
+    }
+    // read in the encoded string value
+    var encodedValue = rawQuery[name];
+    // decode if the encoded value has changed, otherwise
+    // re-use memoized value
+    var decodedValue = react__WEBPACK_IMPORTED_MODULE_0__["useMemo"](function () {
+        if (encodedValue == null) {
+            return undefined;
+        }
+        return paramConfig.decode(encodedValue);
+        // note that we use the stringified encoded value since the encoded
+        // value may be an array that is recreated if a different query param
+        // changes.
+    }, [
+        encodedValue instanceof Array
+            ? Object(serialize_query_params__WEBPACK_IMPORTED_MODULE_1__["stringify"])({ name: encodedValue })
+            : encodedValue,
+    ]);
+    // create the setter, memoizing via useCallback
+    var setValue = react__WEBPACK_IMPORTED_MODULE_0__["useCallback"](function (newValue, updateType) {
+        var _a;
+        var newEncodedValue = paramConfig.encode(newValue);
+        Object(_updateUrlQuery__WEBPACK_IMPORTED_MODULE_3__["updateUrlQuery"])((_a = {}, _a[name] = newEncodedValue, _a), location, history, updateType);
+    }, [location]);
+    return [decodedValue, setValue];
+};
+
+
+/***/ }),
+
+/***/ "./node_modules/use-query-params/esm/useQueryParams.js":
+/*!*************************************************************!*\
+  !*** ./node_modules/use-query-params/esm/useQueryParams.js ***!
+  \*************************************************************/
+/*! exports provided: useQueryParams, default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "useQueryParams", function() { return useQueryParams; });
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var serialize_query_params__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! serialize-query-params */ "./node_modules/serialize-query-params/esm/index.js");
+/* harmony import */ var _useQueryParam__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./useQueryParam */ "./node_modules/use-query-params/esm/useQueryParam.js");
+/* harmony import */ var _updateUrlQuery__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./updateUrlQuery */ "./node_modules/use-query-params/esm/updateUrlQuery.js");
+/* harmony import */ var _QueryParamProvider__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./QueryParamProvider */ "./node_modules/use-query-params/esm/QueryParamProvider.js");
+
+
+
+
+
+/**
+ * Given a query parameter configuration (mapping query param name to { encode, decode }),
+ * return an object with the decoded values and a setter for updating them.
+ */
+var useQueryParams = function (paramConfigMap) {
+    var _a = react__WEBPACK_IMPORTED_MODULE_0__["useContext"](_QueryParamProvider__WEBPACK_IMPORTED_MODULE_4__["QueryParamContext"]), history = _a.history, location = _a.location;
+    // read in the raw query
+    var rawQuery = react__WEBPACK_IMPORTED_MODULE_0__["useMemo"](function () { return Object(serialize_query_params__WEBPACK_IMPORTED_MODULE_1__["parse"])(location.search) || {}; }, [location.search]);
+    // parse each parameter via useQueryParam
+    // we reuse the logic to not recreate objects
+    var paramNames = Object.keys(paramConfigMap);
+    var paramValues = paramNames.map(function (paramName) {
+        return Object(_useQueryParam__WEBPACK_IMPORTED_MODULE_2__["useQueryParam"])(paramName, paramConfigMap[paramName], rawQuery)[0];
+    });
+    // we use a memo here to prevent recreating the containing decodedValues object
+    // which would break === comparisons even if no values changed.
+    var decodedValues = react__WEBPACK_IMPORTED_MODULE_0__["useMemo"](function () {
+        // iterate over the decoded values and build an object
+        var decodedValues = {};
+        for (var i = 0; i < paramNames.length; ++i) {
+            decodedValues[paramNames[i]] = paramValues[i];
+        }
+        return decodedValues;
+    }, paramValues);
+    // create a setter for updating multiple query params at once
+    var setQuery = react__WEBPACK_IMPORTED_MODULE_0__["useCallback"](function (changes, updateType) {
+        // encode as strings for the URL
+        var encodedChanges = Object(serialize_query_params__WEBPACK_IMPORTED_MODULE_1__["encodeQueryParams"])(paramConfigMap, changes);
+        // update the URL
+        Object(_updateUrlQuery__WEBPACK_IMPORTED_MODULE_3__["default"])(encodedChanges, location, history, updateType);
+    }, [location]);
+    // no longer Partial
+    return [decodedValues, setQuery];
+};
+/* harmony default export */ __webpack_exports__["default"] = (useQueryParams);
 
 
 /***/ }),

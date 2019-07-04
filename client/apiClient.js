@@ -33,4 +33,13 @@ export function getAllGalleries() {
     })
 }
 
-export function getGalleryImages() {}
+export function getGalleryImages(gallery) {
+  return request
+    .get(`/api/v1/gallery/${gallery}`)
+    .then(res => {
+      return res.body
+    })
+    .catch(err => {
+      console.error(err)
+    })
+}

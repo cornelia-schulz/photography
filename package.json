@@ -45,6 +45,7 @@
     "service-worker": "0.0.0",
     "sqlite3": "^4.0.8",
     "superagent": "^3.8.3",
+    "use-query-params": "^0.3.3",
     "webpack": "^4.31.0"
   },
   "devDependencies": {

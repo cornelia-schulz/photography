@@ -31,9 +31,11 @@ function Galleries() {
                 {galleries.map(gallery => {
                     return <div className="gallery-image-container">
                         <div className="gallery" style={{backgroundImage: `url(${gallery.cover_image})`}}></div>
-                        <div className="gallery-overlay">
-                            <p className="gallery-overlay-text">{gallery.name}</p>
-                        </div>
+                        <a href={'/galleries/' + gallery.name}>
+                            <div className="gallery-overlay">
+                                <p className="gallery-overlay-text">{gallery.name}</p>
+                            </div>
+                        </a>
                     </div>
                 })}
             </div> 
