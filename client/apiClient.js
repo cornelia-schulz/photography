@@ -35,7 +35,7 @@ export function getAllGalleries() {
 
 export function getGalleryImages(gallery) {
   return request
-    .get(`/api/v1/gallery/${gallery}`)
+    .get(`/api/v1/galleries/${gallery}`)
     .then(res => {
       return res.body
     })
