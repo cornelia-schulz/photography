@@ -13,6 +13,7 @@ const methods = {
 
 function Gallery() {
     const [gallery, setGallery] = useState([])
+    const [foo, setFoo] = useQueryParam('foo', StringParam)
 
     useEffect(() => {
         _isMounted = true

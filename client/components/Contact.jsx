@@ -14,16 +14,14 @@ function Contact() {
                 <h1>Say hello!</h1>
                 <p>If you have any questions or just want to say hello, drop me a line below!</p>
                 <form>
-                    <label for="contactName">Your name:</label>
+                    <label htmlFor="contactName">Your name:</label>
                     <input id="contactName" type="text" placeholder="Your name" />
-                    <label for="contactEmail">Your email:</label>
+                    <label htmlFor="contactEmail">Your email:</label>
                     <input id="contactEmail" type="email" placeholder="Your email" required/>
-                    <label for="contactMessage">Your message:</label>
+                    <label htmlFor="contactMessage">Your message:</label>
                     <textarea rows="8" placeholder="Your message"></textarea>
                 </form>
             </div>
-            
-            
         </div>
     )
 }

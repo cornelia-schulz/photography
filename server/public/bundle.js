@@ -135,7 +135,7 @@ function getAllGalleries() {
 }
 
 function getGalleryImages(gallery) {
-  return _superagent2.default.get('/api/v1/gallery/' + gallery).then(function (res) {
+  return _superagent2.default.get('/api/v1/galleries/' + gallery).then(function (res) {
     return res.body;
   }).catch(function (err) {
     console.error(err);
@@ -400,19 +400,19 @@ function Contact() {
                 null,
                 _react2.default.createElement(
                     'label',
-                    { 'for': 'contactName' },
+                    { htmlFor: 'contactName' },
                     'Your name:'
                 ),
                 _react2.default.createElement('input', { id: 'contactName', type: 'text', placeholder: 'Your name' }),
                 _react2.default.createElement(
                     'label',
-                    { 'for': 'contactEmail' },
+                    { htmlFor: 'contactEmail' },
                     'Your email:'
                 ),
                 _react2.default.createElement('input', { id: 'contactEmail', type: 'email', placeholder: 'Your email', required: true }),
                 _react2.default.createElement(
                     'label',
-                    { 'for': 'contactMessage' },
+                    { htmlFor: 'contactMessage' },
                     'Your message:'
                 ),
                 _react2.default.createElement('textarea', { rows: '8', placeholder: 'Your message' })
@@ -730,6 +730,11 @@ function Gallery() {
         _useState2 = _slicedToArray(_useState, 2),
         gallery = _useState2[0],
         setGallery = _useState2[1];
+
+    var _useQueryParam = (0, _useQueryParams.useQueryParam)('foo', _useQueryParams.StringParam),
+        _useQueryParam2 = _slicedToArray(_useQueryParam, 2),
+        foo = _useQueryParam2[0],
+        setFoo = _useQueryParam2[1];
 
     (0, _react.useEffect)(function () {
         _isMounted = true;
