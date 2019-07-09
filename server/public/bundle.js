@@ -269,27 +269,13 @@ function _inherits(subClass, superClass) { if (typeof superClass !== "function" 
 var App = function (_React$Component) {
   _inherits(App, _React$Component);
 
-  function App(props) {
+  function App() {
     _classCallCheck(this, App);
 
-    var _this = _possibleConstructorReturn(this, (App.__proto__ || Object.getPrototypeOf(App)).call(this, props));
-
-    _this.state = {
-      photos: []
-    };
-    return _this;
+    return _possibleConstructorReturn(this, (App.__proto__ || Object.getPrototypeOf(App)).apply(this, arguments));
   }
 
   _createClass(App, [{
-    key: 'componentDidMount',
-    value: function componentDidMount() {
-      var _this2 = this;
-
-      (0, _apiClient.getAllPhotos)().then(function (photos) {
-        _this2.setState({ photos: photos });
-      });
-    }
-  }, {
     key: 'render',
     value: function render() {
       return _react2.default.createElement(
@@ -300,8 +286,8 @@ var App = function (_React$Component) {
         _react2.default.createElement(_reactRouterDom.Route, { path: '/about', component: _Banner2.default }),
         _react2.default.createElement(_reactRouterDom.Route, { path: '/about', component: _About2.default }),
         _react2.default.createElement(_reactRouterDom.Route, { path: '/contact', component: _Contact2.default }),
-        _react2.default.createElement(_reactRouterDom.Route, { path: '/galleries', component: _Galleries2.default }),
         _react2.default.createElement(_reactRouterDom.Route, { path: '/galleries/:name', component: _Gallery2.default }),
+        _react2.default.createElement(_reactRouterDom.Route, { exact: true, path: '/galleries', component: _Galleries2.default }),
         _react2.default.createElement(_reactRouterDom.Route, { exact: true, path: '/', component: _Favourites2.default }),
         _react2.default.createElement(_reactRouterDom.Route, { path: '/', component: _Footer2.default })
       );
@@ -474,7 +460,7 @@ function Favourites() {
         setPhotos(photos);
       }
     });
-  }, [photos]);
+  }, []);
 
   return _react2.default.createElement(
     'div',
@@ -646,7 +632,7 @@ function Galleries() {
                 setGalleries(galleries);
             }
         });
-    }, [galleries]);
+    }, []);
 
     return _react2.default.createElement(
         'div',
@@ -731,19 +717,19 @@ function Gallery() {
         gallery = _useState2[0],
         setGallery = _useState2[1];
 
-    var _useQueryParam = (0, _useQueryParams.useQueryParam)('foo', _useQueryParams.StringParam),
+    var _useQueryParam = (0, _useQueryParams.useQueryParam)('galleryName', _useQueryParams.StringParam),
         _useQueryParam2 = _slicedToArray(_useQueryParam, 2),
-        foo = _useQueryParam2[0],
-        setFoo = _useQueryParam2[1];
+        galleryName = _useQueryParam2[0],
+        setGalleryName = _useQueryParam2[1];
 
     (0, _react.useEffect)(function () {
         _isMounted = true;
-        (0, _apiClient.getGalleryImages)().then(function (images) {
+        (0, _apiClient.getGalleryImages)(galleryName).then(function (images) {
             if (_isMounted) {
                 setGallery(images);
             }
         });
-    }, gallery);
+    }, []);
 
     return _react2.default.createElement(
         'div',
@@ -752,6 +738,13 @@ function Gallery() {
             'h1',
             null,
             'Gallery'
+        ),
+        _react2.default.createElement(
+            'div',
+            { className: 'gallery-container' },
+            gallery.map(function (image) {
+                return _react2.default.createElement('div', { className: 'gallery-image' });
+            })
         )
     );
 }

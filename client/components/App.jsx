@@ -13,19 +13,6 @@ import Gallery from './Gallery'
 import { useTranslation, Trans } from 'react-i18next'
 
 class App extends React.Component {
-  constructor(props){
-    super(props)
-    this.state = {
-      photos: []
-    }
-  }
-
-  componentDidMount() {
-    getAllPhotos()
-    .then(photos => {
-      this.setState({photos})
-    })
-  }
 
   render() {
     return(
@@ -35,8 +22,8 @@ class App extends React.Component {
         <Route path='/about' component={Banner} />
         <Route path='/about' component={About} />
         <Route path='/contact' component={Contact} />
-        <Route path='/galleries' component={Galleries} />
         <Route path='/galleries/:name' component={Gallery} />
+        <Route exact path='/galleries' component={Galleries} />
         <Route exact path='/' component={Favourites} />
         <Route path='/' component={Footer} />
       </Router>  

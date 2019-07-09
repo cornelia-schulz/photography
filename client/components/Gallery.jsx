@@ -13,21 +13,26 @@ const methods = {
 
 function Gallery() {
     const [gallery, setGallery] = useState([])
-    const [foo, setFoo] = useQueryParam('foo', StringParam)
+    const [galleryName, setGalleryName] = useQueryParam('galleryName', StringParam)
 
     useEffect(() => {
         _isMounted = true
-        getGalleryImages()
+        getGalleryImages(galleryName)
             .then(images => {
                 if(_isMounted) {
                     setGallery(images)
                 }
             })
-    }, gallery)
+    }, [])
 
     return(
         <div className="gallery container">
             <h1>Gallery</h1>
+            <div className="gallery-container">
+                {gallery.map(image => {
+                    return <div className="gallery-image"></div>
+                })}
+            </div>
         </div>
     )
 }

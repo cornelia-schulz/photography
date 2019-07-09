@@ -22,7 +22,7 @@ function Galleries() {
                     setGalleries(galleries)
                 }
             })
-    }, [galleries])
+    }, [])
 
     return(
         <div className="galleries container">
