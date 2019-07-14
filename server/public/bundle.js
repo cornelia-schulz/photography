@@ -86,6 +86,3883 @@
 /************************************************************************/
 /******/ ({
 
+/***/ "../../../../usr/local/lib/node_modules/react/cjs/react.development.js":
+/*!******************************************************************!*\
+  !*** /usr/local/lib/node_modules/react/cjs/react.development.js ***!
+  \******************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+/** @license React v16.8.6
+ * react.development.js
+ *
+ * Copyright (c) Facebook, Inc. and its affiliates.
+ *
+ * This source code is licensed under the MIT license found in the
+ * LICENSE file in the root directory of this source tree.
+ */
+
+
+
+
+
+if (true) {
+  (function() {
+'use strict';
+
+var _assign = __webpack_require__(/*! object-assign */ "../../../../usr/local/lib/node_modules/react/node_modules/object-assign/index.js");
+var checkPropTypes = __webpack_require__(/*! prop-types/checkPropTypes */ "../../../../usr/local/lib/node_modules/react/node_modules/prop-types/checkPropTypes.js");
+
+// TODO: this is special because it gets imported during build.
+
+var ReactVersion = '16.8.6';
+
+// The Symbol used to tag the ReactElement-like types. If there is no native Symbol
+// nor polyfill, then a plain number is used for performance.
+var hasSymbol = typeof Symbol === 'function' && Symbol.for;
+
+var REACT_ELEMENT_TYPE = hasSymbol ? Symbol.for('react.element') : 0xeac7;
+var REACT_PORTAL_TYPE = hasSymbol ? Symbol.for('react.portal') : 0xeaca;
+var REACT_FRAGMENT_TYPE = hasSymbol ? Symbol.for('react.fragment') : 0xeacb;
+var REACT_STRICT_MODE_TYPE = hasSymbol ? Symbol.for('react.strict_mode') : 0xeacc;
+var REACT_PROFILER_TYPE = hasSymbol ? Symbol.for('react.profiler') : 0xead2;
+var REACT_PROVIDER_TYPE = hasSymbol ? Symbol.for('react.provider') : 0xeacd;
+var REACT_CONTEXT_TYPE = hasSymbol ? Symbol.for('react.context') : 0xeace;
+
+var REACT_CONCURRENT_MODE_TYPE = hasSymbol ? Symbol.for('react.concurrent_mode') : 0xeacf;
+var REACT_FORWARD_REF_TYPE = hasSymbol ? Symbol.for('react.forward_ref') : 0xead0;
+var REACT_SUSPENSE_TYPE = hasSymbol ? Symbol.for('react.suspense') : 0xead1;
+var REACT_MEMO_TYPE = hasSymbol ? Symbol.for('react.memo') : 0xead3;
+var REACT_LAZY_TYPE = hasSymbol ? Symbol.for('react.lazy') : 0xead4;
+
+var MAYBE_ITERATOR_SYMBOL = typeof Symbol === 'function' && Symbol.iterator;
+var FAUX_ITERATOR_SYMBOL = '@@iterator';
+
+function getIteratorFn(maybeIterable) {
+  if (maybeIterable === null || typeof maybeIterable !== 'object') {
+    return null;
+  }
+  var maybeIterator = MAYBE_ITERATOR_SYMBOL && maybeIterable[MAYBE_ITERATOR_SYMBOL] || maybeIterable[FAUX_ITERATOR_SYMBOL];
+  if (typeof maybeIterator === 'function') {
+    return maybeIterator;
+  }
+  return null;
+}
+
+/**
+ * Use invariant() to assert state which your program assumes to be true.
+ *
+ * Provide sprintf-style format (only %s is supported) and arguments
+ * to provide information about what broke and what you were
+ * expecting.
+ *
+ * The invariant message will be stripped in production, but the invariant
+ * will remain to ensure logic does not differ in production.
+ */
+
+var validateFormat = function () {};
+
+{
+  validateFormat = function (format) {
+    if (format === undefined) {
+      throw new Error('invariant requires an error message argument');
+    }
+  };
+}
+
+function invariant(condition, format, a, b, c, d, e, f) {
+  validateFormat(format);
+
+  if (!condition) {
+    var error = void 0;
+    if (format === undefined) {
+      error = new Error('Minified exception occurred; use the non-minified dev environment ' + 'for the full error message and additional helpful warnings.');
+    } else {
+      var args = [a, b, c, d, e, f];
+      var argIndex = 0;
+      error = new Error(format.replace(/%s/g, function () {
+        return args[argIndex++];
+      }));
+      error.name = 'Invariant Violation';
+    }
+
+    error.framesToPop = 1; // we don't care about invariant's own frame
+    throw error;
+  }
+}
+
+// Relying on the `invariant()` implementation lets us
+// preserve the format and params in the www builds.
+
+/**
+ * Forked from fbjs/warning:
+ * https://github.com/facebook/fbjs/blob/e66ba20ad5be433eb54423f2b097d829324d9de6/packages/fbjs/src/__forks__/warning.js
+ *
+ * Only change is we use console.warn instead of console.error,
+ * and do nothing when 'console' is not supported.
+ * This really simplifies the code.
+ * ---
+ * Similar to invariant but only logs a warning if the condition is not met.
+ * This can be used to log issues in development environments in critical
+ * paths. Removing the logging code for production environments will keep the
+ * same logic and follow the same code paths.
+ */
+
+var lowPriorityWarning = function () {};
+
+{
+  var printWarning = function (format) {
+    for (var _len = arguments.length, args = Array(_len > 1 ? _len - 1 : 0), _key = 1; _key < _len; _key++) {
+      args[_key - 1] = arguments[_key];
+    }
+
+    var argIndex = 0;
+    var message = 'Warning: ' + format.replace(/%s/g, function () {
+      return args[argIndex++];
+    });
+    if (typeof console !== 'undefined') {
+      console.warn(message);
+    }
+    try {
+      // --- Welcome to debugging React ---
+      // This error was thrown as a convenience so that you can use this stack
+      // to find the callsite that caused this warning to fire.
+      throw new Error(message);
+    } catch (x) {}
+  };
+
+  lowPriorityWarning = function (condition, format) {
+    if (format === undefined) {
+      throw new Error('`lowPriorityWarning(condition, format, ...args)` requires a warning ' + 'message argument');
+    }
+    if (!condition) {
+      for (var _len2 = arguments.length, args = Array(_len2 > 2 ? _len2 - 2 : 0), _key2 = 2; _key2 < _len2; _key2++) {
+        args[_key2 - 2] = arguments[_key2];
+      }
+
+      printWarning.apply(undefined, [format].concat(args));
+    }
+  };
+}
+
+var lowPriorityWarning$1 = lowPriorityWarning;
+
+/**
+ * Similar to invariant but only logs a warning if the condition is not met.
+ * This can be used to log issues in development environments in critical
+ * paths. Removing the logging code for production environments will keep the
+ * same logic and follow the same code paths.
+ */
+
+var warningWithoutStack = function () {};
+
+{
+  warningWithoutStack = function (condition, format) {
+    for (var _len = arguments.length, args = Array(_len > 2 ? _len - 2 : 0), _key = 2; _key < _len; _key++) {
+      args[_key - 2] = arguments[_key];
+    }
+
+    if (format === undefined) {
+      throw new Error('`warningWithoutStack(condition, format, ...args)` requires a warning ' + 'message argument');
+    }
+    if (args.length > 8) {
+      // Check before the condition to catch violations early.
+      throw new Error('warningWithoutStack() currently supports at most 8 arguments.');
+    }
+    if (condition) {
+      return;
+    }
+    if (typeof console !== 'undefined') {
+      var argsWithFormat = args.map(function (item) {
+        return '' + item;
+      });
+      argsWithFormat.unshift('Warning: ' + format);
+
+      // We intentionally don't use spread (or .apply) directly because it
+      // breaks IE9: https://github.com/facebook/react/issues/13610
+      Function.prototype.apply.call(console.error, console, argsWithFormat);
+    }
+    try {
+      // --- Welcome to debugging React ---
+      // This error was thrown as a convenience so that you can use this stack
+      // to find the callsite that caused this warning to fire.
+      var argIndex = 0;
+      var message = 'Warning: ' + format.replace(/%s/g, function () {
+        return args[argIndex++];
+      });
+      throw new Error(message);
+    } catch (x) {}
+  };
+}
+
+var warningWithoutStack$1 = warningWithoutStack;
+
+var didWarnStateUpdateForUnmountedComponent = {};
+
+function warnNoop(publicInstance, callerName) {
+  {
+    var _constructor = publicInstance.constructor;
+    var componentName = _constructor && (_constructor.displayName || _constructor.name) || 'ReactClass';
+    var warningKey = componentName + '.' + callerName;
+    if (didWarnStateUpdateForUnmountedComponent[warningKey]) {
+      return;
+    }
+    warningWithoutStack$1(false, "Can't call %s on a component that is not yet mounted. " + 'This is a no-op, but it might indicate a bug in your application. ' + 'Instead, assign to `this.state` directly or define a `state = {};` ' + 'class property with the desired state in the %s component.', callerName, componentName);
+    didWarnStateUpdateForUnmountedComponent[warningKey] = true;
+  }
+}
+
+/**
+ * This is the abstract API for an update queue.
+ */
+var ReactNoopUpdateQueue = {
+  /**
+   * Checks whether or not this composite component is mounted.
+   * @param {ReactClass} publicInstance The instance we want to test.
+   * @return {boolean} True if mounted, false otherwise.
+   * @protected
+   * @final
+   */
+  isMounted: function (publicInstance) {
+    return false;
+  },
+
+  /**
+   * Forces an update. This should only be invoked when it is known with
+   * certainty that we are **not** in a DOM transaction.
+   *
+   * You may want to call this when you know that some deeper aspect of the
+   * component's state has changed but `setState` was not called.
+   *
+   * This will not invoke `shouldComponentUpdate`, but it will invoke
+   * `componentWillUpdate` and `componentDidUpdate`.
+   *
+   * @param {ReactClass} publicInstance The instance that should rerender.
+   * @param {?function} callback Called after component is updated.
+   * @param {?string} callerName name of the calling function in the public API.
+   * @internal
+   */
+  enqueueForceUpdate: function (publicInstance, callback, callerName) {
+    warnNoop(publicInstance, 'forceUpdate');
+  },
+
+  /**
+   * Replaces all of the state. Always use this or `setState` to mutate state.
+   * You should treat `this.state` as immutable.
+   *
+   * There is no guarantee that `this.state` will be immediately updated, so
+   * accessing `this.state` after calling this method may return the old value.
+   *
+   * @param {ReactClass} publicInstance The instance that should rerender.
+   * @param {object} completeState Next state.
+   * @param {?function} callback Called after component is updated.
+   * @param {?string} callerName name of the calling function in the public API.
+   * @internal
+   */
+  enqueueReplaceState: function (publicInstance, completeState, callback, callerName) {
+    warnNoop(publicInstance, 'replaceState');
+  },
+
+  /**
+   * Sets a subset of the state. This only exists because _pendingState is
+   * internal. This provides a merging strategy that is not available to deep
+   * properties which is confusing. TODO: Expose pendingState or don't use it
+   * during the merge.
+   *
+   * @param {ReactClass} publicInstance The instance that should rerender.
+   * @param {object} partialState Next partial state to be merged with state.
+   * @param {?function} callback Called after component is updated.
+   * @param {?string} Name of the calling function in the public API.
+   * @internal
+   */
+  enqueueSetState: function (publicInstance, partialState, callback, callerName) {
+    warnNoop(publicInstance, 'setState');
+  }
+};
+
+var emptyObject = {};
+{
+  Object.freeze(emptyObject);
+}
+
+/**
+ * Base class helpers for the updating state of a component.
+ */
+function Component(props, context, updater) {
+  this.props = props;
+  this.context = context;
+  // If a component has string refs, we will assign a different object later.
+  this.refs = emptyObject;
+  // We initialize the default updater but the real one gets injected by the
+  // renderer.
+  this.updater = updater || ReactNoopUpdateQueue;
+}
+
+Component.prototype.isReactComponent = {};
+
+/**
+ * Sets a subset of the state. Always use this to mutate
+ * state. You should treat `this.state` as immutable.
+ *
+ * There is no guarantee that `this.state` will be immediately updated, so
+ * accessing `this.state` after calling this method may return the old value.
+ *
+ * There is no guarantee that calls to `setState` will run synchronously,
+ * as they may eventually be batched together.  You can provide an optional
+ * callback that will be executed when the call to setState is actually
+ * completed.
+ *
+ * When a function is provided to setState, it will be called at some point in
+ * the future (not synchronously). It will be called with the up to date
+ * component arguments (state, props, context). These values can be different
+ * from this.* because your function may be called after receiveProps but before
+ * shouldComponentUpdate, and this new state, props, and context will not yet be
+ * assigned to this.
+ *
+ * @param {object|function} partialState Next partial state or function to
+ *        produce next partial state to be merged with current state.
+ * @param {?function} callback Called after state is updated.
+ * @final
+ * @protected
+ */
+Component.prototype.setState = function (partialState, callback) {
+  !(typeof partialState === 'object' || typeof partialState === 'function' || partialState == null) ? invariant(false, 'setState(...): takes an object of state variables to update or a function which returns an object of state variables.') : void 0;
+  this.updater.enqueueSetState(this, partialState, callback, 'setState');
+};
+
+/**
+ * Forces an update. This should only be invoked when it is known with
+ * certainty that we are **not** in a DOM transaction.
+ *
+ * You may want to call this when you know that some deeper aspect of the
+ * component's state has changed but `setState` was not called.
+ *
+ * This will not invoke `shouldComponentUpdate`, but it will invoke
+ * `componentWillUpdate` and `componentDidUpdate`.
+ *
+ * @param {?function} callback Called after update is complete.
+ * @final
+ * @protected
+ */
+Component.prototype.forceUpdate = function (callback) {
+  this.updater.enqueueForceUpdate(this, callback, 'forceUpdate');
+};
+
+/**
+ * Deprecated APIs. These APIs used to exist on classic React classes but since
+ * we would like to deprecate them, we're not going to move them over to this
+ * modern base class. Instead, we define a getter that warns if it's accessed.
+ */
+{
+  var deprecatedAPIs = {
+    isMounted: ['isMounted', 'Instead, make sure to clean up subscriptions and pending requests in ' + 'componentWillUnmount to prevent memory leaks.'],
+    replaceState: ['replaceState', 'Refactor your code to use setState instead (see ' + 'https://github.com/facebook/react/issues/3236).']
+  };
+  var defineDeprecationWarning = function (methodName, info) {
+    Object.defineProperty(Component.prototype, methodName, {
+      get: function () {
+        lowPriorityWarning$1(false, '%s(...) is deprecated in plain JavaScript React classes. %s', info[0], info[1]);
+        return undefined;
+      }
+    });
+  };
+  for (var fnName in deprecatedAPIs) {
+    if (deprecatedAPIs.hasOwnProperty(fnName)) {
+      defineDeprecationWarning(fnName, deprecatedAPIs[fnName]);
+    }
+  }
+}
+
+function ComponentDummy() {}
+ComponentDummy.prototype = Component.prototype;
+
+/**
+ * Convenience component with default shallow equality check for sCU.
+ */
+function PureComponent(props, context, updater) {
+  this.props = props;
+  this.context = context;
+  // If a component has string refs, we will assign a different object later.
+  this.refs = emptyObject;
+  this.updater = updater || ReactNoopUpdateQueue;
+}
+
+var pureComponentPrototype = PureComponent.prototype = new ComponentDummy();
+pureComponentPrototype.constructor = PureComponent;
+// Avoid an extra prototype jump for these methods.
+_assign(pureComponentPrototype, Component.prototype);
+pureComponentPrototype.isPureReactComponent = true;
+
+// an immutable object with a single mutable value
+function createRef() {
+  var refObject = {
+    current: null
+  };
+  {
+    Object.seal(refObject);
+  }
+  return refObject;
+}
+
+/**
+ * Keeps track of the current dispatcher.
+ */
+var ReactCurrentDispatcher = {
+  /**
+   * @internal
+   * @type {ReactComponent}
+   */
+  current: null
+};
+
+/**
+ * Keeps track of the current owner.
+ *
+ * The current owner is the component who should own any components that are
+ * currently being constructed.
+ */
+var ReactCurrentOwner = {
+  /**
+   * @internal
+   * @type {ReactComponent}
+   */
+  current: null
+};
+
+var BEFORE_SLASH_RE = /^(.*)[\\\/]/;
+
+var describeComponentFrame = function (name, source, ownerName) {
+  var sourceInfo = '';
+  if (source) {
+    var path = source.fileName;
+    var fileName = path.replace(BEFORE_SLASH_RE, '');
+    {
+      // In DEV, include code for a common special case:
+      // prefer "folder/index.js" instead of just "index.js".
+      if (/^index\./.test(fileName)) {
+        var match = path.match(BEFORE_SLASH_RE);
+        if (match) {
+          var pathBeforeSlash = match[1];
+          if (pathBeforeSlash) {
+            var folderName = pathBeforeSlash.replace(BEFORE_SLASH_RE, '');
+            fileName = folderName + '/' + fileName;
+          }
+        }
+      }
+    }
+    sourceInfo = ' (at ' + fileName + ':' + source.lineNumber + ')';
+  } else if (ownerName) {
+    sourceInfo = ' (created by ' + ownerName + ')';
+  }
+  return '\n    in ' + (name || 'Unknown') + sourceInfo;
+};
+
+var Resolved = 1;
+
+
+function refineResolvedLazyComponent(lazyComponent) {
+  return lazyComponent._status === Resolved ? lazyComponent._result : null;
+}
+
+function getWrappedName(outerType, innerType, wrapperName) {
+  var functionName = innerType.displayName || innerType.name || '';
+  return outerType.displayName || (functionName !== '' ? wrapperName + '(' + functionName + ')' : wrapperName);
+}
+
+function getComponentName(type) {
+  if (type == null) {
+    // Host root, text node or just invalid type.
+    return null;
+  }
+  {
+    if (typeof type.tag === 'number') {
+      warningWithoutStack$1(false, 'Received an unexpected object in getComponentName(). ' + 'This is likely a bug in React. Please file an issue.');
+    }
+  }
+  if (typeof type === 'function') {
+    return type.displayName || type.name || null;
+  }
+  if (typeof type === 'string') {
+    return type;
+  }
+  switch (type) {
+    case REACT_CONCURRENT_MODE_TYPE:
+      return 'ConcurrentMode';
+    case REACT_FRAGMENT_TYPE:
+      return 'Fragment';
+    case REACT_PORTAL_TYPE:
+      return 'Portal';
+    case REACT_PROFILER_TYPE:
+      return 'Profiler';
+    case REACT_STRICT_MODE_TYPE:
+      return 'StrictMode';
+    case REACT_SUSPENSE_TYPE:
+      return 'Suspense';
+  }
+  if (typeof type === 'object') {
+    switch (type.$$typeof) {
+      case REACT_CONTEXT_TYPE:
+        return 'Context.Consumer';
+      case REACT_PROVIDER_TYPE:
+        return 'Context.Provider';
+      case REACT_FORWARD_REF_TYPE:
+        return getWrappedName(type, type.render, 'ForwardRef');
+      case REACT_MEMO_TYPE:
+        return getComponentName(type.type);
+      case REACT_LAZY_TYPE:
+        {
+          var thenable = type;
+          var resolvedThenable = refineResolvedLazyComponent(thenable);
+          if (resolvedThenable) {
+            return getComponentName(resolvedThenable);
+          }
+        }
+    }
+  }
+  return null;
+}
+
+var ReactDebugCurrentFrame = {};
+
+var currentlyValidatingElement = null;
+
+function setCurrentlyValidatingElement(element) {
+  {
+    currentlyValidatingElement = element;
+  }
+}
+
+{
+  // Stack implementation injected by the current renderer.
+  ReactDebugCurrentFrame.getCurrentStack = null;
+
+  ReactDebugCurrentFrame.getStackAddendum = function () {
+    var stack = '';
+
+    // Add an extra top frame while an element is being validated
+    if (currentlyValidatingElement) {
+      var name = getComponentName(currentlyValidatingElement.type);
+      var owner = currentlyValidatingElement._owner;
+      stack += describeComponentFrame(name, currentlyValidatingElement._source, owner && getComponentName(owner.type));
+    }
+
+    // Delegate to the injected renderer-specific implementation
+    var impl = ReactDebugCurrentFrame.getCurrentStack;
+    if (impl) {
+      stack += impl() || '';
+    }
+
+    return stack;
+  };
+}
+
+var ReactSharedInternals = {
+  ReactCurrentDispatcher: ReactCurrentDispatcher,
+  ReactCurrentOwner: ReactCurrentOwner,
+  // Used by renderers to avoid bundling object-assign twice in UMD bundles:
+  assign: _assign
+};
+
+{
+  _assign(ReactSharedInternals, {
+    // These should not be included in production.
+    ReactDebugCurrentFrame: ReactDebugCurrentFrame,
+    // Shim for React DOM 16.0.0 which still destructured (but not used) this.
+    // TODO: remove in React 17.0.
+    ReactComponentTreeHook: {}
+  });
+}
+
+/**
+ * Similar to invariant but only logs a warning if the condition is not met.
+ * This can be used to log issues in development environments in critical
+ * paths. Removing the logging code for production environments will keep the
+ * same logic and follow the same code paths.
+ */
+
+var warning = warningWithoutStack$1;
+
+{
+  warning = function (condition, format) {
+    if (condition) {
+      return;
+    }
+    var ReactDebugCurrentFrame = ReactSharedInternals.ReactDebugCurrentFrame;
+    var stack = ReactDebugCurrentFrame.getStackAddendum();
+    // eslint-disable-next-line react-internal/warning-and-invariant-args
+
+    for (var _len = arguments.length, args = Array(_len > 2 ? _len - 2 : 0), _key = 2; _key < _len; _key++) {
+      args[_key - 2] = arguments[_key];
+    }
+
+    warningWithoutStack$1.apply(undefined, [false, format + '%s'].concat(args, [stack]));
+  };
+}
+
+var warning$1 = warning;
+
+var hasOwnProperty = Object.prototype.hasOwnProperty;
+
+var RESERVED_PROPS = {
+  key: true,
+  ref: true,
+  __self: true,
+  __source: true
+};
+
+var specialPropKeyWarningShown = void 0;
+var specialPropRefWarningShown = void 0;
+
+function hasValidRef(config) {
+  {
+    if (hasOwnProperty.call(config, 'ref')) {
+      var getter = Object.getOwnPropertyDescriptor(config, 'ref').get;
+      if (getter && getter.isReactWarning) {
+        return false;
+      }
+    }
+  }
+  return config.ref !== undefined;
+}
+
+function hasValidKey(config) {
+  {
+    if (hasOwnProperty.call(config, 'key')) {
+      var getter = Object.getOwnPropertyDescriptor(config, 'key').get;
+      if (getter && getter.isReactWarning) {
+        return false;
+      }
+    }
+  }
+  return config.key !== undefined;
+}
+
+function defineKeyPropWarningGetter(props, displayName) {
+  var warnAboutAccessingKey = function () {
+    if (!specialPropKeyWarningShown) {
+      specialPropKeyWarningShown = true;
+      warningWithoutStack$1(false, '%s: `key` is not a prop. Trying to access it will result ' + 'in `undefined` being returned. If you need to access the same ' + 'value within the child component, you should pass it as a different ' + 'prop. (https://fb.me/react-special-props)', displayName);
+    }
+  };
+  warnAboutAccessingKey.isReactWarning = true;
+  Object.defineProperty(props, 'key', {
+    get: warnAboutAccessingKey,
+    configurable: true
+  });
+}
+
+function defineRefPropWarningGetter(props, displayName) {
+  var warnAboutAccessingRef = function () {
+    if (!specialPropRefWarningShown) {
+      specialPropRefWarningShown = true;
+      warningWithoutStack$1(false, '%s: `ref` is not a prop. Trying to access it will result ' + 'in `undefined` being returned. If you need to access the same ' + 'value within the child component, you should pass it as a different ' + 'prop. (https://fb.me/react-special-props)', displayName);
+    }
+  };
+  warnAboutAccessingRef.isReactWarning = true;
+  Object.defineProperty(props, 'ref', {
+    get: warnAboutAccessingRef,
+    configurable: true
+  });
+}
+
+/**
+ * Factory method to create a new React element. This no longer adheres to
+ * the class pattern, so do not use new to call it. Also, no instanceof check
+ * will work. Instead test $$typeof field against Symbol.for('react.element') to check
+ * if something is a React Element.
+ *
+ * @param {*} type
+ * @param {*} key
+ * @param {string|object} ref
+ * @param {*} self A *temporary* helper to detect places where `this` is
+ * different from the `owner` when React.createElement is called, so that we
+ * can warn. We want to get rid of owner and replace string `ref`s with arrow
+ * functions, and as long as `this` and owner are the same, there will be no
+ * change in behavior.
+ * @param {*} source An annotation object (added by a transpiler or otherwise)
+ * indicating filename, line number, and/or other information.
+ * @param {*} owner
+ * @param {*} props
+ * @internal
+ */
+var ReactElement = function (type, key, ref, self, source, owner, props) {
+  var element = {
+    // This tag allows us to uniquely identify this as a React Element
+    $$typeof: REACT_ELEMENT_TYPE,
+
+    // Built-in properties that belong on the element
+    type: type,
+    key: key,
+    ref: ref,
+    props: props,
+
+    // Record the component responsible for creating this element.
+    _owner: owner
+  };
+
+  {
+    // The validation flag is currently mutative. We put it on
+    // an external backing store so that we can freeze the whole object.
+    // This can be replaced with a WeakMap once they are implemented in
+    // commonly used development environments.
+    element._store = {};
+
+    // To make comparing ReactElements easier for testing purposes, we make
+    // the validation flag non-enumerable (where possible, which should
+    // include every environment we run tests in), so the test framework
+    // ignores it.
+    Object.defineProperty(element._store, 'validated', {
+      configurable: false,
+      enumerable: false,
+      writable: true,
+      value: false
+    });
+    // self and source are DEV only properties.
+    Object.defineProperty(element, '_self', {
+      configurable: false,
+      enumerable: false,
+      writable: false,
+      value: self
+    });
+    // Two elements created in two different places should be considered
+    // equal for testing purposes and therefore we hide it from enumeration.
+    Object.defineProperty(element, '_source', {
+      configurable: false,
+      enumerable: false,
+      writable: false,
+      value: source
+    });
+    if (Object.freeze) {
+      Object.freeze(element.props);
+      Object.freeze(element);
+    }
+  }
+
+  return element;
+};
+
+/**
+ * Create and return a new ReactElement of the given type.
+ * See https://reactjs.org/docs/react-api.html#createelement
+ */
+function createElement(type, config, children) {
+  var propName = void 0;
+
+  // Reserved names are extracted
+  var props = {};
+
+  var key = null;
+  var ref = null;
+  var self = null;
+  var source = null;
+
+  if (config != null) {
+    if (hasValidRef(config)) {
+      ref = config.ref;
+    }
+    if (hasValidKey(config)) {
+      key = '' + config.key;
+    }
+
+    self = config.__self === undefined ? null : config.__self;
+    source = config.__source === undefined ? null : config.__source;
+    // Remaining properties are added to a new props object
+    for (propName in config) {
+      if (hasOwnProperty.call(config, propName) && !RESERVED_PROPS.hasOwnProperty(propName)) {
+        props[propName] = config[propName];
+      }
+    }
+  }
+
+  // Children can be more than one argument, and those are transferred onto
+  // the newly allocated props object.
+  var childrenLength = arguments.length - 2;
+  if (childrenLength === 1) {
+    props.children = children;
+  } else if (childrenLength > 1) {
+    var childArray = Array(childrenLength);
+    for (var i = 0; i < childrenLength; i++) {
+      childArray[i] = arguments[i + 2];
+    }
+    {
+      if (Object.freeze) {
+        Object.freeze(childArray);
+      }
+    }
+    props.children = childArray;
+  }
+
+  // Resolve default props
+  if (type && type.defaultProps) {
+    var defaultProps = type.defaultProps;
+    for (propName in defaultProps) {
+      if (props[propName] === undefined) {
+        props[propName] = defaultProps[propName];
+      }
+    }
+  }
+  {
+    if (key || ref) {
+      var displayName = typeof type === 'function' ? type.displayName || type.name || 'Unknown' : type;
+      if (key) {
+        defineKeyPropWarningGetter(props, displayName);
+      }
+      if (ref) {
+        defineRefPropWarningGetter(props, displayName);
+      }
+    }
+  }
+  return ReactElement(type, key, ref, self, source, ReactCurrentOwner.current, props);
+}
+
+/**
+ * Return a function that produces ReactElements of a given type.
+ * See https://reactjs.org/docs/react-api.html#createfactory
+ */
+
+
+function cloneAndReplaceKey(oldElement, newKey) {
+  var newElement = ReactElement(oldElement.type, newKey, oldElement.ref, oldElement._self, oldElement._source, oldElement._owner, oldElement.props);
+
+  return newElement;
+}
+
+/**
+ * Clone and return a new ReactElement using element as the starting point.
+ * See https://reactjs.org/docs/react-api.html#cloneelement
+ */
+function cloneElement(element, config, children) {
+  !!(element === null || element === undefined) ? invariant(false, 'React.cloneElement(...): The argument must be a React element, but you passed %s.', element) : void 0;
+
+  var propName = void 0;
+
+  // Original props are copied
+  var props = _assign({}, element.props);
+
+  // Reserved names are extracted
+  var key = element.key;
+  var ref = element.ref;
+  // Self is preserved since the owner is preserved.
+  var self = element._self;
+  // Source is preserved since cloneElement is unlikely to be targeted by a
+  // transpiler, and the original source is probably a better indicator of the
+  // true owner.
+  var source = element._source;
+
+  // Owner will be preserved, unless ref is overridden
+  var owner = element._owner;
+
+  if (config != null) {
+    if (hasValidRef(config)) {
+      // Silently steal the ref from the parent.
+      ref = config.ref;
+      owner = ReactCurrentOwner.current;
+    }
+    if (hasValidKey(config)) {
+      key = '' + config.key;
+    }
+
+    // Remaining properties override existing props
+    var defaultProps = void 0;
+    if (element.type && element.type.defaultProps) {
+      defaultProps = element.type.defaultProps;
+    }
+    for (propName in config) {
+      if (hasOwnProperty.call(config, propName) && !RESERVED_PROPS.hasOwnProperty(propName)) {
+        if (config[propName] === undefined && defaultProps !== undefined) {
+          // Resolve default props
+          props[propName] = defaultProps[propName];
+        } else {
+          props[propName] = config[propName];
+        }
+      }
+    }
+  }
+
+  // Children can be more than one argument, and those are transferred onto
+  // the newly allocated props object.
+  var childrenLength = arguments.length - 2;
+  if (childrenLength === 1) {
+    props.children = children;
+  } else if (childrenLength > 1) {
+    var childArray = Array(childrenLength);
+    for (var i = 0; i < childrenLength; i++) {
+      childArray[i] = arguments[i + 2];
+    }
+    props.children = childArray;
+  }
+
+  return ReactElement(element.type, key, ref, self, source, owner, props);
+}
+
+/**
+ * Verifies the object is a ReactElement.
+ * See https://reactjs.org/docs/react-api.html#isvalidelement
+ * @param {?object} object
+ * @return {boolean} True if `object` is a ReactElement.
+ * @final
+ */
+function isValidElement(object) {
+  return typeof object === 'object' && object !== null && object.$$typeof === REACT_ELEMENT_TYPE;
+}
+
+var SEPARATOR = '.';
+var SUBSEPARATOR = ':';
+
+/**
+ * Escape and wrap key so it is safe to use as a reactid
+ *
+ * @param {string} key to be escaped.
+ * @return {string} the escaped key.
+ */
+function escape(key) {
+  var escapeRegex = /[=:]/g;
+  var escaperLookup = {
+    '=': '=0',
+    ':': '=2'
+  };
+  var escapedString = ('' + key).replace(escapeRegex, function (match) {
+    return escaperLookup[match];
+  });
+
+  return '$' + escapedString;
+}
+
+/**
+ * TODO: Test that a single child and an array with one item have the same key
+ * pattern.
+ */
+
+var didWarnAboutMaps = false;
+
+var userProvidedKeyEscapeRegex = /\/+/g;
+function escapeUserProvidedKey(text) {
+  return ('' + text).replace(userProvidedKeyEscapeRegex, '$&/');
+}
+
+var POOL_SIZE = 10;
+var traverseContextPool = [];
+function getPooledTraverseContext(mapResult, keyPrefix, mapFunction, mapContext) {
+  if (traverseContextPool.length) {
+    var traverseContext = traverseContextPool.pop();
+    traverseContext.result = mapResult;
+    traverseContext.keyPrefix = keyPrefix;
+    traverseContext.func = mapFunction;
+    traverseContext.context = mapContext;
+    traverseContext.count = 0;
+    return traverseContext;
+  } else {
+    return {
+      result: mapResult,
+      keyPrefix: keyPrefix,
+      func: mapFunction,
+      context: mapContext,
+      count: 0
+    };
+  }
+}
+
+function releaseTraverseContext(traverseContext) {
+  traverseContext.result = null;
+  traverseContext.keyPrefix = null;
+  traverseContext.func = null;
+  traverseContext.context = null;
+  traverseContext.count = 0;
+  if (traverseContextPool.length < POOL_SIZE) {
+    traverseContextPool.push(traverseContext);
+  }
+}
+
+/**
+ * @param {?*} children Children tree container.
+ * @param {!string} nameSoFar Name of the key path so far.
+ * @param {!function} callback Callback to invoke with each child found.
+ * @param {?*} traverseContext Used to pass information throughout the traversal
+ * process.
+ * @return {!number} The number of children in this subtree.
+ */
+function traverseAllChildrenImpl(children, nameSoFar, callback, traverseContext) {
+  var type = typeof children;
+
+  if (type === 'undefined' || type === 'boolean') {
+    // All of the above are perceived as null.
+    children = null;
+  }
+
+  var invokeCallback = false;
+
+  if (children === null) {
+    invokeCallback = true;
+  } else {
+    switch (type) {
+      case 'string':
+      case 'number':
+        invokeCallback = true;
+        break;
+      case 'object':
+        switch (children.$$typeof) {
+          case REACT_ELEMENT_TYPE:
+          case REACT_PORTAL_TYPE:
+            invokeCallback = true;
+        }
+    }
+  }
+
+  if (invokeCallback) {
+    callback(traverseContext, children,
+    // If it's the only child, treat the name as if it was wrapped in an array
+    // so that it's consistent if the number of children grows.
+    nameSoFar === '' ? SEPARATOR + getComponentKey(children, 0) : nameSoFar);
+    return 1;
+  }
+
+  var child = void 0;
+  var nextName = void 0;
+  var subtreeCount = 0; // Count of children found in the current subtree.
+  var nextNamePrefix = nameSoFar === '' ? SEPARATOR : nameSoFar + SUBSEPARATOR;
+
+  if (Array.isArray(children)) {
+    for (var i = 0; i < children.length; i++) {
+      child = children[i];
+      nextName = nextNamePrefix + getComponentKey(child, i);
+      subtreeCount += traverseAllChildrenImpl(child, nextName, callback, traverseContext);
+    }
+  } else {
+    var iteratorFn = getIteratorFn(children);
+    if (typeof iteratorFn === 'function') {
+      {
+        // Warn about using Maps as children
+        if (iteratorFn === children.entries) {
+          !didWarnAboutMaps ? warning$1(false, 'Using Maps as children is unsupported and will likely yield ' + 'unexpected results. Convert it to a sequence/iterable of keyed ' + 'ReactElements instead.') : void 0;
+          didWarnAboutMaps = true;
+        }
+      }
+
+      var iterator = iteratorFn.call(children);
+      var step = void 0;
+      var ii = 0;
+      while (!(step = iterator.next()).done) {
+        child = step.value;
+        nextName = nextNamePrefix + getComponentKey(child, ii++);
+        subtreeCount += traverseAllChildrenImpl(child, nextName, callback, traverseContext);
+      }
+    } else if (type === 'object') {
+      var addendum = '';
+      {
+        addendum = ' If you meant to render a collection of children, use an array ' + 'instead.' + ReactDebugCurrentFrame.getStackAddendum();
+      }
+      var childrenString = '' + children;
+      invariant(false, 'Objects are not valid as a React child (found: %s).%s', childrenString === '[object Object]' ? 'object with keys {' + Object.keys(children).join(', ') + '}' : childrenString, addendum);
+    }
+  }
+
+  return subtreeCount;
+}
+
+/**
+ * Traverses children that are typically specified as `props.children`, but
+ * might also be specified through attributes:
+ *
+ * - `traverseAllChildren(this.props.children, ...)`
+ * - `traverseAllChildren(this.props.leftPanelChildren, ...)`
+ *
+ * The `traverseContext` is an optional argument that is passed through the
+ * entire traversal. It can be used to store accumulations or anything else that
+ * the callback might find relevant.
+ *
+ * @param {?*} children Children tree object.
+ * @param {!function} callback To invoke upon traversing each child.
+ * @param {?*} traverseContext Context for traversal.
+ * @return {!number} The number of children in this subtree.
+ */
+function traverseAllChildren(children, callback, traverseContext) {
+  if (children == null) {
+    return 0;
+  }
+
+  return traverseAllChildrenImpl(children, '', callback, traverseContext);
+}
+
+/**
+ * Generate a key string that identifies a component within a set.
+ *
+ * @param {*} component A component that could contain a manual key.
+ * @param {number} index Index that is used if a manual key is not provided.
+ * @return {string}
+ */
+function getComponentKey(component, index) {
+  // Do some typechecking here since we call this blindly. We want to ensure
+  // that we don't block potential future ES APIs.
+  if (typeof component === 'object' && component !== null && component.key != null) {
+    // Explicit key
+    return escape(component.key);
+  }
+  // Implicit key determined by the index in the set
+  return index.toString(36);
+}
+
+function forEachSingleChild(bookKeeping, child, name) {
+  var func = bookKeeping.func,
+      context = bookKeeping.context;
+
+  func.call(context, child, bookKeeping.count++);
+}
+
+/**
+ * Iterates through children that are typically specified as `props.children`.
+ *
+ * See https://reactjs.org/docs/react-api.html#reactchildrenforeach
+ *
+ * The provided forEachFunc(child, index) will be called for each
+ * leaf child.
+ *
+ * @param {?*} children Children tree container.
+ * @param {function(*, int)} forEachFunc
+ * @param {*} forEachContext Context for forEachContext.
+ */
+function forEachChildren(children, forEachFunc, forEachContext) {
+  if (children == null) {
+    return children;
+  }
+  var traverseContext = getPooledTraverseContext(null, null, forEachFunc, forEachContext);
+  traverseAllChildren(children, forEachSingleChild, traverseContext);
+  releaseTraverseContext(traverseContext);
+}
+
+function mapSingleChildIntoContext(bookKeeping, child, childKey) {
+  var result = bookKeeping.result,
+      keyPrefix = bookKeeping.keyPrefix,
+      func = bookKeeping.func,
+      context = bookKeeping.context;
+
+
+  var mappedChild = func.call(context, child, bookKeeping.count++);
+  if (Array.isArray(mappedChild)) {
+    mapIntoWithKeyPrefixInternal(mappedChild, result, childKey, function (c) {
+      return c;
+    });
+  } else if (mappedChild != null) {
+    if (isValidElement(mappedChild)) {
+      mappedChild = cloneAndReplaceKey(mappedChild,
+      // Keep both the (mapped) and old keys if they differ, just as
+      // traverseAllChildren used to do for objects as children
+      keyPrefix + (mappedChild.key && (!child || child.key !== mappedChild.key) ? escapeUserProvidedKey(mappedChild.key) + '/' : '') + childKey);
+    }
+    result.push(mappedChild);
+  }
+}
+
+function mapIntoWithKeyPrefixInternal(children, array, prefix, func, context) {
+  var escapedPrefix = '';
+  if (prefix != null) {
+    escapedPrefix = escapeUserProvidedKey(prefix) + '/';
+  }
+  var traverseContext = getPooledTraverseContext(array, escapedPrefix, func, context);
+  traverseAllChildren(children, mapSingleChildIntoContext, traverseContext);
+  releaseTraverseContext(traverseContext);
+}
+
+/**
+ * Maps children that are typically specified as `props.children`.
+ *
+ * See https://reactjs.org/docs/react-api.html#reactchildrenmap
+ *
+ * The provided mapFunction(child, key, index) will be called for each
+ * leaf child.
+ *
+ * @param {?*} children Children tree container.
+ * @param {function(*, int)} func The map function.
+ * @param {*} context Context for mapFunction.
+ * @return {object} Object containing the ordered map of results.
+ */
+function mapChildren(children, func, context) {
+  if (children == null) {
+    return children;
+  }
+  var result = [];
+  mapIntoWithKeyPrefixInternal(children, result, null, func, context);
+  return result;
+}
+
+/**
+ * Count the number of children that are typically specified as
+ * `props.children`.
+ *
+ * See https://reactjs.org/docs/react-api.html#reactchildrencount
+ *
+ * @param {?*} children Children tree container.
+ * @return {number} The number of children.
+ */
+function countChildren(children) {
+  return traverseAllChildren(children, function () {
+    return null;
+  }, null);
+}
+
+/**
+ * Flatten a children object (typically specified as `props.children`) and
+ * return an array with appropriately re-keyed children.
+ *
+ * See https://reactjs.org/docs/react-api.html#reactchildrentoarray
+ */
+function toArray(children) {
+  var result = [];
+  mapIntoWithKeyPrefixInternal(children, result, null, function (child) {
+    return child;
+  });
+  return result;
+}
+
+/**
+ * Returns the first child in a collection of children and verifies that there
+ * is only one child in the collection.
+ *
+ * See https://reactjs.org/docs/react-api.html#reactchildrenonly
+ *
+ * The current implementation of this function assumes that a single child gets
+ * passed without a wrapper, but the purpose of this helper function is to
+ * abstract away the particular structure of children.
+ *
+ * @param {?object} children Child collection structure.
+ * @return {ReactElement} The first and only `ReactElement` contained in the
+ * structure.
+ */
+function onlyChild(children) {
+  !isValidElement(children) ? invariant(false, 'React.Children.only expected to receive a single React element child.') : void 0;
+  return children;
+}
+
+function createContext(defaultValue, calculateChangedBits) {
+  if (calculateChangedBits === undefined) {
+    calculateChangedBits = null;
+  } else {
+    {
+      !(calculateChangedBits === null || typeof calculateChangedBits === 'function') ? warningWithoutStack$1(false, 'createContext: Expected the optional second argument to be a ' + 'function. Instead received: %s', calculateChangedBits) : void 0;
+    }
+  }
+
+  var context = {
+    $$typeof: REACT_CONTEXT_TYPE,
+    _calculateChangedBits: calculateChangedBits,
+    // As a workaround to support multiple concurrent renderers, we categorize
+    // some renderers as primary and others as secondary. We only expect
+    // there to be two concurrent renderers at most: React Native (primary) and
+    // Fabric (secondary); React DOM (primary) and React ART (secondary).
+    // Secondary renderers store their context values on separate fields.
+    _currentValue: defaultValue,
+    _currentValue2: defaultValue,
+    // Used to track how many concurrent renderers this context currently
+    // supports within in a single renderer. Such as parallel server rendering.
+    _threadCount: 0,
+    // These are circular
+    Provider: null,
+    Consumer: null
+  };
+
+  context.Provider = {
+    $$typeof: REACT_PROVIDER_TYPE,
+    _context: context
+  };
+
+  var hasWarnedAboutUsingNestedContextConsumers = false;
+  var hasWarnedAboutUsingConsumerProvider = false;
+
+  {
+    // A separate object, but proxies back to the original context object for
+    // backwards compatibility. It has a different $$typeof, so we can properly
+    // warn for the incorrect usage of Context as a Consumer.
+    var Consumer = {
+      $$typeof: REACT_CONTEXT_TYPE,
+      _context: context,
+      _calculateChangedBits: context._calculateChangedBits
+    };
+    // $FlowFixMe: Flow complains about not setting a value, which is intentional here
+    Object.defineProperties(Consumer, {
+      Provider: {
+        get: function () {
+          if (!hasWarnedAboutUsingConsumerProvider) {
+            hasWarnedAboutUsingConsumerProvider = true;
+            warning$1(false, 'Rendering <Context.Consumer.Provider> is not supported and will be removed in ' + 'a future major release. Did you mean to render <Context.Provider> instead?');
+          }
+          return context.Provider;
+        },
+        set: function (_Provider) {
+          context.Provider = _Provider;
+        }
+      },
+      _currentValue: {
+        get: function () {
+          return context._currentValue;
+        },
+        set: function (_currentValue) {
+          context._currentValue = _currentValue;
+        }
+      },
+      _currentValue2: {
+        get: function () {
+          return context._currentValue2;
+        },
+        set: function (_currentValue2) {
+          context._currentValue2 = _currentValue2;
+        }
+      },
+      _threadCount: {
+        get: function () {
+          return context._threadCount;
+        },
+        set: function (_threadCount) {
+          context._threadCount = _threadCount;
+        }
+      },
+      Consumer: {
+        get: function () {
+          if (!hasWarnedAboutUsingNestedContextConsumers) {
+            hasWarnedAboutUsingNestedContextConsumers = true;
+            warning$1(false, 'Rendering <Context.Consumer.Consumer> is not supported and will be removed in ' + 'a future major release. Did you mean to render <Context.Consumer> instead?');
+          }
+          return context.Consumer;
+        }
+      }
+    });
+    // $FlowFixMe: Flow complains about missing properties because it doesn't understand defineProperty
+    context.Consumer = Consumer;
+  }
+
+  {
+    context._currentRenderer = null;
+    context._currentRenderer2 = null;
+  }
+
+  return context;
+}
+
+function lazy(ctor) {
+  var lazyType = {
+    $$typeof: REACT_LAZY_TYPE,
+    _ctor: ctor,
+    // React uses these fields to store the result.
+    _status: -1,
+    _result: null
+  };
+
+  {
+    // In production, this would just set it on the object.
+    var defaultProps = void 0;
+    var propTypes = void 0;
+    Object.defineProperties(lazyType, {
+      defaultProps: {
+        configurable: true,
+        get: function () {
+          return defaultProps;
+        },
+        set: function (newDefaultProps) {
+          warning$1(false, 'React.lazy(...): It is not supported to assign `defaultProps` to ' + 'a lazy component import. Either specify them where the component ' + 'is defined, or create a wrapping component around it.');
+          defaultProps = newDefaultProps;
+          // Match production behavior more closely:
+          Object.defineProperty(lazyType, 'defaultProps', {
+            enumerable: true
+          });
+        }
+      },
+      propTypes: {
+        configurable: true,
+        get: function () {
+          return propTypes;
+        },
+        set: function (newPropTypes) {
+          warning$1(false, 'React.lazy(...): It is not supported to assign `propTypes` to ' + 'a lazy component import. Either specify them where the component ' + 'is defined, or create a wrapping component around it.');
+          propTypes = newPropTypes;
+          // Match production behavior more closely:
+          Object.defineProperty(lazyType, 'propTypes', {
+            enumerable: true
+          });
+        }
+      }
+    });
+  }
+
+  return lazyType;
+}
+
+function forwardRef(render) {
+  {
+    if (render != null && render.$$typeof === REACT_MEMO_TYPE) {
+      warningWithoutStack$1(false, 'forwardRef requires a render function but received a `memo` ' + 'component. Instead of forwardRef(memo(...)), use ' + 'memo(forwardRef(...)).');
+    } else if (typeof render !== 'function') {
+      warningWithoutStack$1(false, 'forwardRef requires a render function but was given %s.', render === null ? 'null' : typeof render);
+    } else {
+      !(
+      // Do not warn for 0 arguments because it could be due to usage of the 'arguments' object
+      render.length === 0 || render.length === 2) ? warningWithoutStack$1(false, 'forwardRef render functions accept exactly two parameters: props and ref. %s', render.length === 1 ? 'Did you forget to use the ref parameter?' : 'Any additional parameter will be undefined.') : void 0;
+    }
+
+    if (render != null) {
+      !(render.defaultProps == null && render.propTypes == null) ? warningWithoutStack$1(false, 'forwardRef render functions do not support propTypes or defaultProps. ' + 'Did you accidentally pass a React component?') : void 0;
+    }
+  }
+
+  return {
+    $$typeof: REACT_FORWARD_REF_TYPE,
+    render: render
+  };
+}
+
+function isValidElementType(type) {
+  return typeof type === 'string' || typeof type === 'function' ||
+  // Note: its typeof might be other than 'symbol' or 'number' if it's a polyfill.
+  type === REACT_FRAGMENT_TYPE || type === REACT_CONCURRENT_MODE_TYPE || type === REACT_PROFILER_TYPE || type === REACT_STRICT_MODE_TYPE || type === REACT_SUSPENSE_TYPE || typeof type === 'object' && type !== null && (type.$$typeof === REACT_LAZY_TYPE || type.$$typeof === REACT_MEMO_TYPE || type.$$typeof === REACT_PROVIDER_TYPE || type.$$typeof === REACT_CONTEXT_TYPE || type.$$typeof === REACT_FORWARD_REF_TYPE);
+}
+
+function memo(type, compare) {
+  {
+    if (!isValidElementType(type)) {
+      warningWithoutStack$1(false, 'memo: The first argument must be a component. Instead ' + 'received: %s', type === null ? 'null' : typeof type);
+    }
+  }
+  return {
+    $$typeof: REACT_MEMO_TYPE,
+    type: type,
+    compare: compare === undefined ? null : compare
+  };
+}
+
+function resolveDispatcher() {
+  var dispatcher = ReactCurrentDispatcher.current;
+  !(dispatcher !== null) ? invariant(false, 'Invalid hook call. Hooks can only be called inside of the body of a function component. This could happen for one of the following reasons:\n1. You might have mismatching versions of React and the renderer (such as React DOM)\n2. You might be breaking the Rules of Hooks\n3. You might have more than one copy of React in the same app\nSee https://fb.me/react-invalid-hook-call for tips about how to debug and fix this problem.') : void 0;
+  return dispatcher;
+}
+
+function useContext(Context, unstable_observedBits) {
+  var dispatcher = resolveDispatcher();
+  {
+    !(unstable_observedBits === undefined) ? warning$1(false, 'useContext() second argument is reserved for future ' + 'use in React. Passing it is not supported. ' + 'You passed: %s.%s', unstable_observedBits, typeof unstable_observedBits === 'number' && Array.isArray(arguments[2]) ? '\n\nDid you call array.map(useContext)? ' + 'Calling Hooks inside a loop is not supported. ' + 'Learn more at https://fb.me/rules-of-hooks' : '') : void 0;
+
+    // TODO: add a more generic warning for invalid values.
+    if (Context._context !== undefined) {
+      var realContext = Context._context;
+      // Don't deduplicate because this legitimately causes bugs
+      // and nobody should be using this in existing code.
+      if (realContext.Consumer === Context) {
+        warning$1(false, 'Calling useContext(Context.Consumer) is not supported, may cause bugs, and will be ' + 'removed in a future major release. Did you mean to call useContext(Context) instead?');
+      } else if (realContext.Provider === Context) {
+        warning$1(false, 'Calling useContext(Context.Provider) is not supported. ' + 'Did you mean to call useContext(Context) instead?');
+      }
+    }
+  }
+  return dispatcher.useContext(Context, unstable_observedBits);
+}
+
+function useState(initialState) {
+  var dispatcher = resolveDispatcher();
+  return dispatcher.useState(initialState);
+}
+
+function useReducer(reducer, initialArg, init) {
+  var dispatcher = resolveDispatcher();
+  return dispatcher.useReducer(reducer, initialArg, init);
+}
+
+function useRef(initialValue) {
+  var dispatcher = resolveDispatcher();
+  return dispatcher.useRef(initialValue);
+}
+
+function useEffect(create, inputs) {
+  var dispatcher = resolveDispatcher();
+  return dispatcher.useEffect(create, inputs);
+}
+
+function useLayoutEffect(create, inputs) {
+  var dispatcher = resolveDispatcher();
+  return dispatcher.useLayoutEffect(create, inputs);
+}
+
+function useCallback(callback, inputs) {
+  var dispatcher = resolveDispatcher();
+  return dispatcher.useCallback(callback, inputs);
+}
+
+function useMemo(create, inputs) {
+  var dispatcher = resolveDispatcher();
+  return dispatcher.useMemo(create, inputs);
+}
+
+function useImperativeHandle(ref, create, inputs) {
+  var dispatcher = resolveDispatcher();
+  return dispatcher.useImperativeHandle(ref, create, inputs);
+}
+
+function useDebugValue(value, formatterFn) {
+  {
+    var dispatcher = resolveDispatcher();
+    return dispatcher.useDebugValue(value, formatterFn);
+  }
+}
+
+/**
+ * ReactElementValidator provides a wrapper around a element factory
+ * which validates the props passed to the element. This is intended to be
+ * used only in DEV and could be replaced by a static type checker for languages
+ * that support it.
+ */
+
+var propTypesMisspellWarningShown = void 0;
+
+{
+  propTypesMisspellWarningShown = false;
+}
+
+function getDeclarationErrorAddendum() {
+  if (ReactCurrentOwner.current) {
+    var name = getComponentName(ReactCurrentOwner.current.type);
+    if (name) {
+      return '\n\nCheck the render method of `' + name + '`.';
+    }
+  }
+  return '';
+}
+
+function getSourceInfoErrorAddendum(elementProps) {
+  if (elementProps !== null && elementProps !== undefined && elementProps.__source !== undefined) {
+    var source = elementProps.__source;
+    var fileName = source.fileName.replace(/^.*[\\\/]/, '');
+    var lineNumber = source.lineNumber;
+    return '\n\nCheck your code at ' + fileName + ':' + lineNumber + '.';
+  }
+  return '';
+}
+
+/**
+ * Warn if there's no key explicitly set on dynamic arrays of children or
+ * object keys are not valid. This allows us to keep track of children between
+ * updates.
+ */
+var ownerHasKeyUseWarning = {};
+
+function getCurrentComponentErrorInfo(parentType) {
+  var info = getDeclarationErrorAddendum();
+
+  if (!info) {
+    var parentName = typeof parentType === 'string' ? parentType : parentType.displayName || parentType.name;
+    if (parentName) {
+      info = '\n\nCheck the top-level render call using <' + parentName + '>.';
+    }
+  }
+  return info;
+}
+
+/**
+ * Warn if the element doesn't have an explicit key assigned to it.
+ * This element is in an array. The array could grow and shrink or be
+ * reordered. All children that haven't already been validated are required to
+ * have a "key" property assigned to it. Error statuses are cached so a warning
+ * will only be shown once.
+ *
+ * @internal
+ * @param {ReactElement} element Element that requires a key.
+ * @param {*} parentType element's parent's type.
+ */
+function validateExplicitKey(element, parentType) {
+  if (!element._store || element._store.validated || element.key != null) {
+    return;
+  }
+  element._store.validated = true;
+
+  var currentComponentErrorInfo = getCurrentComponentErrorInfo(parentType);
+  if (ownerHasKeyUseWarning[currentComponentErrorInfo]) {
+    return;
+  }
+  ownerHasKeyUseWarning[currentComponentErrorInfo] = true;
+
+  // Usually the current owner is the offender, but if it accepts children as a
+  // property, it may be the creator of the child that's responsible for
+  // assigning it a key.
+  var childOwner = '';
+  if (element && element._owner && element._owner !== ReactCurrentOwner.current) {
+    // Give the component that originally created this child.
+    childOwner = ' It was passed a child from ' + getComponentName(element._owner.type) + '.';
+  }
+
+  setCurrentlyValidatingElement(element);
+  {
+    warning$1(false, 'Each child in a list should have a unique "key" prop.' + '%s%s See https://fb.me/react-warning-keys for more information.', currentComponentErrorInfo, childOwner);
+  }
+  setCurrentlyValidatingElement(null);
+}
+
+/**
+ * Ensure that every element either is passed in a static location, in an
+ * array with an explicit keys property defined, or in an object literal
+ * with valid key property.
+ *
+ * @internal
+ * @param {ReactNode} node Statically passed child of any type.
+ * @param {*} parentType node's parent's type.
+ */
+function validateChildKeys(node, parentType) {
+  if (typeof node !== 'object') {
+    return;
+  }
+  if (Array.isArray(node)) {
+    for (var i = 0; i < node.length; i++) {
+      var child = node[i];
+      if (isValidElement(child)) {
+        validateExplicitKey(child, parentType);
+      }
+    }
+  } else if (isValidElement(node)) {
+    // This element was passed in a valid location.
+    if (node._store) {
+      node._store.validated = true;
+    }
+  } else if (node) {
+    var iteratorFn = getIteratorFn(node);
+    if (typeof iteratorFn === 'function') {
+      // Entry iterators used to provide implicit keys,
+      // but now we print a separate warning for them later.
+      if (iteratorFn !== node.entries) {
+        var iterator = iteratorFn.call(node);
+        var step = void 0;
+        while (!(step = iterator.next()).done) {
+          if (isValidElement(step.value)) {
+            validateExplicitKey(step.value, parentType);
+          }
+        }
+      }
+    }
+  }
+}
+
+/**
+ * Given an element, validate that its props follow the propTypes definition,
+ * provided by the type.
+ *
+ * @param {ReactElement} element
+ */
+function validatePropTypes(element) {
+  var type = element.type;
+  if (type === null || type === undefined || typeof type === 'string') {
+    return;
+  }
+  var name = getComponentName(type);
+  var propTypes = void 0;
+  if (typeof type === 'function') {
+    propTypes = type.propTypes;
+  } else if (typeof type === 'object' && (type.$$typeof === REACT_FORWARD_REF_TYPE ||
+  // Note: Memo only checks outer props here.
+  // Inner props are checked in the reconciler.
+  type.$$typeof === REACT_MEMO_TYPE)) {
+    propTypes = type.propTypes;
+  } else {
+    return;
+  }
+  if (propTypes) {
+    setCurrentlyValidatingElement(element);
+    checkPropTypes(propTypes, element.props, 'prop', name, ReactDebugCurrentFrame.getStackAddendum);
+    setCurrentlyValidatingElement(null);
+  } else if (type.PropTypes !== undefined && !propTypesMisspellWarningShown) {
+    propTypesMisspellWarningShown = true;
+    warningWithoutStack$1(false, 'Component %s declared `PropTypes` instead of `propTypes`. Did you misspell the property assignment?', name || 'Unknown');
+  }
+  if (typeof type.getDefaultProps === 'function') {
+    !type.getDefaultProps.isReactClassApproved ? warningWithoutStack$1(false, 'getDefaultProps is only used on classic React.createClass ' + 'definitions. Use a static property named `defaultProps` instead.') : void 0;
+  }
+}
+
+/**
+ * Given a fragment, validate that it can only be provided with fragment props
+ * @param {ReactElement} fragment
+ */
+function validateFragmentProps(fragment) {
+  setCurrentlyValidatingElement(fragment);
+
+  var keys = Object.keys(fragment.props);
+  for (var i = 0; i < keys.length; i++) {
+    var key = keys[i];
+    if (key !== 'children' && key !== 'key') {
+      warning$1(false, 'Invalid prop `%s` supplied to `React.Fragment`. ' + 'React.Fragment can only have `key` and `children` props.', key);
+      break;
+    }
+  }
+
+  if (fragment.ref !== null) {
+    warning$1(false, 'Invalid attribute `ref` supplied to `React.Fragment`.');
+  }
+
+  setCurrentlyValidatingElement(null);
+}
+
+function createElementWithValidation(type, props, children) {
+  var validType = isValidElementType(type);
+
+  // We warn in this case but don't throw. We expect the element creation to
+  // succeed and there will likely be errors in render.
+  if (!validType) {
+    var info = '';
+    if (type === undefined || typeof type === 'object' && type !== null && Object.keys(type).length === 0) {
+      info += ' You likely forgot to export your component from the file ' + "it's defined in, or you might have mixed up default and named imports.";
+    }
+
+    var sourceInfo = getSourceInfoErrorAddendum(props);
+    if (sourceInfo) {
+      info += sourceInfo;
+    } else {
+      info += getDeclarationErrorAddendum();
+    }
+
+    var typeString = void 0;
+    if (type === null) {
+      typeString = 'null';
+    } else if (Array.isArray(type)) {
+      typeString = 'array';
+    } else if (type !== undefined && type.$$typeof === REACT_ELEMENT_TYPE) {
+      typeString = '<' + (getComponentName(type.type) || 'Unknown') + ' />';
+      info = ' Did you accidentally export a JSX literal instead of a component?';
+    } else {
+      typeString = typeof type;
+    }
+
+    warning$1(false, 'React.createElement: type is invalid -- expected a string (for ' + 'built-in components) or a class/function (for composite ' + 'components) but got: %s.%s', typeString, info);
+  }
+
+  var element = createElement.apply(this, arguments);
+
+  // The result can be nullish if a mock or a custom function is used.
+  // TODO: Drop this when these are no longer allowed as the type argument.
+  if (element == null) {
+    return element;
+  }
+
+  // Skip key warning if the type isn't valid since our key validation logic
+  // doesn't expect a non-string/function type and can throw confusing errors.
+  // We don't want exception behavior to differ between dev and prod.
+  // (Rendering will throw with a helpful message and as soon as the type is
+  // fixed, the key warnings will appear.)
+  if (validType) {
+    for (var i = 2; i < arguments.length; i++) {
+      validateChildKeys(arguments[i], type);
+    }
+  }
+
+  if (type === REACT_FRAGMENT_TYPE) {
+    validateFragmentProps(element);
+  } else {
+    validatePropTypes(element);
+  }
+
+  return element;
+}
+
+function createFactoryWithValidation(type) {
+  var validatedFactory = createElementWithValidation.bind(null, type);
+  validatedFactory.type = type;
+  // Legacy hook: remove it
+  {
+    Object.defineProperty(validatedFactory, 'type', {
+      enumerable: false,
+      get: function () {
+        lowPriorityWarning$1(false, 'Factory.type is deprecated. Access the class directly ' + 'before passing it to createFactory.');
+        Object.defineProperty(this, 'type', {
+          value: type
+        });
+        return type;
+      }
+    });
+  }
+
+  return validatedFactory;
+}
+
+function cloneElementWithValidation(element, props, children) {
+  var newElement = cloneElement.apply(this, arguments);
+  for (var i = 2; i < arguments.length; i++) {
+    validateChildKeys(arguments[i], newElement.type);
+  }
+  validatePropTypes(newElement);
+  return newElement;
+}
+
+// Helps identify side effects in begin-phase lifecycle hooks and setState reducers:
+
+
+// In some cases, StrictMode should also double-render lifecycles.
+// This can be confusing for tests though,
+// And it can be bad for performance in production.
+// This feature flag can be used to control the behavior:
+
+
+// To preserve the "Pause on caught exceptions" behavior of the debugger, we
+// replay the begin phase of a failed component inside invokeGuardedCallback.
+
+
+// Warn about deprecated, async-unsafe lifecycles; relates to RFC #6:
+
+
+// Gather advanced timing metrics for Profiler subtrees.
+
+
+// Trace which interactions trigger each commit.
+
+
+// Only used in www builds.
+ // TODO: true? Here it might just be false.
+
+// Only used in www builds.
+
+
+// Only used in www builds.
+
+
+// React Fire: prevent the value and checked attributes from syncing
+// with their related DOM properties
+
+
+// These APIs will no longer be "unstable" in the upcoming 16.7 release,
+// Control this behavior with a flag to support 16.6 minor releases in the meanwhile.
+var enableStableConcurrentModeAPIs = false;
+
+var React = {
+  Children: {
+    map: mapChildren,
+    forEach: forEachChildren,
+    count: countChildren,
+    toArray: toArray,
+    only: onlyChild
+  },
+
+  createRef: createRef,
+  Component: Component,
+  PureComponent: PureComponent,
+
+  createContext: createContext,
+  forwardRef: forwardRef,
+  lazy: lazy,
+  memo: memo,
+
+  useCallback: useCallback,
+  useContext: useContext,
+  useEffect: useEffect,
+  useImperativeHandle: useImperativeHandle,
+  useDebugValue: useDebugValue,
+  useLayoutEffect: useLayoutEffect,
+  useMemo: useMemo,
+  useReducer: useReducer,
+  useRef: useRef,
+  useState: useState,
+
+  Fragment: REACT_FRAGMENT_TYPE,
+  StrictMode: REACT_STRICT_MODE_TYPE,
+  Suspense: REACT_SUSPENSE_TYPE,
+
+  createElement: createElementWithValidation,
+  cloneElement: cloneElementWithValidation,
+  createFactory: createFactoryWithValidation,
+  isValidElement: isValidElement,
+
+  version: ReactVersion,
+
+  unstable_ConcurrentMode: REACT_CONCURRENT_MODE_TYPE,
+  unstable_Profiler: REACT_PROFILER_TYPE,
+
+  __SECRET_INTERNALS_DO_NOT_USE_OR_YOU_WILL_BE_FIRED: ReactSharedInternals
+};
+
+// Note: some APIs are added with feature flags.
+// Make sure that stable builds for open source
+// don't modify the React object to avoid deopts.
+// Also let's not expose their names in stable builds.
+
+if (enableStableConcurrentModeAPIs) {
+  React.ConcurrentMode = REACT_CONCURRENT_MODE_TYPE;
+  React.Profiler = REACT_PROFILER_TYPE;
+  React.unstable_ConcurrentMode = undefined;
+  React.unstable_Profiler = undefined;
+}
+
+
+
+var React$2 = Object.freeze({
+	default: React
+});
+
+var React$3 = ( React$2 && React ) || React$2;
+
+// TODO: decide on the top-level export form.
+// This is hacky but makes it work with both Rollup and Jest.
+var react = React$3.default || React$3;
+
+module.exports = react;
+  })();
+}
+
+
+/***/ }),
+
+/***/ "../../../../usr/local/lib/node_modules/react/index.js":
+/*!**************************************************!*\
+  !*** /usr/local/lib/node_modules/react/index.js ***!
+  \**************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+if (false) {} else {
+  module.exports = __webpack_require__(/*! ./cjs/react.development.js */ "../../../../usr/local/lib/node_modules/react/cjs/react.development.js");
+}
+
+
+/***/ }),
+
+/***/ "../../../../usr/local/lib/node_modules/react/node_modules/object-assign/index.js":
+/*!*****************************************************************************!*\
+  !*** /usr/local/lib/node_modules/react/node_modules/object-assign/index.js ***!
+  \*****************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+/*
+object-assign
+(c) Sindre Sorhus
+@license MIT
+*/
+
+
+/* eslint-disable no-unused-vars */
+var getOwnPropertySymbols = Object.getOwnPropertySymbols;
+var hasOwnProperty = Object.prototype.hasOwnProperty;
+var propIsEnumerable = Object.prototype.propertyIsEnumerable;
+
+function toObject(val) {
+	if (val === null || val === undefined) {
+		throw new TypeError('Object.assign cannot be called with null or undefined');
+	}
+
+	return Object(val);
+}
+
+function shouldUseNative() {
+	try {
+		if (!Object.assign) {
+			return false;
+		}
+
+		// Detect buggy property enumeration order in older V8 versions.
+
+		// https://bugs.chromium.org/p/v8/issues/detail?id=4118
+		var test1 = new String('abc');  // eslint-disable-line no-new-wrappers
+		test1[5] = 'de';
+		if (Object.getOwnPropertyNames(test1)[0] === '5') {
+			return false;
+		}
+
+		// https://bugs.chromium.org/p/v8/issues/detail?id=3056
+		var test2 = {};
+		for (var i = 0; i < 10; i++) {
+			test2['_' + String.fromCharCode(i)] = i;
+		}
+		var order2 = Object.getOwnPropertyNames(test2).map(function (n) {
+			return test2[n];
+		});
+		if (order2.join('') !== '0123456789') {
+			return false;
+		}
+
+		// https://bugs.chromium.org/p/v8/issues/detail?id=3056
+		var test3 = {};
+		'abcdefghijklmnopqrst'.split('').forEach(function (letter) {
+			test3[letter] = letter;
+		});
+		if (Object.keys(Object.assign({}, test3)).join('') !==
+				'abcdefghijklmnopqrst') {
+			return false;
+		}
+
+		return true;
+	} catch (err) {
+		// We don't expect any of the above to throw, but better to be safe.
+		return false;
+	}
+}
+
+module.exports = shouldUseNative() ? Object.assign : function (target, source) {
+	var from;
+	var to = toObject(target);
+	var symbols;
+
+	for (var s = 1; s < arguments.length; s++) {
+		from = Object(arguments[s]);
+
+		for (var key in from) {
+			if (hasOwnProperty.call(from, key)) {
+				to[key] = from[key];
+			}
+		}
+
+		if (getOwnPropertySymbols) {
+			symbols = getOwnPropertySymbols(from);
+			for (var i = 0; i < symbols.length; i++) {
+				if (propIsEnumerable.call(from, symbols[i])) {
+					to[symbols[i]] = from[symbols[i]];
+				}
+			}
+		}
+	}
+
+	return to;
+};
+
+
+/***/ }),
+
+/***/ "../../../../usr/local/lib/node_modules/react/node_modules/prop-types/checkPropTypes.js":
+/*!***********************************************************************************!*\
+  !*** /usr/local/lib/node_modules/react/node_modules/prop-types/checkPropTypes.js ***!
+  \***********************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+/**
+ * Copyright (c) 2013-present, Facebook, Inc.
+ *
+ * This source code is licensed under the MIT license found in the
+ * LICENSE file in the root directory of this source tree.
+ */
+
+
+
+var printWarning = function() {};
+
+if (true) {
+  var ReactPropTypesSecret = __webpack_require__(/*! ./lib/ReactPropTypesSecret */ "../../../../usr/local/lib/node_modules/react/node_modules/prop-types/lib/ReactPropTypesSecret.js");
+  var loggedTypeFailures = {};
+  var has = Function.call.bind(Object.prototype.hasOwnProperty);
+
+  printWarning = function(text) {
+    var message = 'Warning: ' + text;
+    if (typeof console !== 'undefined') {
+      console.error(message);
+    }
+    try {
+      // --- Welcome to debugging React ---
+      // This error was thrown as a convenience so that you can use this stack
+      // to find the callsite that caused this warning to fire.
+      throw new Error(message);
+    } catch (x) {}
+  };
+}
+
+/**
+ * Assert that the values match with the type specs.
+ * Error messages are memorized and will only be shown once.
+ *
+ * @param {object} typeSpecs Map of name to a ReactPropType
+ * @param {object} values Runtime values that need to be type-checked
+ * @param {string} location e.g. "prop", "context", "child context"
+ * @param {string} componentName Name of the component for error messages.
+ * @param {?Function} getStack Returns the component stack.
+ * @private
+ */
+function checkPropTypes(typeSpecs, values, location, componentName, getStack) {
+  if (true) {
+    for (var typeSpecName in typeSpecs) {
+      if (has(typeSpecs, typeSpecName)) {
+        var error;
+        // Prop type validation may throw. In case they do, we don't want to
+        // fail the render phase where it didn't fail before. So we log it.
+        // After these have been cleaned up, we'll let them throw.
+        try {
+          // This is intentionally an invariant that gets caught. It's the same
+          // behavior as without this statement except with a better message.
+          if (typeof typeSpecs[typeSpecName] !== 'function') {
+            var err = Error(
+              (componentName || 'React class') + ': ' + location + ' type `' + typeSpecName + '` is invalid; ' +
+              'it must be a function, usually from the `prop-types` package, but received `' + typeof typeSpecs[typeSpecName] + '`.'
+            );
+            err.name = 'Invariant Violation';
+            throw err;
+          }
+          error = typeSpecs[typeSpecName](values, typeSpecName, componentName, location, null, ReactPropTypesSecret);
+        } catch (ex) {
+          error = ex;
+        }
+        if (error && !(error instanceof Error)) {
+          printWarning(
+            (componentName || 'React class') + ': type specification of ' +
+            location + ' `' + typeSpecName + '` is invalid; the type checker ' +
+            'function must return `null` or an `Error` but returned a ' + typeof error + '. ' +
+            'You may have forgotten to pass an argument to the type checker ' +
+            'creator (arrayOf, instanceOf, objectOf, oneOf, oneOfType, and ' +
+            'shape all require an argument).'
+          );
+        }
+        if (error instanceof Error && !(error.message in loggedTypeFailures)) {
+          // Only monitor this failure once because there tends to be a lot of the
+          // same error.
+          loggedTypeFailures[error.message] = true;
+
+          var stack = getStack ? getStack() : '';
+
+          printWarning(
+            'Failed ' + location + ' type: ' + error.message + (stack != null ? stack : '')
+          );
+        }
+      }
+    }
+  }
+}
+
+/**
+ * Resets warning cache when testing.
+ *
+ * @private
+ */
+checkPropTypes.resetWarningCache = function() {
+  if (true) {
+    loggedTypeFailures = {};
+  }
+}
+
+module.exports = checkPropTypes;
+
+
+/***/ }),
+
+/***/ "../../../../usr/local/lib/node_modules/react/node_modules/prop-types/lib/ReactPropTypesSecret.js":
+/*!*********************************************************************************************!*\
+  !*** /usr/local/lib/node_modules/react/node_modules/prop-types/lib/ReactPropTypesSecret.js ***!
+  \*********************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+/**
+ * Copyright (c) 2013-present, Facebook, Inc.
+ *
+ * This source code is licensed under the MIT license found in the
+ * LICENSE file in the root directory of this source tree.
+ */
+
+
+
+var ReactPropTypesSecret = 'SECRET_DO_NOT_PASS_THIS_OR_YOU_WILL_BE_FIRED';
+
+module.exports = ReactPropTypesSecret;
+
+
+/***/ }),
+
+/***/ "../../../../usr/local/lib/node_modules/use-query-params/esm/QueryParamProvider.js":
+/*!******************************************************************************!*\
+  !*** /usr/local/lib/node_modules/use-query-params/esm/QueryParamProvider.js ***!
+  \******************************************************************************/
+/*! exports provided: QueryParamContext, QueryParamProvider, default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "QueryParamContext", function() { return QueryParamContext; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "QueryParamProvider", function() { return QueryParamProvider; });
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "../../../../usr/local/lib/node_modules/react/index.js");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
+var __assign = (undefined && undefined.__assign) || function () {
+    __assign = Object.assign || function(t) {
+        for (var s, i = 1, n = arguments.length; i < n; i++) {
+            s = arguments[i];
+            for (var p in s) if (Object.prototype.hasOwnProperty.call(s, p))
+                t[p] = s[p];
+        }
+        return t;
+    };
+    return __assign.apply(this, arguments);
+};
+
+/**
+ * Adapts standard DOM window history to work with our
+ * { replace, push } interface.
+ *
+ * @param history Standard history provided by DOM
+ */
+function adaptWindowHistory(history) {
+    return {
+        replace: function (location) {
+            history.replaceState(location.state, '', location.protocol + "//" + location.host + location.pathname + location.search);
+        },
+        push: function (location) {
+            history.pushState(location.state, '', location.protocol + "//" + location.host + location.pathname + location.search);
+        },
+    };
+}
+/**
+ * Adapts @reach/router history to work with our
+ * { replace, push } interface.
+ *
+ * @param history globalHistory from @reach/router
+ */
+function adaptReachHistory(history) {
+    return {
+        replace: function (location) {
+            history.navigate(location.protocol + "//" + location.host + location.pathname + location.search, { replace: true });
+        },
+        push: function (location) {
+            history.navigate(location.protocol + "//" + location.host + location.pathname + location.search, { replace: false });
+        },
+    };
+}
+/**
+ * Helper to produce the context value falling back to
+ * window history and location if not provided.
+ */
+function getContextValue(contextValue) {
+    if (contextValue === void 0) { contextValue = {}; }
+    var value = __assign({}, contextValue);
+    var hasWindow = typeof window !== 'undefined';
+    if (hasWindow) {
+        if (!value.history) {
+            value.history = adaptWindowHistory(window.history);
+        }
+        if (!value.location) {
+            value.location = window.location;
+        }
+    }
+    return value;
+}
+var QueryParamContext = react__WEBPACK_IMPORTED_MODULE_0__["createContext"](getContextValue());
+/**
+ * Context provider for query params to have access to the
+ * active routing system, enabling updates to the URL.
+ */
+function QueryParamProvider(_a) {
+    var children = _a.children, ReactRouterRoute = _a.ReactRouterRoute, reachHistory = _a.reachHistory, history = _a.history, location = _a.location;
+    // if we have React Router, use it to get the context value
+    if (ReactRouterRoute) {
+        return (react__WEBPACK_IMPORTED_MODULE_0__["createElement"](ReactRouterRoute, null, function (routeProps) {
+            return (react__WEBPACK_IMPORTED_MODULE_0__["createElement"](QueryParamContext.Provider, { value: getContextValue(routeProps) }, children));
+        }));
+    }
+    // if we are using reach router, use its history
+    if (reachHistory) {
+        return (react__WEBPACK_IMPORTED_MODULE_0__["createElement"](QueryParamContext.Provider, { value: getContextValue({
+                history: adaptReachHistory(reachHistory),
+                location: location,
+            }) }, children));
+    }
+    // neither reach nor react-router, so allow manual overrides
+    return (react__WEBPACK_IMPORTED_MODULE_0__["createElement"](QueryParamContext.Provider, { value: getContextValue({ history: history, location: location }) }, children));
+}
+/* harmony default export */ __webpack_exports__["default"] = (QueryParamProvider);
+
+
+/***/ }),
+
+/***/ "../../../../usr/local/lib/node_modules/use-query-params/esm/index.js":
+/*!*****************************************************************!*\
+  !*** /usr/local/lib/node_modules/use-query-params/esm/index.js ***!
+  \*****************************************************************/
+/*! exports provided: useQueryParam, useQueryParams, updateUrlQuery, QueryParamProvider, QueryParamContext, encodeDate, decodeDate, encodeBoolean, decodeBoolean, encodeNumber, decodeNumber, encodeString, decodeString, encodeJson, decodeJson, encodeArray, decodeArray, encodeNumericArray, decodeNumericArray, encodeDelimitedArray, decodeDelimitedArray, encodeDelimitedNumericArray, decodeDelimitedNumericArray, encodeObject, decodeObject, encodeNumericObject, decodeNumericObject, StringParam, NumberParam, ObjectParam, ArrayParam, NumericArrayParam, JsonParam, DateParam, DateTimeParam, BooleanParam, NumericObjectParam, DelimitedArrayParam, DelimitedNumericArrayParam, updateLocation, updateInLocation, encodeQueryParams, decodeQueryParams, stringify, parse, parseUrl, extract */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var serialize_query_params__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! serialize-query-params */ "../../../../usr/local/lib/node_modules/use-query-params/node_modules/serialize-query-params/esm/index.js");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "encodeDate", function() { return serialize_query_params__WEBPACK_IMPORTED_MODULE_0__["encodeDate"]; });
+
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "decodeDate", function() { return serialize_query_params__WEBPACK_IMPORTED_MODULE_0__["decodeDate"]; });
+
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "encodeBoolean", function() { return serialize_query_params__WEBPACK_IMPORTED_MODULE_0__["encodeBoolean"]; });
+
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "decodeBoolean", function() { return serialize_query_params__WEBPACK_IMPORTED_MODULE_0__["decodeBoolean"]; });
+
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "encodeNumber", function() { return serialize_query_params__WEBPACK_IMPORTED_MODULE_0__["encodeNumber"]; });
+
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "decodeNumber", function() { return serialize_query_params__WEBPACK_IMPORTED_MODULE_0__["decodeNumber"]; });
+
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "encodeString", function() { return serialize_query_params__WEBPACK_IMPORTED_MODULE_0__["encodeString"]; });
+
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "decodeString", function() { return serialize_query_params__WEBPACK_IMPORTED_MODULE_0__["decodeString"]; });
+
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "encodeJson", function() { return serialize_query_params__WEBPACK_IMPORTED_MODULE_0__["encodeJson"]; });
+
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "decodeJson", function() { return serialize_query_params__WEBPACK_IMPORTED_MODULE_0__["decodeJson"]; });
+
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "encodeArray", function() { return serialize_query_params__WEBPACK_IMPORTED_MODULE_0__["encodeArray"]; });
+
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "decodeArray", function() { return serialize_query_params__WEBPACK_IMPORTED_MODULE_0__["decodeArray"]; });
+
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "encodeNumericArray", function() { return serialize_query_params__WEBPACK_IMPORTED_MODULE_0__["encodeNumericArray"]; });
+
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "decodeNumericArray", function() { return serialize_query_params__WEBPACK_IMPORTED_MODULE_0__["decodeNumericArray"]; });
+
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "encodeDelimitedArray", function() { return serialize_query_params__WEBPACK_IMPORTED_MODULE_0__["encodeDelimitedArray"]; });
+
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "decodeDelimitedArray", function() { return serialize_query_params__WEBPACK_IMPORTED_MODULE_0__["decodeDelimitedArray"]; });
+
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "encodeDelimitedNumericArray", function() { return serialize_query_params__WEBPACK_IMPORTED_MODULE_0__["encodeDelimitedNumericArray"]; });
+
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "decodeDelimitedNumericArray", function() { return serialize_query_params__WEBPACK_IMPORTED_MODULE_0__["decodeDelimitedNumericArray"]; });
+
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "encodeObject", function() { return serialize_query_params__WEBPACK_IMPORTED_MODULE_0__["encodeObject"]; });
+
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "decodeObject", function() { return serialize_query_params__WEBPACK_IMPORTED_MODULE_0__["decodeObject"]; });
+
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "encodeNumericObject", function() { return serialize_query_params__WEBPACK_IMPORTED_MODULE_0__["encodeNumericObject"]; });
+
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "decodeNumericObject", function() { return serialize_query_params__WEBPACK_IMPORTED_MODULE_0__["decodeNumericObject"]; });
+
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "StringParam", function() { return serialize_query_params__WEBPACK_IMPORTED_MODULE_0__["StringParam"]; });
+
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "NumberParam", function() { return serialize_query_params__WEBPACK_IMPORTED_MODULE_0__["NumberParam"]; });
+
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "ObjectParam", function() { return serialize_query_params__WEBPACK_IMPORTED_MODULE_0__["ObjectParam"]; });
+
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "ArrayParam", function() { return serialize_query_params__WEBPACK_IMPORTED_MODULE_0__["ArrayParam"]; });
+
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "NumericArrayParam", function() { return serialize_query_params__WEBPACK_IMPORTED_MODULE_0__["NumericArrayParam"]; });
+
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "JsonParam", function() { return serialize_query_params__WEBPACK_IMPORTED_MODULE_0__["JsonParam"]; });
+
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "DateParam", function() { return serialize_query_params__WEBPACK_IMPORTED_MODULE_0__["DateParam"]; });
+
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "DateTimeParam", function() { return serialize_query_params__WEBPACK_IMPORTED_MODULE_0__["DateTimeParam"]; });
+
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "BooleanParam", function() { return serialize_query_params__WEBPACK_IMPORTED_MODULE_0__["BooleanParam"]; });
+
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "NumericObjectParam", function() { return serialize_query_params__WEBPACK_IMPORTED_MODULE_0__["NumericObjectParam"]; });
+
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "DelimitedArrayParam", function() { return serialize_query_params__WEBPACK_IMPORTED_MODULE_0__["DelimitedArrayParam"]; });
+
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "DelimitedNumericArrayParam", function() { return serialize_query_params__WEBPACK_IMPORTED_MODULE_0__["DelimitedNumericArrayParam"]; });
+
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "updateLocation", function() { return serialize_query_params__WEBPACK_IMPORTED_MODULE_0__["updateLocation"]; });
+
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "updateInLocation", function() { return serialize_query_params__WEBPACK_IMPORTED_MODULE_0__["updateInLocation"]; });
+
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "encodeQueryParams", function() { return serialize_query_params__WEBPACK_IMPORTED_MODULE_0__["encodeQueryParams"]; });
+
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "decodeQueryParams", function() { return serialize_query_params__WEBPACK_IMPORTED_MODULE_0__["decodeQueryParams"]; });
+
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "stringify", function() { return serialize_query_params__WEBPACK_IMPORTED_MODULE_0__["stringify"]; });
+
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "parse", function() { return serialize_query_params__WEBPACK_IMPORTED_MODULE_0__["parse"]; });
+
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "parseUrl", function() { return serialize_query_params__WEBPACK_IMPORTED_MODULE_0__["parseUrl"]; });
+
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "extract", function() { return serialize_query_params__WEBPACK_IMPORTED_MODULE_0__["extract"]; });
+
+/* harmony import */ var _useQueryParam__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./useQueryParam */ "../../../../usr/local/lib/node_modules/use-query-params/esm/useQueryParam.js");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "useQueryParam", function() { return _useQueryParam__WEBPACK_IMPORTED_MODULE_1__["useQueryParam"]; });
+
+/* harmony import */ var _useQueryParams__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./useQueryParams */ "../../../../usr/local/lib/node_modules/use-query-params/esm/useQueryParams.js");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "useQueryParams", function() { return _useQueryParams__WEBPACK_IMPORTED_MODULE_2__["useQueryParams"]; });
+
+/* harmony import */ var _updateUrlQuery__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./updateUrlQuery */ "../../../../usr/local/lib/node_modules/use-query-params/esm/updateUrlQuery.js");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "updateUrlQuery", function() { return _updateUrlQuery__WEBPACK_IMPORTED_MODULE_3__["updateUrlQuery"]; });
+
+/* harmony import */ var _QueryParamProvider__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./QueryParamProvider */ "../../../../usr/local/lib/node_modules/use-query-params/esm/QueryParamProvider.js");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "QueryParamProvider", function() { return _QueryParamProvider__WEBPACK_IMPORTED_MODULE_4__["QueryParamProvider"]; });
+
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "QueryParamContext", function() { return _QueryParamProvider__WEBPACK_IMPORTED_MODULE_4__["QueryParamContext"]; });
+
+
+
+
+
+
+
+
+/***/ }),
+
+/***/ "../../../../usr/local/lib/node_modules/use-query-params/esm/updateUrlQuery.js":
+/*!**************************************************************************!*\
+  !*** /usr/local/lib/node_modules/use-query-params/esm/updateUrlQuery.js ***!
+  \**************************************************************************/
+/*! exports provided: updateUrlQuery, default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "updateUrlQuery", function() { return updateUrlQuery; });
+/* harmony import */ var serialize_query_params__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! serialize-query-params */ "../../../../usr/local/lib/node_modules/use-query-params/node_modules/serialize-query-params/esm/index.js");
+
+/**
+ * Updates the URL to match the specified query changes.
+ * If replaceIn or pushIn are used as the updateType, then parameters
+ * not specified in queryReplacements are retained. If replace or push
+ * are used, only the values in queryReplacements will be available.
+ */
+function updateUrlQuery(queryReplacements, location, history, updateType) {
+    if (updateType === void 0) { updateType = 'replaceIn'; }
+    switch (updateType) {
+        case 'replaceIn':
+            history.replace(Object(serialize_query_params__WEBPACK_IMPORTED_MODULE_0__["updateInLocation"])(queryReplacements, location));
+            break;
+        case 'pushIn':
+            history.push(Object(serialize_query_params__WEBPACK_IMPORTED_MODULE_0__["updateInLocation"])(queryReplacements, location));
+            break;
+        case 'replace':
+            history.replace(Object(serialize_query_params__WEBPACK_IMPORTED_MODULE_0__["updateLocation"])(queryReplacements, location));
+            break;
+        case 'push':
+            history.push(Object(serialize_query_params__WEBPACK_IMPORTED_MODULE_0__["updateLocation"])(queryReplacements, location));
+            break;
+        default:
+    }
+}
+/* harmony default export */ __webpack_exports__["default"] = (updateUrlQuery);
+
+
+/***/ }),
+
+/***/ "../../../../usr/local/lib/node_modules/use-query-params/esm/useQueryParam.js":
+/*!*************************************************************************!*\
+  !*** /usr/local/lib/node_modules/use-query-params/esm/useQueryParam.js ***!
+  \*************************************************************************/
+/*! exports provided: useQueryParam */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "useQueryParam", function() { return useQueryParam; });
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "../../../../usr/local/lib/node_modules/react/index.js");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var serialize_query_params__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! serialize-query-params */ "../../../../usr/local/lib/node_modules/use-query-params/node_modules/serialize-query-params/esm/index.js");
+/* harmony import */ var _QueryParamProvider__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./QueryParamProvider */ "../../../../usr/local/lib/node_modules/use-query-params/esm/QueryParamProvider.js");
+/* harmony import */ var _updateUrlQuery__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./updateUrlQuery */ "../../../../usr/local/lib/node_modules/use-query-params/esm/updateUrlQuery.js");
+
+
+
+
+/**
+ * Given a query param name and query parameter configuration ({ encode, decode })
+ * return the decoded value and a setter for updating it.
+ *
+ * The setter takes two arguments (newValue, updateType) where updateType
+ * is one of 'replace' | 'replaceIn' | 'push' | 'pushIn', defaulting to
+ * 'replaceIn'.
+ *
+ * You may optionally pass in a rawQuery object, otherwise the query is derived
+ * from the location available in the QueryParamContext.
+ *
+ * D = decoded type
+ * D2 = return value from decode (typically same as D)
+ */
+var useQueryParam = function (name, paramConfig, rawQuery) {
+    if (paramConfig === void 0) { paramConfig = serialize_query_params__WEBPACK_IMPORTED_MODULE_1__["StringParam"]; }
+    var _a = react__WEBPACK_IMPORTED_MODULE_0__["useContext"](_QueryParamProvider__WEBPACK_IMPORTED_MODULE_2__["QueryParamContext"]), history = _a.history, location = _a.location;
+    // read in the raw query
+    if (!rawQuery) {
+        rawQuery = react__WEBPACK_IMPORTED_MODULE_0__["useMemo"](function () { return Object(serialize_query_params__WEBPACK_IMPORTED_MODULE_1__["parse"])(location.search) || {}; }, [
+            location.search,
+        ]);
+    }
+    // read in the encoded string value
+    var encodedValue = rawQuery[name];
+    // decode if the encoded value has changed, otherwise
+    // re-use memoized value
+    var decodedValue = react__WEBPACK_IMPORTED_MODULE_0__["useMemo"](function () {
+        if (encodedValue == null) {
+            return undefined;
+        }
+        return paramConfig.decode(encodedValue);
+        // note that we use the stringified encoded value since the encoded
+        // value may be an array that is recreated if a different query param
+        // changes.
+    }, [
+        encodedValue instanceof Array
+            ? Object(serialize_query_params__WEBPACK_IMPORTED_MODULE_1__["stringify"])({ name: encodedValue })
+            : encodedValue,
+    ]);
+    // create the setter, memoizing via useCallback
+    var setValue = react__WEBPACK_IMPORTED_MODULE_0__["useCallback"](function (newValue, updateType) {
+        var _a;
+        var newEncodedValue = paramConfig.encode(newValue);
+        Object(_updateUrlQuery__WEBPACK_IMPORTED_MODULE_3__["updateUrlQuery"])((_a = {}, _a[name] = newEncodedValue, _a), location, history, updateType);
+    }, [location]);
+    return [decodedValue, setValue];
+};
+
+
+/***/ }),
+
+/***/ "../../../../usr/local/lib/node_modules/use-query-params/esm/useQueryParams.js":
+/*!**************************************************************************!*\
+  !*** /usr/local/lib/node_modules/use-query-params/esm/useQueryParams.js ***!
+  \**************************************************************************/
+/*! exports provided: useQueryParams, default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "useQueryParams", function() { return useQueryParams; });
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "../../../../usr/local/lib/node_modules/react/index.js");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var serialize_query_params__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! serialize-query-params */ "../../../../usr/local/lib/node_modules/use-query-params/node_modules/serialize-query-params/esm/index.js");
+/* harmony import */ var _useQueryParam__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./useQueryParam */ "../../../../usr/local/lib/node_modules/use-query-params/esm/useQueryParam.js");
+/* harmony import */ var _updateUrlQuery__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./updateUrlQuery */ "../../../../usr/local/lib/node_modules/use-query-params/esm/updateUrlQuery.js");
+/* harmony import */ var _QueryParamProvider__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./QueryParamProvider */ "../../../../usr/local/lib/node_modules/use-query-params/esm/QueryParamProvider.js");
+
+
+
+
+
+/**
+ * Given a query parameter configuration (mapping query param name to { encode, decode }),
+ * return an object with the decoded values and a setter for updating them.
+ */
+var useQueryParams = function (paramConfigMap) {
+    var _a = react__WEBPACK_IMPORTED_MODULE_0__["useContext"](_QueryParamProvider__WEBPACK_IMPORTED_MODULE_4__["QueryParamContext"]), history = _a.history, location = _a.location;
+    // read in the raw query
+    var rawQuery = react__WEBPACK_IMPORTED_MODULE_0__["useMemo"](function () { return Object(serialize_query_params__WEBPACK_IMPORTED_MODULE_1__["parse"])(location.search) || {}; }, [location.search]);
+    // parse each parameter via useQueryParam
+    // we reuse the logic to not recreate objects
+    var paramNames = Object.keys(paramConfigMap);
+    var paramValues = paramNames.map(function (paramName) {
+        return Object(_useQueryParam__WEBPACK_IMPORTED_MODULE_2__["useQueryParam"])(paramName, paramConfigMap[paramName], rawQuery)[0];
+    });
+    // we use a memo here to prevent recreating the containing decodedValues object
+    // which would break === comparisons even if no values changed.
+    var decodedValues = react__WEBPACK_IMPORTED_MODULE_0__["useMemo"](function () {
+        // iterate over the decoded values and build an object
+        var decodedValues = {};
+        for (var i = 0; i < paramNames.length; ++i) {
+            decodedValues[paramNames[i]] = paramValues[i];
+        }
+        return decodedValues;
+    }, paramValues);
+    // create a setter for updating multiple query params at once
+    var setQuery = react__WEBPACK_IMPORTED_MODULE_0__["useCallback"](function (changes, updateType) {
+        // encode as strings for the URL
+        var encodedChanges = Object(serialize_query_params__WEBPACK_IMPORTED_MODULE_1__["encodeQueryParams"])(paramConfigMap, changes);
+        // update the URL
+        Object(_updateUrlQuery__WEBPACK_IMPORTED_MODULE_3__["default"])(encodedChanges, location, history, updateType);
+    }, [location]);
+    // no longer Partial
+    return [decodedValues, setQuery];
+};
+/* harmony default export */ __webpack_exports__["default"] = (useQueryParams);
+
+
+/***/ }),
+
+/***/ "../../../../usr/local/lib/node_modules/use-query-params/node_modules/decode-uri-component/index.js":
+/*!***********************************************************************************************!*\
+  !*** /usr/local/lib/node_modules/use-query-params/node_modules/decode-uri-component/index.js ***!
+  \***********************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+var token = '%[a-f0-9]{2}';
+var singleMatcher = new RegExp(token, 'gi');
+var multiMatcher = new RegExp('(' + token + ')+', 'gi');
+
+function decodeComponents(components, split) {
+	try {
+		// Try to decode the entire string first
+		return decodeURIComponent(components.join(''));
+	} catch (err) {
+		// Do nothing
+	}
+
+	if (components.length === 1) {
+		return components;
+	}
+
+	split = split || 1;
+
+	// Split the array in 2 parts
+	var left = components.slice(0, split);
+	var right = components.slice(split);
+
+	return Array.prototype.concat.call([], decodeComponents(left), decodeComponents(right));
+}
+
+function decode(input) {
+	try {
+		return decodeURIComponent(input);
+	} catch (err) {
+		var tokens = input.match(singleMatcher);
+
+		for (var i = 1; i < tokens.length; i++) {
+			input = decodeComponents(tokens, i).join('');
+
+			tokens = input.match(singleMatcher);
+		}
+
+		return input;
+	}
+}
+
+function customDecodeURIComponent(input) {
+	// Keep track of all the replacements and prefill the map with the `BOM`
+	var replaceMap = {
+		'%FE%FF': '\uFFFD\uFFFD',
+		'%FF%FE': '\uFFFD\uFFFD'
+	};
+
+	var match = multiMatcher.exec(input);
+	while (match) {
+		try {
+			// Decode as big chunks as possible
+			replaceMap[match[0]] = decodeURIComponent(match[0]);
+		} catch (err) {
+			var result = decode(match[0]);
+
+			if (result !== match[0]) {
+				replaceMap[match[0]] = result;
+			}
+		}
+
+		match = multiMatcher.exec(input);
+	}
+
+	// Add `%C2` at the end of the map to make sure it does not replace the combinator before everything else
+	replaceMap['%C2'] = '\uFFFD';
+
+	var entries = Object.keys(replaceMap);
+
+	for (var i = 0; i < entries.length; i++) {
+		// Replace all decoded components
+		var key = entries[i];
+		input = input.replace(new RegExp(key, 'g'), replaceMap[key]);
+	}
+
+	return input;
+}
+
+module.exports = function (encodedURI) {
+	if (typeof encodedURI !== 'string') {
+		throw new TypeError('Expected `encodedURI` to be of type `string`, got `' + typeof encodedURI + '`');
+	}
+
+	try {
+		encodedURI = encodedURI.replace(/\+/g, ' ');
+
+		// Try the built in decoder first
+		return decodeURIComponent(encodedURI);
+	} catch (err) {
+		// Fallback to a more advanced decoder
+		return customDecodeURIComponent(encodedURI);
+	}
+};
+
+
+/***/ }),
+
+/***/ "../../../../usr/local/lib/node_modules/use-query-params/node_modules/object-assign/index.js":
+/*!****************************************************************************************!*\
+  !*** /usr/local/lib/node_modules/use-query-params/node_modules/object-assign/index.js ***!
+  \****************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+/*
+object-assign
+(c) Sindre Sorhus
+@license MIT
+*/
+
+
+/* eslint-disable no-unused-vars */
+var getOwnPropertySymbols = Object.getOwnPropertySymbols;
+var hasOwnProperty = Object.prototype.hasOwnProperty;
+var propIsEnumerable = Object.prototype.propertyIsEnumerable;
+
+function toObject(val) {
+	if (val === null || val === undefined) {
+		throw new TypeError('Object.assign cannot be called with null or undefined');
+	}
+
+	return Object(val);
+}
+
+function shouldUseNative() {
+	try {
+		if (!Object.assign) {
+			return false;
+		}
+
+		// Detect buggy property enumeration order in older V8 versions.
+
+		// https://bugs.chromium.org/p/v8/issues/detail?id=4118
+		var test1 = new String('abc');  // eslint-disable-line no-new-wrappers
+		test1[5] = 'de';
+		if (Object.getOwnPropertyNames(test1)[0] === '5') {
+			return false;
+		}
+
+		// https://bugs.chromium.org/p/v8/issues/detail?id=3056
+		var test2 = {};
+		for (var i = 0; i < 10; i++) {
+			test2['_' + String.fromCharCode(i)] = i;
+		}
+		var order2 = Object.getOwnPropertyNames(test2).map(function (n) {
+			return test2[n];
+		});
+		if (order2.join('') !== '0123456789') {
+			return false;
+		}
+
+		// https://bugs.chromium.org/p/v8/issues/detail?id=3056
+		var test3 = {};
+		'abcdefghijklmnopqrst'.split('').forEach(function (letter) {
+			test3[letter] = letter;
+		});
+		if (Object.keys(Object.assign({}, test3)).join('') !==
+				'abcdefghijklmnopqrst') {
+			return false;
+		}
+
+		return true;
+	} catch (err) {
+		// We don't expect any of the above to throw, but better to be safe.
+		return false;
+	}
+}
+
+module.exports = shouldUseNative() ? Object.assign : function (target, source) {
+	var from;
+	var to = toObject(target);
+	var symbols;
+
+	for (var s = 1; s < arguments.length; s++) {
+		from = Object(arguments[s]);
+
+		for (var key in from) {
+			if (hasOwnProperty.call(from, key)) {
+				to[key] = from[key];
+			}
+		}
+
+		if (getOwnPropertySymbols) {
+			symbols = getOwnPropertySymbols(from);
+			for (var i = 0; i < symbols.length; i++) {
+				if (propIsEnumerable.call(from, symbols[i])) {
+					to[symbols[i]] = from[symbols[i]];
+				}
+			}
+		}
+	}
+
+	return to;
+};
+
+
+/***/ }),
+
+/***/ "../../../../usr/local/lib/node_modules/use-query-params/node_modules/query-string/index.js":
+/*!***************************************************************************************!*\
+  !*** /usr/local/lib/node_modules/use-query-params/node_modules/query-string/index.js ***!
+  \***************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+var strictUriEncode = __webpack_require__(/*! strict-uri-encode */ "../../../../usr/local/lib/node_modules/use-query-params/node_modules/strict-uri-encode/index.js");
+var objectAssign = __webpack_require__(/*! object-assign */ "../../../../usr/local/lib/node_modules/use-query-params/node_modules/object-assign/index.js");
+var decodeComponent = __webpack_require__(/*! decode-uri-component */ "../../../../usr/local/lib/node_modules/use-query-params/node_modules/decode-uri-component/index.js");
+
+function encoderForArrayFormat(opts) {
+	switch (opts.arrayFormat) {
+		case 'index':
+			return function (key, value, index) {
+				return value === null ? [
+					encode(key, opts),
+					'[',
+					index,
+					']'
+				].join('') : [
+					encode(key, opts),
+					'[',
+					encode(index, opts),
+					']=',
+					encode(value, opts)
+				].join('');
+			};
+
+		case 'bracket':
+			return function (key, value) {
+				return value === null ? encode(key, opts) : [
+					encode(key, opts),
+					'[]=',
+					encode(value, opts)
+				].join('');
+			};
+
+		default:
+			return function (key, value) {
+				return value === null ? encode(key, opts) : [
+					encode(key, opts),
+					'=',
+					encode(value, opts)
+				].join('');
+			};
+	}
+}
+
+function parserForArrayFormat(opts) {
+	var result;
+
+	switch (opts.arrayFormat) {
+		case 'index':
+			return function (key, value, accumulator) {
+				result = /\[(\d*)\]$/.exec(key);
+
+				key = key.replace(/\[\d*\]$/, '');
+
+				if (!result) {
+					accumulator[key] = value;
+					return;
+				}
+
+				if (accumulator[key] === undefined) {
+					accumulator[key] = {};
+				}
+
+				accumulator[key][result[1]] = value;
+			};
+
+		case 'bracket':
+			return function (key, value, accumulator) {
+				result = /(\[\])$/.exec(key);
+				key = key.replace(/\[\]$/, '');
+
+				if (!result) {
+					accumulator[key] = value;
+					return;
+				} else if (accumulator[key] === undefined) {
+					accumulator[key] = [value];
+					return;
+				}
+
+				accumulator[key] = [].concat(accumulator[key], value);
+			};
+
+		default:
+			return function (key, value, accumulator) {
+				if (accumulator[key] === undefined) {
+					accumulator[key] = value;
+					return;
+				}
+
+				accumulator[key] = [].concat(accumulator[key], value);
+			};
+	}
+}
+
+function encode(value, opts) {
+	if (opts.encode) {
+		return opts.strict ? strictUriEncode(value) : encodeURIComponent(value);
+	}
+
+	return value;
+}
+
+function keysSorter(input) {
+	if (Array.isArray(input)) {
+		return input.sort();
+	} else if (typeof input === 'object') {
+		return keysSorter(Object.keys(input)).sort(function (a, b) {
+			return Number(a) - Number(b);
+		}).map(function (key) {
+			return input[key];
+		});
+	}
+
+	return input;
+}
+
+function extract(str) {
+	var queryStart = str.indexOf('?');
+	if (queryStart === -1) {
+		return '';
+	}
+	return str.slice(queryStart + 1);
+}
+
+function parse(str, opts) {
+	opts = objectAssign({arrayFormat: 'none'}, opts);
+
+	var formatter = parserForArrayFormat(opts);
+
+	// Create an object with no prototype
+	// https://github.com/sindresorhus/query-string/issues/47
+	var ret = Object.create(null);
+
+	if (typeof str !== 'string') {
+		return ret;
+	}
+
+	str = str.trim().replace(/^[?#&]/, '');
+
+	if (!str) {
+		return ret;
+	}
+
+	str.split('&').forEach(function (param) {
+		var parts = param.replace(/\+/g, ' ').split('=');
+		// Firefox (pre 40) decodes `%3D` to `=`
+		// https://github.com/sindresorhus/query-string/pull/37
+		var key = parts.shift();
+		var val = parts.length > 0 ? parts.join('=') : undefined;
+
+		// missing `=` should be `null`:
+		// http://w3.org/TR/2012/WD-url-20120524/#collect-url-parameters
+		val = val === undefined ? null : decodeComponent(val);
+
+		formatter(decodeComponent(key), val, ret);
+	});
+
+	return Object.keys(ret).sort().reduce(function (result, key) {
+		var val = ret[key];
+		if (Boolean(val) && typeof val === 'object' && !Array.isArray(val)) {
+			// Sort object keys, not values
+			result[key] = keysSorter(val);
+		} else {
+			result[key] = val;
+		}
+
+		return result;
+	}, Object.create(null));
+}
+
+exports.extract = extract;
+exports.parse = parse;
+
+exports.stringify = function (obj, opts) {
+	var defaults = {
+		encode: true,
+		strict: true,
+		arrayFormat: 'none'
+	};
+
+	opts = objectAssign(defaults, opts);
+
+	if (opts.sort === false) {
+		opts.sort = function () {};
+	}
+
+	var formatter = encoderForArrayFormat(opts);
+
+	return obj ? Object.keys(obj).sort(opts.sort).map(function (key) {
+		var val = obj[key];
+
+		if (val === undefined) {
+			return '';
+		}
+
+		if (val === null) {
+			return encode(key, opts);
+		}
+
+		if (Array.isArray(val)) {
+			var result = [];
+
+			val.slice().forEach(function (val2) {
+				if (val2 === undefined) {
+					return;
+				}
+
+				result.push(formatter(key, val2, result.length));
+			});
+
+			return result.join('&');
+		}
+
+		return encode(key, opts) + '=' + encode(val, opts);
+	}).filter(function (x) {
+		return x.length > 0;
+	}).join('&') : '';
+};
+
+exports.parseUrl = function (str, opts) {
+	return {
+		url: str.split('?')[0] || '',
+		query: parse(extract(str), opts)
+	};
+};
+
+
+/***/ }),
+
+/***/ "../../../../usr/local/lib/node_modules/use-query-params/node_modules/serialize-query-params/esm/decodeQueryParams.js":
+/*!*****************************************************************************************************************!*\
+  !*** /usr/local/lib/node_modules/use-query-params/node_modules/serialize-query-params/esm/decodeQueryParams.js ***!
+  \*****************************************************************************************************************/
+/*! exports provided: decodeQueryParams */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "decodeQueryParams", function() { return decodeQueryParams; });
+/**
+ * Convert the values in query to strings via the encode functions configured
+ * in paramConfigMap
+ *
+ * @param paramConfigMap Map from query name to { encode, decode } config
+ * @param query Query updates mapping param name to decoded value
+ */
+function decodeQueryParams(paramConfigMap, encodedQuery) {
+    var decodedQuery = {};
+    var paramNames = Object.keys(encodedQuery);
+    for (var _i = 0, paramNames_1 = paramNames; _i < paramNames_1.length; _i++) {
+        var paramName = paramNames_1[_i];
+        var encodedValue = encodedQuery[paramName];
+        if (encodedValue == null) {
+            decodedQuery[paramName] = undefined;
+            continue;
+        }
+        if (!paramConfigMap[paramName]) {
+            if (true) {
+                console.warn("Passing through parameter " + paramName + " during decoding since it was not configured.");
+            }
+            // NOTE: we could just not include it, but it is probably convenient to have
+            // it default to be a string type.
+            decodedQuery[paramName] = encodedValue;
+        }
+        else {
+            decodedQuery[paramName] = paramConfigMap[paramName].decode(encodedValue);
+        }
+    }
+    return decodedQuery;
+}
+
+
+/***/ }),
+
+/***/ "../../../../usr/local/lib/node_modules/use-query-params/node_modules/serialize-query-params/esm/encodeQueryParams.js":
+/*!*****************************************************************************************************************!*\
+  !*** /usr/local/lib/node_modules/use-query-params/node_modules/serialize-query-params/esm/encodeQueryParams.js ***!
+  \*****************************************************************************************************************/
+/*! exports provided: encodeQueryParams, default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "encodeQueryParams", function() { return encodeQueryParams; });
+/**
+ * Convert the values in query to strings via the encode functions configured
+ * in paramConfigMap
+ *
+ * @param paramConfigMap Map from query name to { encode, decode } config
+ * @param query Query updates mapping param name to decoded value
+ */
+function encodeQueryParams(paramConfigMap, query) {
+    var encodedQuery = {};
+    var paramNames = Object.keys(query);
+    for (var _i = 0, paramNames_1 = paramNames; _i < paramNames_1.length; _i++) {
+        var paramName = paramNames_1[_i];
+        var decodedValue = query[paramName];
+        if (decodedValue == null) {
+            encodedQuery[paramName] = undefined;
+            continue;
+        }
+        if (!paramConfigMap[paramName]) {
+            if (true) {
+                console.warn("Encoding parameter " + paramName + " as string since it was not configured.");
+            }
+            // NOTE: we could just not encode it, but it is probably convenient to have
+            // it be included by default as a string type.
+            encodedQuery[paramName] = String(decodedValue);
+        }
+        else {
+            encodedQuery[paramName] = paramConfigMap[paramName].encode(query[paramName]);
+        }
+    }
+    return encodedQuery;
+}
+/* harmony default export */ __webpack_exports__["default"] = (encodeQueryParams);
+
+
+/***/ }),
+
+/***/ "../../../../usr/local/lib/node_modules/use-query-params/node_modules/serialize-query-params/esm/index.js":
+/*!*****************************************************************************************************!*\
+  !*** /usr/local/lib/node_modules/use-query-params/node_modules/serialize-query-params/esm/index.js ***!
+  \*****************************************************************************************************/
+/*! exports provided: encodeDate, decodeDate, encodeBoolean, decodeBoolean, encodeNumber, decodeNumber, encodeString, decodeString, encodeJson, decodeJson, encodeArray, decodeArray, encodeNumericArray, decodeNumericArray, encodeDelimitedArray, decodeDelimitedArray, encodeDelimitedNumericArray, decodeDelimitedNumericArray, encodeObject, decodeObject, encodeNumericObject, decodeNumericObject, StringParam, NumberParam, ObjectParam, ArrayParam, NumericArrayParam, JsonParam, DateParam, DateTimeParam, BooleanParam, NumericObjectParam, DelimitedArrayParam, DelimitedNumericArrayParam, updateLocation, updateInLocation, encodeQueryParams, decodeQueryParams, stringify, parse, parseUrl, extract */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _serialize__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./serialize */ "../../../../usr/local/lib/node_modules/use-query-params/node_modules/serialize-query-params/esm/serialize.js");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "encodeDate", function() { return _serialize__WEBPACK_IMPORTED_MODULE_0__["encodeDate"]; });
+
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "decodeDate", function() { return _serialize__WEBPACK_IMPORTED_MODULE_0__["decodeDate"]; });
+
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "encodeBoolean", function() { return _serialize__WEBPACK_IMPORTED_MODULE_0__["encodeBoolean"]; });
+
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "decodeBoolean", function() { return _serialize__WEBPACK_IMPORTED_MODULE_0__["decodeBoolean"]; });
+
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "encodeNumber", function() { return _serialize__WEBPACK_IMPORTED_MODULE_0__["encodeNumber"]; });
+
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "decodeNumber", function() { return _serialize__WEBPACK_IMPORTED_MODULE_0__["decodeNumber"]; });
+
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "encodeString", function() { return _serialize__WEBPACK_IMPORTED_MODULE_0__["encodeString"]; });
+
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "decodeString", function() { return _serialize__WEBPACK_IMPORTED_MODULE_0__["decodeString"]; });
+
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "encodeJson", function() { return _serialize__WEBPACK_IMPORTED_MODULE_0__["encodeJson"]; });
+
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "decodeJson", function() { return _serialize__WEBPACK_IMPORTED_MODULE_0__["decodeJson"]; });
+
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "encodeArray", function() { return _serialize__WEBPACK_IMPORTED_MODULE_0__["encodeArray"]; });
+
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "decodeArray", function() { return _serialize__WEBPACK_IMPORTED_MODULE_0__["decodeArray"]; });
+
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "encodeNumericArray", function() { return _serialize__WEBPACK_IMPORTED_MODULE_0__["encodeNumericArray"]; });
+
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "decodeNumericArray", function() { return _serialize__WEBPACK_IMPORTED_MODULE_0__["decodeNumericArray"]; });
+
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "encodeDelimitedArray", function() { return _serialize__WEBPACK_IMPORTED_MODULE_0__["encodeDelimitedArray"]; });
+
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "decodeDelimitedArray", function() { return _serialize__WEBPACK_IMPORTED_MODULE_0__["decodeDelimitedArray"]; });
+
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "encodeDelimitedNumericArray", function() { return _serialize__WEBPACK_IMPORTED_MODULE_0__["encodeDelimitedNumericArray"]; });
+
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "decodeDelimitedNumericArray", function() { return _serialize__WEBPACK_IMPORTED_MODULE_0__["decodeDelimitedNumericArray"]; });
+
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "encodeObject", function() { return _serialize__WEBPACK_IMPORTED_MODULE_0__["encodeObject"]; });
+
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "decodeObject", function() { return _serialize__WEBPACK_IMPORTED_MODULE_0__["decodeObject"]; });
+
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "encodeNumericObject", function() { return _serialize__WEBPACK_IMPORTED_MODULE_0__["encodeNumericObject"]; });
+
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "decodeNumericObject", function() { return _serialize__WEBPACK_IMPORTED_MODULE_0__["decodeNumericObject"]; });
+
+/* harmony import */ var _params__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./params */ "../../../../usr/local/lib/node_modules/use-query-params/node_modules/serialize-query-params/esm/params.js");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "StringParam", function() { return _params__WEBPACK_IMPORTED_MODULE_1__["StringParam"]; });
+
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "NumberParam", function() { return _params__WEBPACK_IMPORTED_MODULE_1__["NumberParam"]; });
+
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "ObjectParam", function() { return _params__WEBPACK_IMPORTED_MODULE_1__["ObjectParam"]; });
+
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "ArrayParam", function() { return _params__WEBPACK_IMPORTED_MODULE_1__["ArrayParam"]; });
+
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "NumericArrayParam", function() { return _params__WEBPACK_IMPORTED_MODULE_1__["NumericArrayParam"]; });
+
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "JsonParam", function() { return _params__WEBPACK_IMPORTED_MODULE_1__["JsonParam"]; });
+
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "DateParam", function() { return _params__WEBPACK_IMPORTED_MODULE_1__["DateParam"]; });
+
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "DateTimeParam", function() { return _params__WEBPACK_IMPORTED_MODULE_1__["DateTimeParam"]; });
+
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "BooleanParam", function() { return _params__WEBPACK_IMPORTED_MODULE_1__["BooleanParam"]; });
+
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "NumericObjectParam", function() { return _params__WEBPACK_IMPORTED_MODULE_1__["NumericObjectParam"]; });
+
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "DelimitedArrayParam", function() { return _params__WEBPACK_IMPORTED_MODULE_1__["DelimitedArrayParam"]; });
+
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "DelimitedNumericArrayParam", function() { return _params__WEBPACK_IMPORTED_MODULE_1__["DelimitedNumericArrayParam"]; });
+
+/* harmony import */ var _updateLocation__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./updateLocation */ "../../../../usr/local/lib/node_modules/use-query-params/node_modules/serialize-query-params/esm/updateLocation.js");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "updateLocation", function() { return _updateLocation__WEBPACK_IMPORTED_MODULE_2__["updateLocation"]; });
+
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "updateInLocation", function() { return _updateLocation__WEBPACK_IMPORTED_MODULE_2__["updateInLocation"]; });
+
+/* harmony import */ var _encodeQueryParams__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./encodeQueryParams */ "../../../../usr/local/lib/node_modules/use-query-params/node_modules/serialize-query-params/esm/encodeQueryParams.js");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "encodeQueryParams", function() { return _encodeQueryParams__WEBPACK_IMPORTED_MODULE_3__["encodeQueryParams"]; });
+
+/* harmony import */ var _decodeQueryParams__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./decodeQueryParams */ "../../../../usr/local/lib/node_modules/use-query-params/node_modules/serialize-query-params/esm/decodeQueryParams.js");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "decodeQueryParams", function() { return _decodeQueryParams__WEBPACK_IMPORTED_MODULE_4__["decodeQueryParams"]; });
+
+/* harmony import */ var query_string__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! query-string */ "../../../../usr/local/lib/node_modules/use-query-params/node_modules/query-string/index.js");
+/* harmony import */ var query_string__WEBPACK_IMPORTED_MODULE_5___default = /*#__PURE__*/__webpack_require__.n(query_string__WEBPACK_IMPORTED_MODULE_5__);
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "stringify", function() { return query_string__WEBPACK_IMPORTED_MODULE_5__["stringify"]; });
+
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "parse", function() { return query_string__WEBPACK_IMPORTED_MODULE_5__["parse"]; });
+
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "parseUrl", function() { return query_string__WEBPACK_IMPORTED_MODULE_5__["parseUrl"]; });
+
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "extract", function() { return query_string__WEBPACK_IMPORTED_MODULE_5__["extract"]; });
+
+
+
+
+
+
+// for convenience
+
+
+
+/***/ }),
+
+/***/ "../../../../usr/local/lib/node_modules/use-query-params/node_modules/serialize-query-params/esm/params.js":
+/*!******************************************************************************************************!*\
+  !*** /usr/local/lib/node_modules/use-query-params/node_modules/serialize-query-params/esm/params.js ***!
+  \******************************************************************************************************/
+/*! exports provided: StringParam, NumberParam, ObjectParam, ArrayParam, NumericArrayParam, JsonParam, DateParam, DateTimeParam, BooleanParam, NumericObjectParam, DelimitedArrayParam, DelimitedNumericArrayParam */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "StringParam", function() { return StringParam; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "NumberParam", function() { return NumberParam; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "ObjectParam", function() { return ObjectParam; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "ArrayParam", function() { return ArrayParam; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "NumericArrayParam", function() { return NumericArrayParam; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "JsonParam", function() { return JsonParam; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "DateParam", function() { return DateParam; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "DateTimeParam", function() { return DateTimeParam; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "BooleanParam", function() { return BooleanParam; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "NumericObjectParam", function() { return NumericObjectParam; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "DelimitedArrayParam", function() { return DelimitedArrayParam; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "DelimitedNumericArrayParam", function() { return DelimitedNumericArrayParam; });
+/* harmony import */ var _serialize__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./serialize */ "../../../../usr/local/lib/node_modules/use-query-params/node_modules/serialize-query-params/esm/serialize.js");
+
+/**
+ * String values
+ */
+var StringParam = {
+    encode: _serialize__WEBPACK_IMPORTED_MODULE_0__["encodeString"],
+    decode: _serialize__WEBPACK_IMPORTED_MODULE_0__["decodeString"],
+};
+/**
+ * Numbers (integers or floats)
+ */
+var NumberParam = {
+    encode: _serialize__WEBPACK_IMPORTED_MODULE_0__["encodeNumber"],
+    decode: _serialize__WEBPACK_IMPORTED_MODULE_0__["decodeNumber"],
+};
+/**
+ * For flat objects where values are strings
+ */
+var ObjectParam = {
+    encode: _serialize__WEBPACK_IMPORTED_MODULE_0__["encodeObject"],
+    decode: _serialize__WEBPACK_IMPORTED_MODULE_0__["decodeObject"],
+};
+/**
+ * For flat arrays of strings, filters out undefined values during decode
+ */
+var ArrayParam = {
+    encode: _serialize__WEBPACK_IMPORTED_MODULE_0__["encodeArray"],
+    decode: _serialize__WEBPACK_IMPORTED_MODULE_0__["decodeArray"],
+};
+/**
+ * For flat arrays of strings, filters out undefined values during decode
+ */
+var NumericArrayParam = {
+    encode: _serialize__WEBPACK_IMPORTED_MODULE_0__["encodeNumericArray"],
+    decode: _serialize__WEBPACK_IMPORTED_MODULE_0__["decodeNumericArray"],
+};
+/**
+ * For any type of data, encoded via JSON.stringify
+ */
+var JsonParam = {
+    encode: _serialize__WEBPACK_IMPORTED_MODULE_0__["encodeJson"],
+    decode: _serialize__WEBPACK_IMPORTED_MODULE_0__["decodeJson"],
+};
+/**
+ * For simple dates (YYYY-MM-DD)
+ */
+var DateParam = {
+    encode: _serialize__WEBPACK_IMPORTED_MODULE_0__["encodeDate"],
+    decode: _serialize__WEBPACK_IMPORTED_MODULE_0__["decodeDate"],
+};
+/**
+ * For dates in simplified extended ISO format (YYYY-MM-DDTHH:mm:ss.sssZ or ±YYYYYY-MM-DDTHH:mm:ss.sssZ)
+ */
+var DateTimeParam = {
+    encode: _serialize__WEBPACK_IMPORTED_MODULE_0__["encodeDateTime"],
+    decode: _serialize__WEBPACK_IMPORTED_MODULE_0__["decodeDateTime"],
+};
+/**
+ * For boolean values: 1 = true, 0 = false
+ */
+var BooleanParam = {
+    encode: _serialize__WEBPACK_IMPORTED_MODULE_0__["encodeBoolean"],
+    decode: _serialize__WEBPACK_IMPORTED_MODULE_0__["decodeBoolean"],
+};
+/**
+ * For flat objects where the values are numbers
+ */
+var NumericObjectParam = {
+    encode: _serialize__WEBPACK_IMPORTED_MODULE_0__["encodeNumericObject"],
+    decode: _serialize__WEBPACK_IMPORTED_MODULE_0__["decodeNumericObject"],
+};
+/**
+ * For flat arrays of strings, filters out undefined values during decode
+ */
+var DelimitedArrayParam = {
+    encode: _serialize__WEBPACK_IMPORTED_MODULE_0__["encodeDelimitedArray"],
+    decode: _serialize__WEBPACK_IMPORTED_MODULE_0__["decodeDelimitedArray"],
+};
+/**
+ * For flat arrays where the values are numbers, filters out undefined values during decode
+ */
+var DelimitedNumericArrayParam = {
+    encode: _serialize__WEBPACK_IMPORTED_MODULE_0__["encodeDelimitedNumericArray"],
+    decode: _serialize__WEBPACK_IMPORTED_MODULE_0__["decodeDelimitedNumericArray"],
+};
+
+
+/***/ }),
+
+/***/ "../../../../usr/local/lib/node_modules/use-query-params/node_modules/serialize-query-params/esm/serialize.js":
+/*!*********************************************************************************************************!*\
+  !*** /usr/local/lib/node_modules/use-query-params/node_modules/serialize-query-params/esm/serialize.js ***!
+  \*********************************************************************************************************/
+/*! exports provided: encodeDate, decodeDate, encodeDateTime, decodeDateTime, encodeBoolean, decodeBoolean, encodeNumber, decodeNumber, encodeString, decodeString, encodeJson, decodeJson, encodeArray, decodeArray, encodeNumericArray, decodeNumericArray, encodeDelimitedArray, decodeDelimitedArray, encodeDelimitedNumericArray, decodeDelimitedNumericArray, encodeObject, decodeObject, encodeNumericObject, decodeNumericObject */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "encodeDate", function() { return encodeDate; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "decodeDate", function() { return decodeDate; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "encodeDateTime", function() { return encodeDateTime; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "decodeDateTime", function() { return decodeDateTime; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "encodeBoolean", function() { return encodeBoolean; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "decodeBoolean", function() { return decodeBoolean; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "encodeNumber", function() { return encodeNumber; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "decodeNumber", function() { return decodeNumber; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "encodeString", function() { return encodeString; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "decodeString", function() { return decodeString; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "encodeJson", function() { return encodeJson; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "decodeJson", function() { return decodeJson; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "encodeArray", function() { return encodeArray; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "decodeArray", function() { return decodeArray; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "encodeNumericArray", function() { return encodeNumericArray; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "decodeNumericArray", function() { return decodeNumericArray; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "encodeDelimitedArray", function() { return encodeDelimitedArray; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "decodeDelimitedArray", function() { return decodeDelimitedArray; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "encodeDelimitedNumericArray", function() { return encodeDelimitedNumericArray; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "decodeDelimitedNumericArray", function() { return decodeDelimitedNumericArray; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "encodeObject", function() { return encodeObject; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "decodeObject", function() { return decodeObject; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "encodeNumericObject", function() { return encodeNumericObject; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "decodeNumericObject", function() { return decodeNumericObject; });
+/**
+ * Encodes a date as a string in YYYY-MM-DD format.
+ *
+ * @param {Date} date
+ * @return {String} the encoded date
+ */
+function encodeDate(date) {
+    if (date == null) {
+        return undefined;
+    }
+    var year = date.getFullYear();
+    var month = date.getMonth() + 1;
+    var day = date.getDate();
+    return year + "-" + (month < 10 ? "0" + month : month) + "-" + (day < 10 ? "0" + day : day);
+}
+/**
+ * Converts a date in the format 'YYYY-mm-dd...' into a proper date, because
+ * new Date() does not do that correctly. The date can be as complete or incomplete
+ * as necessary (aka, '2015', '2015-10', '2015-10-01').
+ * It will not work for dates that have times included in them.
+ *
+ * If an array is provided, only the first entry is used.
+ *
+ * @param  {String} input String date form like '2015-10-01'
+ * @return {Date} parsed date
+ */
+function decodeDate(input) {
+    if (input == null || !input.length) {
+        return undefined;
+    }
+    var dateString = input instanceof Array ? input[0] : input;
+    if (dateString == null || !dateString.length) {
+        return undefined;
+    }
+    var parts = dateString.split('-');
+    // may only be a year so won't even have a month
+    if (parts[1] != null) {
+        parts[1] -= 1; // Note: months are 0-based
+    }
+    else {
+        // just a year, set the month and day to the first
+        parts[1] = 0;
+        parts[2] = 1;
+    }
+    var decoded = new (Date.bind.apply(Date, [void 0].concat(parts)))();
+    if (isNaN(decoded.getTime())) {
+        return undefined;
+    }
+    return decoded;
+}
+/**
+ * Encodes a date as a string in ISO 8601 ("2019-05-28T10:58:40Z") format.
+ *
+ * @param {Date} date
+ * @return {String} the encoded date
+ */
+function encodeDateTime(date) {
+    if (date == null) {
+        return undefined;
+    }
+    return date.toISOString();
+}
+/**
+ * Converts a date in the https://en.wikipedia.org/wiki/ISO_8601 format.
+ * For allowed inputs see specs:
+ *  - https://tools.ietf.org/html/rfc2822#page-14
+ *  - http://www.ecma-international.org/ecma-262/5.1/#sec-15.9.1.15
+ *
+ * If an array is provided, only the first entry is used.
+ *
+ * @param  {String} input String date form like '1995-12-17T03:24:00'
+ * @return {Date} parsed date
+ */
+function decodeDateTime(input) {
+    if (input == null || !input.length) {
+        return undefined;
+    }
+    var dateString = input instanceof Array ? input[0] : input;
+    if (dateString == null || !dateString.length) {
+        return undefined;
+    }
+    var decoded = new Date(dateString);
+    if (isNaN(decoded.getTime())) {
+        return undefined;
+    }
+    return decoded;
+}
+/**
+ * Encodes a boolean as a string. true -> "1", false -> "0".
+ *
+ * @param {Boolean} bool
+ * @return {String} the encoded boolean
+ */
+function encodeBoolean(bool) {
+    if (bool === undefined) {
+        return undefined;
+    }
+    return bool ? '1' : '0';
+}
+/**
+ * Decodes a boolean from a string. "1" -> true, "0" -> false.
+ * Everything else maps to undefined.
+ *
+ * If an array is provided, only the first entry is used.
+ *
+ * @param {String} input the encoded boolean string
+ * @return {Boolean} the boolean value
+ */
+function decodeBoolean(input) {
+    if (input == null) {
+        return undefined;
+    }
+    var boolStr = input instanceof Array ? input[0] : input;
+    if (boolStr === '1') {
+        return true;
+    }
+    else if (boolStr === '0') {
+        return false;
+    }
+    return undefined;
+}
+/**
+ * Encodes a number as a string.
+ *
+ * @param {Number} num
+ * @return {String} the encoded number
+ */
+function encodeNumber(num) {
+    if (num == null) {
+        return undefined;
+    }
+    return String(num);
+}
+/**
+ * Decodes a number from a string. If the number is invalid,
+ * it returns undefined.
+ *
+ * If an array is provided, only the first entry is used.
+ *
+ * @param {String} input the encoded number string
+ * @return {Number} the number value
+ */
+function decodeNumber(input) {
+    if (input == null) {
+        return undefined;
+    }
+    var numStr = input instanceof Array ? input[0] : input;
+    if (numStr == null || numStr === '') {
+        return undefined;
+    }
+    var result = +numStr;
+    if (isNaN(result)) {
+        return undefined;
+    }
+    return result;
+}
+/**
+ * Encodes a string while safely handling null and undefined values.
+ *
+ * @param {String} str a string to encode
+ * @return {String} the encoded string
+ */
+function encodeString(str) {
+    if (str == null) {
+        return undefined;
+    }
+    return String(str);
+}
+/**
+ * Decodes a string while safely handling null and undefined values.
+ *
+ * If an array is provided, only the first entry is used.
+ *
+ * @param {String} input the encoded string
+ * @return {String} the string value
+ */
+function decodeString(input) {
+    if (input == null) {
+        return undefined;
+    }
+    var str = input instanceof Array ? input[0] : input;
+    if (str == null) {
+        return undefined;
+    }
+    return String(str);
+}
+/**
+ * Encodes anything as a JSON string.
+ *
+ * @param {Any} any The thing to be encoded
+ * @return {String} The JSON string representation of any
+ */
+function encodeJson(any) {
+    if (any == null) {
+        return undefined;
+    }
+    return JSON.stringify(any);
+}
+/**
+ * Decodes a JSON string into javascript
+ *
+ * If an array is provided, only the first entry is used.
+ *
+ * @param {String} input The JSON string representation
+ * @return {Any} The javascript representation
+ */
+function decodeJson(input) {
+    if (input == null) {
+        return undefined;
+    }
+    var jsonStr = input instanceof Array ? input[0] : input;
+    if (!jsonStr) {
+        return undefined;
+    }
+    var result;
+    try {
+        result = JSON.parse(jsonStr);
+    }
+    catch (e) {
+        /* ignore errors, returning undefined */
+    }
+    return result;
+}
+/**
+ * Encodes an array as a JSON string.
+ *
+ * @param {Array} array The array to be encoded
+ * @return {String[]} The array of strings to be put in the URL
+ * as repeated query parameters
+ */
+function encodeArray(array) {
+    if (!array) {
+        return undefined;
+    }
+    return array;
+}
+/**
+ * Decodes an array or singular value and returns it as an array
+ * or undefined if falsy. Filters out undefined values.
+ *
+ * @param {String | Array} input The input value
+ * @return {Array} The javascript representation
+ */
+function decodeArray(input) {
+    if (!input) {
+        return undefined;
+    }
+    if (!(input instanceof Array)) {
+        return [input];
+    }
+    return input
+        .map(function (item) { return (item === '' ? undefined : item); })
+        .filter(function (item) { return item !== undefined; });
+}
+/**
+ * Encodes a numeric array as a JSON string.
+ *
+ * @param {Array} array The array to be encoded
+ * @return {String[]} The array of strings to be put in the URL
+ * as repeated query parameters
+ */
+function encodeNumericArray(array) {
+    if (!array) {
+        return undefined;
+    }
+    return array.map(function (d) { return "" + d; });
+}
+/**
+ * Decodes an array or singular value and returns it as an array
+ * or undefined if falsy. Filters out undefined and NaN values.
+ *
+ * @param {String | Array} input The input value
+ * @return {Array} The javascript representation
+ */
+function decodeNumericArray(input) {
+    var arr = decodeArray(input);
+    if (!arr) {
+        return undefined;
+    }
+    return arr
+        .map(function (item) { return +item; })
+        .filter(function (item) { return item !== undefined && !isNaN(item); });
+}
+/**
+ * Encodes an array as a delimited string. For example,
+ * ['a', 'b'] -> 'a_b' with entrySeparator='_'
+ *
+ * @param array The array to be encoded
+ * @param entrySeparator The string used to delimit entries
+ * @return The array as a string with elements joined by the
+ * entry separator
+ */
+function encodeDelimitedArray(array, entrySeparator) {
+    if (entrySeparator === void 0) { entrySeparator = '_'; }
+    if (!array) {
+        return undefined;
+    }
+    return array.join(entrySeparator);
+}
+/**
+ * Decodes a delimited string into javascript array. For example,
+ * 'a_b' -> ['a', 'b'] with entrySeparator='_'
+ *
+ * If an array is provided as input, only the first entry is used.
+ *
+ * @param {String} input The JSON string representation
+ * @param entrySeparator The array as a string with elements joined by the
+ * entry separator
+ * @return {Array} The javascript representation
+ */
+function decodeDelimitedArray(input, entrySeparator) {
+    if (entrySeparator === void 0) { entrySeparator = '_'; }
+    if (input == null) {
+        return undefined;
+    }
+    var arrayStr = input instanceof Array ? input[0] : input;
+    if (!arrayStr) {
+        return undefined;
+    }
+    return arrayStr
+        .split(entrySeparator)
+        .map(function (item) { return (item === '' ? undefined : item); })
+        .filter(function (item) { return item !== undefined; });
+}
+/**
+ * Encodes a numeric array as a delimited string. (alias of encodeDelimitedArray)
+ * For example, [1, 2] -> '1_2' with entrySeparator='_'
+ *
+ * @param {Array} array The array to be encoded
+ * @return {String} The JSON string representation of array
+ */
+var encodeDelimitedNumericArray = encodeDelimitedArray;
+/**
+ * Decodes a delimited string into javascript array where all entries are numbers
+ * For example, '1_2' -> [1, 2] with entrySeparator='_'
+ *
+ * If an array is provided as input, only the first entry is used.
+ *
+ * @param {String} jsonStr The JSON string representation
+ * @return {Array} The javascript representation
+ */
+function decodeDelimitedNumericArray(arrayStr, entrySeparator) {
+    if (entrySeparator === void 0) { entrySeparator = '_'; }
+    var decoded = decodeDelimitedArray(arrayStr, entrySeparator);
+    if (!decoded) {
+        return undefined;
+    }
+    return decoded
+        .map(function (d) { return (d == null ? undefined : +d); })
+        .filter(function (d) { return d !== undefined && !isNaN(d); });
+}
+/**
+ * Encode simple objects as readable strings. Works only for simple,
+ * flat objects where values are numbers, strings.
+ *
+ * For example { foo: bar, boo: baz } -> "foo-bar_boo-baz"
+ *
+ * @param {Object} object The object to encode
+ * @param {String} keyValSeparator="-" The separator between keys and values
+ * @param {String} entrySeparator="_" The separator between entries
+ * @return {String} The encoded object
+ */
+function encodeObject(obj, keyValSeparator, entrySeparator) {
+    if (keyValSeparator === void 0) { keyValSeparator = '-'; }
+    if (entrySeparator === void 0) { entrySeparator = '_'; }
+    if (!obj || !Object.keys(obj).length) {
+        return undefined;
+    }
+    return Object.keys(obj)
+        .map(function (key) { return "" + key + keyValSeparator + obj[key]; })
+        .join(entrySeparator);
+}
+/**
+ * Decodes a simple object to javascript. Currently works only for simple,
+ * flat objects where values are strings.
+ *
+ * For example "foo-bar_boo-baz" -> { foo: bar, boo: baz }
+ *
+ * If an array is provided as input, only the first entry is used.
+ *
+ * @param {String} input The object string to decode
+ * @param {String} keyValSeparator="-" The separator between keys and values
+ * @param {String} entrySeparator="_" The separator between entries
+ * @return {Object} The javascript object
+ */
+function decodeObject(input, keyValSeparator, entrySeparator) {
+    if (keyValSeparator === void 0) { keyValSeparator = '-'; }
+    if (entrySeparator === void 0) { entrySeparator = '_'; }
+    if (input == null) {
+        return undefined;
+    }
+    var objStr = input instanceof Array ? input[0] : input;
+    if (!objStr || !objStr.length) {
+        return undefined;
+    }
+    var obj = {};
+    objStr.split(entrySeparator).forEach(function (entryStr) {
+        var _a = entryStr.split(keyValSeparator), key = _a[0], value = _a[1];
+        obj[key] = value === '' ? undefined : value;
+    });
+    return obj;
+}
+/**
+ * Encode simple objects as readable strings. Alias of encodeObject.
+ *
+ * For example { foo: 123, boo: 521 } -> "foo-123_boo-521"
+ *
+ * @param {Object} object The object to encode
+ * @param {String} keyValSeparator="-" The separator between keys and values
+ * @param {String} entrySeparator="_" The separator between entries
+ * @return {String} The encoded object
+ */
+var encodeNumericObject = encodeObject;
+/**
+ * Decodes a simple object to javascript where all values are numbers.
+ * Currently works only for simple, flat objects.
+ *
+ * For example "foo-123_boo-521" -> { foo: 123, boo: 521 }
+ *
+ * If an array is provided as input, only the first entry is used.
+ *
+ * @param {String} input The object string to decode
+ * @param {String} keyValSeparator="-" The separator between keys and values
+ * @param {String} entrySeparator="_" The separator between entries
+ * @return {Object} The javascript object
+ */
+function decodeNumericObject(input, keyValSeparator, entrySeparator) {
+    if (keyValSeparator === void 0) { keyValSeparator = '-'; }
+    if (entrySeparator === void 0) { entrySeparator = '_'; }
+    var decoded = decodeObject(input, keyValSeparator, entrySeparator);
+    if (!decoded) {
+        return undefined;
+    }
+    // convert to numbers
+    Object.keys(decoded).forEach(function (key) {
+        if (decoded[key] !== undefined) {
+            decoded[key] = decodeNumber(decoded[key]);
+        }
+    });
+    return decoded;
+}
+
+
+/***/ }),
+
+/***/ "../../../../usr/local/lib/node_modules/use-query-params/node_modules/serialize-query-params/esm/updateLocation.js":
+/*!**************************************************************************************************************!*\
+  !*** /usr/local/lib/node_modules/use-query-params/node_modules/serialize-query-params/esm/updateLocation.js ***!
+  \**************************************************************************************************************/
+/*! exports provided: updateLocation, updateInLocation */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "updateLocation", function() { return updateLocation; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "updateInLocation", function() { return updateInLocation; });
+/* harmony import */ var query_string__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! query-string */ "../../../../usr/local/lib/node_modules/use-query-params/node_modules/query-string/index.js");
+/* harmony import */ var query_string__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(query_string__WEBPACK_IMPORTED_MODULE_0__);
+var __assign = (undefined && undefined.__assign) || function () {
+    __assign = Object.assign || function(t) {
+        for (var s, i = 1, n = arguments.length; i < n; i++) {
+            s = arguments[i];
+            for (var p in s) if (Object.prototype.hasOwnProperty.call(s, p))
+                t[p] = s[p];
+        }
+        return t;
+    };
+    return __assign.apply(this, arguments);
+};
+
+/**
+ * remove query params that are nully or an empty strings.
+ * note: these values are assumed to be already encoded as strings.
+ */
+function filterNully(query) {
+    var filteredQuery = Object.keys(query).reduce(function (queryAccumulator, queryParam) {
+        // get encoded value for this param
+        var encodedValue = query[queryParam];
+        // if it isn't null or empty string, add it to the accumulated obj
+        if (encodedValue != null && encodedValue !== '') {
+            queryAccumulator[queryParam] = encodedValue;
+        }
+        return queryAccumulator;
+    }, {});
+    return filteredQuery;
+}
+/**
+ * Update a location, wiping out parameters not included in encodedQuery
+ */
+function updateLocation(encodedQuery, location) {
+    var encodedSearchString = Object(query_string__WEBPACK_IMPORTED_MODULE_0__["stringify"])(filterNully(encodedQuery));
+    var newLocation = __assign({}, location, { key: "" + Date.now(), search: encodedSearchString.length ? "?" + encodedSearchString : '' });
+    return newLocation;
+}
+/**
+ * Update a location while retaining existing parameters
+ */
+function updateInLocation(encodedQueryReplacements, location) {
+    // if a query is there, use it, otherwise parse the search string
+    var currQuery = location.query || Object(query_string__WEBPACK_IMPORTED_MODULE_0__["parse"])(location.search);
+    var newQuery = __assign({}, currQuery, encodedQueryReplacements);
+    return updateLocation(filterNully(newQuery), location);
+}
+
+
+/***/ }),
+
+/***/ "../../../../usr/local/lib/node_modules/use-query-params/node_modules/strict-uri-encode/index.js":
+/*!********************************************************************************************!*\
+  !*** /usr/local/lib/node_modules/use-query-params/node_modules/strict-uri-encode/index.js ***!
+  \********************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+module.exports = function (str) {
+	return encodeURIComponent(str).replace(/[!'()*]/g, function (c) {
+		return '%' + c.charCodeAt(0).toString(16).toUpperCase();
+	});
+};
+
+
+/***/ }),
+
 /***/ "./client/apiClient.js":
 /*!*****************************!*\
   !*** ./client/apiClient.js ***!
@@ -699,7 +4576,9 @@ var _reactPureLifecycle2 = _interopRequireDefault(_reactPureLifecycle);
 
 var _apiClient = __webpack_require__(/*! ../apiClient */ "./client/apiClient.js");
 
-var _useQueryParams = __webpack_require__(/*! use-query-params */ "./node_modules/use-query-params/esm/index.js");
+var _useReactRouter2 = __webpack_require__(/*! use-react-router */ "./node_modules/use-react-router/use-react-router.js");
+
+var _useReactRouter3 = _interopRequireDefault(_useReactRouter2);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -712,15 +4591,19 @@ var methods = {
 };
 
 function Gallery() {
+    var _useReactRouter = (0, _useReactRouter3.default)(),
+        history = _useReactRouter.history,
+        location = _useReactRouter.location,
+        match = _useReactRouter.match;
+
     var _useState = (0, _react.useState)([]),
         _useState2 = _slicedToArray(_useState, 2),
         gallery = _useState2[0],
         setGallery = _useState2[1];
 
-    var _useQueryParam = (0, _useQueryParams.useQueryParam)('galleryName', _useQueryParams.StringParam),
-        _useQueryParam2 = _slicedToArray(_useQueryParam, 2),
-        galleryName = _useQueryParam2[0],
-        setGalleryName = _useQueryParam2[1];
+    var path = location.pathname;
+    var splitPath = path.split('/');
+    var galleryName = splitPath[splitPath.length - 1];
 
     (0, _react.useEffect)(function () {
         _isMounted = true;
@@ -737,14 +4620,7 @@ function Gallery() {
         _react2.default.createElement(
             'h1',
             null,
-            'Gallery'
-        ),
-        _react2.default.createElement(
-            'div',
-            { className: 'gallery-container' },
-            gallery.map(function (image) {
-                return _react2.default.createElement('div', { className: 'gallery-image' });
-            })
+            galleryName
         )
     );
 }
@@ -972,7 +4848,7 @@ var _App2 = _interopRequireDefault(_App);
 
 var _reactScrollParallax = __webpack_require__(/*! react-scroll-parallax */ "./node_modules/react-scroll-parallax/cjs/index.js");
 
-var _useQueryParams = __webpack_require__(/*! use-query-params */ "./node_modules/use-query-params/esm/index.js");
+var _useQueryParams = __webpack_require__(/*! use-query-params */ "../../../../usr/local/lib/node_modules/use-query-params/esm/index.js");
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -2050,112 +5926,6 @@ function toComment(sourceMap) {
   var data = 'sourceMappingURL=data:application/json;charset=utf-8;base64,' + base64;
   return '/*# ' + data + ' */';
 }
-
-/***/ }),
-
-/***/ "./node_modules/decode-uri-component/index.js":
-/*!****************************************************!*\
-  !*** ./node_modules/decode-uri-component/index.js ***!
-  \****************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-var token = '%[a-f0-9]{2}';
-var singleMatcher = new RegExp(token, 'gi');
-var multiMatcher = new RegExp('(' + token + ')+', 'gi');
-
-function decodeComponents(components, split) {
-	try {
-		// Try to decode the entire string first
-		return decodeURIComponent(components.join(''));
-	} catch (err) {
-		// Do nothing
-	}
-
-	if (components.length === 1) {
-		return components;
-	}
-
-	split = split || 1;
-
-	// Split the array in 2 parts
-	var left = components.slice(0, split);
-	var right = components.slice(split);
-
-	return Array.prototype.concat.call([], decodeComponents(left), decodeComponents(right));
-}
-
-function decode(input) {
-	try {
-		return decodeURIComponent(input);
-	} catch (err) {
-		var tokens = input.match(singleMatcher);
-
-		for (var i = 1; i < tokens.length; i++) {
-			input = decodeComponents(tokens, i).join('');
-
-			tokens = input.match(singleMatcher);
-		}
-
-		return input;
-	}
-}
-
-function customDecodeURIComponent(input) {
-	// Keep track of all the replacements and prefill the map with the `BOM`
-	var replaceMap = {
-		'%FE%FF': '\uFFFD\uFFFD',
-		'%FF%FE': '\uFFFD\uFFFD'
-	};
-
-	var match = multiMatcher.exec(input);
-	while (match) {
-		try {
-			// Decode as big chunks as possible
-			replaceMap[match[0]] = decodeURIComponent(match[0]);
-		} catch (err) {
-			var result = decode(match[0]);
-
-			if (result !== match[0]) {
-				replaceMap[match[0]] = result;
-			}
-		}
-
-		match = multiMatcher.exec(input);
-	}
-
-	// Add `%C2` at the end of the map to make sure it does not replace the combinator before everything else
-	replaceMap['%C2'] = '\uFFFD';
-
-	var entries = Object.keys(replaceMap);
-
-	for (var i = 0; i < entries.length; i++) {
-		// Replace all decoded components
-		var key = entries[i];
-		input = input.replace(new RegExp(key, 'g'), replaceMap[key]);
-	}
-
-	return input;
-}
-
-module.exports = function (encodedURI) {
-	if (typeof encodedURI !== 'string') {
-		throw new TypeError('Expected `encodedURI` to be of type `string`, got `' + typeof encodedURI + '`');
-	}
-
-	try {
-		encodedURI = encodedURI.replace(/\+/g, ' ');
-
-		// Try the built in decoder first
-		return decodeURIComponent(encodedURI);
-	} catch (err) {
-		// Fallback to a more advanced decoder
-		return customDecodeURIComponent(encodedURI);
-	}
-};
-
 
 /***/ }),
 
@@ -36833,1113 +40603,6 @@ if (false) {} else {
 
 /***/ }),
 
-/***/ "./node_modules/serialize-query-params/esm/decodeQueryParams.js":
-/*!**********************************************************************!*\
-  !*** ./node_modules/serialize-query-params/esm/decodeQueryParams.js ***!
-  \**********************************************************************/
-/*! exports provided: decodeQueryParams */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "decodeQueryParams", function() { return decodeQueryParams; });
-/**
- * Convert the values in query to strings via the encode functions configured
- * in paramConfigMap
- *
- * @param paramConfigMap Map from query name to { encode, decode } config
- * @param query Query updates mapping param name to decoded value
- */
-function decodeQueryParams(paramConfigMap, encodedQuery) {
-    var decodedQuery = {};
-    var paramNames = Object.keys(encodedQuery);
-    for (var _i = 0, paramNames_1 = paramNames; _i < paramNames_1.length; _i++) {
-        var paramName = paramNames_1[_i];
-        var encodedValue = encodedQuery[paramName];
-        if (encodedValue == null) {
-            decodedQuery[paramName] = undefined;
-            continue;
-        }
-        if (!paramConfigMap[paramName]) {
-            if (true) {
-                console.warn("Passing through parameter " + paramName + " during decoding since it was not configured.");
-            }
-            // NOTE: we could just not include it, but it is probably convenient to have
-            // it default to be a string type.
-            decodedQuery[paramName] = encodedValue;
-        }
-        else {
-            decodedQuery[paramName] = paramConfigMap[paramName].decode(encodedValue);
-        }
-    }
-    return decodedQuery;
-}
-
-
-/***/ }),
-
-/***/ "./node_modules/serialize-query-params/esm/encodeQueryParams.js":
-/*!**********************************************************************!*\
-  !*** ./node_modules/serialize-query-params/esm/encodeQueryParams.js ***!
-  \**********************************************************************/
-/*! exports provided: encodeQueryParams, default */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "encodeQueryParams", function() { return encodeQueryParams; });
-/**
- * Convert the values in query to strings via the encode functions configured
- * in paramConfigMap
- *
- * @param paramConfigMap Map from query name to { encode, decode } config
- * @param query Query updates mapping param name to decoded value
- */
-function encodeQueryParams(paramConfigMap, query) {
-    var encodedQuery = {};
-    var paramNames = Object.keys(query);
-    for (var _i = 0, paramNames_1 = paramNames; _i < paramNames_1.length; _i++) {
-        var paramName = paramNames_1[_i];
-        var decodedValue = query[paramName];
-        if (decodedValue == null) {
-            encodedQuery[paramName] = undefined;
-            continue;
-        }
-        if (!paramConfigMap[paramName]) {
-            if (true) {
-                console.warn("Encoding parameter " + paramName + " as string since it was not configured.");
-            }
-            // NOTE: we could just not encode it, but it is probably convenient to have
-            // it be included by default as a string type.
-            encodedQuery[paramName] = String(decodedValue);
-        }
-        else {
-            encodedQuery[paramName] = paramConfigMap[paramName].encode(query[paramName]);
-        }
-    }
-    return encodedQuery;
-}
-/* harmony default export */ __webpack_exports__["default"] = (encodeQueryParams);
-
-
-/***/ }),
-
-/***/ "./node_modules/serialize-query-params/esm/index.js":
-/*!**********************************************************!*\
-  !*** ./node_modules/serialize-query-params/esm/index.js ***!
-  \**********************************************************/
-/*! exports provided: encodeDate, decodeDate, encodeBoolean, decodeBoolean, encodeNumber, decodeNumber, encodeString, decodeString, encodeJson, decodeJson, encodeArray, decodeArray, encodeNumericArray, decodeNumericArray, encodeDelimitedArray, decodeDelimitedArray, encodeDelimitedNumericArray, decodeDelimitedNumericArray, encodeObject, decodeObject, encodeNumericObject, decodeNumericObject, StringParam, NumberParam, ObjectParam, ArrayParam, NumericArrayParam, JsonParam, DateParam, DateTimeParam, BooleanParam, NumericObjectParam, DelimitedArrayParam, DelimitedNumericArrayParam, updateLocation, updateInLocation, encodeQueryParams, decodeQueryParams, stringify, parse, parseUrl, extract */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _serialize__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./serialize */ "./node_modules/serialize-query-params/esm/serialize.js");
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "encodeDate", function() { return _serialize__WEBPACK_IMPORTED_MODULE_0__["encodeDate"]; });
-
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "decodeDate", function() { return _serialize__WEBPACK_IMPORTED_MODULE_0__["decodeDate"]; });
-
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "encodeBoolean", function() { return _serialize__WEBPACK_IMPORTED_MODULE_0__["encodeBoolean"]; });
-
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "decodeBoolean", function() { return _serialize__WEBPACK_IMPORTED_MODULE_0__["decodeBoolean"]; });
-
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "encodeNumber", function() { return _serialize__WEBPACK_IMPORTED_MODULE_0__["encodeNumber"]; });
-
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "decodeNumber", function() { return _serialize__WEBPACK_IMPORTED_MODULE_0__["decodeNumber"]; });
-
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "encodeString", function() { return _serialize__WEBPACK_IMPORTED_MODULE_0__["encodeString"]; });
-
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "decodeString", function() { return _serialize__WEBPACK_IMPORTED_MODULE_0__["decodeString"]; });
-
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "encodeJson", function() { return _serialize__WEBPACK_IMPORTED_MODULE_0__["encodeJson"]; });
-
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "decodeJson", function() { return _serialize__WEBPACK_IMPORTED_MODULE_0__["decodeJson"]; });
-
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "encodeArray", function() { return _serialize__WEBPACK_IMPORTED_MODULE_0__["encodeArray"]; });
-
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "decodeArray", function() { return _serialize__WEBPACK_IMPORTED_MODULE_0__["decodeArray"]; });
-
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "encodeNumericArray", function() { return _serialize__WEBPACK_IMPORTED_MODULE_0__["encodeNumericArray"]; });
-
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "decodeNumericArray", function() { return _serialize__WEBPACK_IMPORTED_MODULE_0__["decodeNumericArray"]; });
-
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "encodeDelimitedArray", function() { return _serialize__WEBPACK_IMPORTED_MODULE_0__["encodeDelimitedArray"]; });
-
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "decodeDelimitedArray", function() { return _serialize__WEBPACK_IMPORTED_MODULE_0__["decodeDelimitedArray"]; });
-
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "encodeDelimitedNumericArray", function() { return _serialize__WEBPACK_IMPORTED_MODULE_0__["encodeDelimitedNumericArray"]; });
-
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "decodeDelimitedNumericArray", function() { return _serialize__WEBPACK_IMPORTED_MODULE_0__["decodeDelimitedNumericArray"]; });
-
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "encodeObject", function() { return _serialize__WEBPACK_IMPORTED_MODULE_0__["encodeObject"]; });
-
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "decodeObject", function() { return _serialize__WEBPACK_IMPORTED_MODULE_0__["decodeObject"]; });
-
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "encodeNumericObject", function() { return _serialize__WEBPACK_IMPORTED_MODULE_0__["encodeNumericObject"]; });
-
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "decodeNumericObject", function() { return _serialize__WEBPACK_IMPORTED_MODULE_0__["decodeNumericObject"]; });
-
-/* harmony import */ var _params__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./params */ "./node_modules/serialize-query-params/esm/params.js");
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "StringParam", function() { return _params__WEBPACK_IMPORTED_MODULE_1__["StringParam"]; });
-
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "NumberParam", function() { return _params__WEBPACK_IMPORTED_MODULE_1__["NumberParam"]; });
-
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "ObjectParam", function() { return _params__WEBPACK_IMPORTED_MODULE_1__["ObjectParam"]; });
-
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "ArrayParam", function() { return _params__WEBPACK_IMPORTED_MODULE_1__["ArrayParam"]; });
-
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "NumericArrayParam", function() { return _params__WEBPACK_IMPORTED_MODULE_1__["NumericArrayParam"]; });
-
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "JsonParam", function() { return _params__WEBPACK_IMPORTED_MODULE_1__["JsonParam"]; });
-
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "DateParam", function() { return _params__WEBPACK_IMPORTED_MODULE_1__["DateParam"]; });
-
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "DateTimeParam", function() { return _params__WEBPACK_IMPORTED_MODULE_1__["DateTimeParam"]; });
-
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "BooleanParam", function() { return _params__WEBPACK_IMPORTED_MODULE_1__["BooleanParam"]; });
-
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "NumericObjectParam", function() { return _params__WEBPACK_IMPORTED_MODULE_1__["NumericObjectParam"]; });
-
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "DelimitedArrayParam", function() { return _params__WEBPACK_IMPORTED_MODULE_1__["DelimitedArrayParam"]; });
-
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "DelimitedNumericArrayParam", function() { return _params__WEBPACK_IMPORTED_MODULE_1__["DelimitedNumericArrayParam"]; });
-
-/* harmony import */ var _updateLocation__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./updateLocation */ "./node_modules/serialize-query-params/esm/updateLocation.js");
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "updateLocation", function() { return _updateLocation__WEBPACK_IMPORTED_MODULE_2__["updateLocation"]; });
-
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "updateInLocation", function() { return _updateLocation__WEBPACK_IMPORTED_MODULE_2__["updateInLocation"]; });
-
-/* harmony import */ var _encodeQueryParams__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./encodeQueryParams */ "./node_modules/serialize-query-params/esm/encodeQueryParams.js");
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "encodeQueryParams", function() { return _encodeQueryParams__WEBPACK_IMPORTED_MODULE_3__["encodeQueryParams"]; });
-
-/* harmony import */ var _decodeQueryParams__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./decodeQueryParams */ "./node_modules/serialize-query-params/esm/decodeQueryParams.js");
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "decodeQueryParams", function() { return _decodeQueryParams__WEBPACK_IMPORTED_MODULE_4__["decodeQueryParams"]; });
-
-/* harmony import */ var query_string__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! query-string */ "./node_modules/serialize-query-params/node_modules/query-string/index.js");
-/* harmony import */ var query_string__WEBPACK_IMPORTED_MODULE_5___default = /*#__PURE__*/__webpack_require__.n(query_string__WEBPACK_IMPORTED_MODULE_5__);
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "stringify", function() { return query_string__WEBPACK_IMPORTED_MODULE_5__["stringify"]; });
-
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "parse", function() { return query_string__WEBPACK_IMPORTED_MODULE_5__["parse"]; });
-
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "parseUrl", function() { return query_string__WEBPACK_IMPORTED_MODULE_5__["parseUrl"]; });
-
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "extract", function() { return query_string__WEBPACK_IMPORTED_MODULE_5__["extract"]; });
-
-
-
-
-
-
-// for convenience
-
-
-
-/***/ }),
-
-/***/ "./node_modules/serialize-query-params/esm/params.js":
-/*!***********************************************************!*\
-  !*** ./node_modules/serialize-query-params/esm/params.js ***!
-  \***********************************************************/
-/*! exports provided: StringParam, NumberParam, ObjectParam, ArrayParam, NumericArrayParam, JsonParam, DateParam, DateTimeParam, BooleanParam, NumericObjectParam, DelimitedArrayParam, DelimitedNumericArrayParam */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "StringParam", function() { return StringParam; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "NumberParam", function() { return NumberParam; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "ObjectParam", function() { return ObjectParam; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "ArrayParam", function() { return ArrayParam; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "NumericArrayParam", function() { return NumericArrayParam; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "JsonParam", function() { return JsonParam; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "DateParam", function() { return DateParam; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "DateTimeParam", function() { return DateTimeParam; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "BooleanParam", function() { return BooleanParam; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "NumericObjectParam", function() { return NumericObjectParam; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "DelimitedArrayParam", function() { return DelimitedArrayParam; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "DelimitedNumericArrayParam", function() { return DelimitedNumericArrayParam; });
-/* harmony import */ var _serialize__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./serialize */ "./node_modules/serialize-query-params/esm/serialize.js");
-
-/**
- * String values
- */
-var StringParam = {
-    encode: _serialize__WEBPACK_IMPORTED_MODULE_0__["encodeString"],
-    decode: _serialize__WEBPACK_IMPORTED_MODULE_0__["decodeString"],
-};
-/**
- * Numbers (integers or floats)
- */
-var NumberParam = {
-    encode: _serialize__WEBPACK_IMPORTED_MODULE_0__["encodeNumber"],
-    decode: _serialize__WEBPACK_IMPORTED_MODULE_0__["decodeNumber"],
-};
-/**
- * For flat objects where values are strings
- */
-var ObjectParam = {
-    encode: _serialize__WEBPACK_IMPORTED_MODULE_0__["encodeObject"],
-    decode: _serialize__WEBPACK_IMPORTED_MODULE_0__["decodeObject"],
-};
-/**
- * For flat arrays of strings, filters out undefined values during decode
- */
-var ArrayParam = {
-    encode: _serialize__WEBPACK_IMPORTED_MODULE_0__["encodeArray"],
-    decode: _serialize__WEBPACK_IMPORTED_MODULE_0__["decodeArray"],
-};
-/**
- * For flat arrays of strings, filters out undefined values during decode
- */
-var NumericArrayParam = {
-    encode: _serialize__WEBPACK_IMPORTED_MODULE_0__["encodeNumericArray"],
-    decode: _serialize__WEBPACK_IMPORTED_MODULE_0__["decodeNumericArray"],
-};
-/**
- * For any type of data, encoded via JSON.stringify
- */
-var JsonParam = {
-    encode: _serialize__WEBPACK_IMPORTED_MODULE_0__["encodeJson"],
-    decode: _serialize__WEBPACK_IMPORTED_MODULE_0__["decodeJson"],
-};
-/**
- * For simple dates (YYYY-MM-DD)
- */
-var DateParam = {
-    encode: _serialize__WEBPACK_IMPORTED_MODULE_0__["encodeDate"],
-    decode: _serialize__WEBPACK_IMPORTED_MODULE_0__["decodeDate"],
-};
-/**
- * For dates in simplified extended ISO format (YYYY-MM-DDTHH:mm:ss.sssZ or ±YYYYYY-MM-DDTHH:mm:ss.sssZ)
- */
-var DateTimeParam = {
-    encode: _serialize__WEBPACK_IMPORTED_MODULE_0__["encodeDateTime"],
-    decode: _serialize__WEBPACK_IMPORTED_MODULE_0__["decodeDateTime"],
-};
-/**
- * For boolean values: 1 = true, 0 = false
- */
-var BooleanParam = {
-    encode: _serialize__WEBPACK_IMPORTED_MODULE_0__["encodeBoolean"],
-    decode: _serialize__WEBPACK_IMPORTED_MODULE_0__["decodeBoolean"],
-};
-/**
- * For flat objects where the values are numbers
- */
-var NumericObjectParam = {
-    encode: _serialize__WEBPACK_IMPORTED_MODULE_0__["encodeNumericObject"],
-    decode: _serialize__WEBPACK_IMPORTED_MODULE_0__["decodeNumericObject"],
-};
-/**
- * For flat arrays of strings, filters out undefined values during decode
- */
-var DelimitedArrayParam = {
-    encode: _serialize__WEBPACK_IMPORTED_MODULE_0__["encodeDelimitedArray"],
-    decode: _serialize__WEBPACK_IMPORTED_MODULE_0__["decodeDelimitedArray"],
-};
-/**
- * For flat arrays where the values are numbers, filters out undefined values during decode
- */
-var DelimitedNumericArrayParam = {
-    encode: _serialize__WEBPACK_IMPORTED_MODULE_0__["encodeDelimitedNumericArray"],
-    decode: _serialize__WEBPACK_IMPORTED_MODULE_0__["decodeDelimitedNumericArray"],
-};
-
-
-/***/ }),
-
-/***/ "./node_modules/serialize-query-params/esm/serialize.js":
-/*!**************************************************************!*\
-  !*** ./node_modules/serialize-query-params/esm/serialize.js ***!
-  \**************************************************************/
-/*! exports provided: encodeDate, decodeDate, encodeDateTime, decodeDateTime, encodeBoolean, decodeBoolean, encodeNumber, decodeNumber, encodeString, decodeString, encodeJson, decodeJson, encodeArray, decodeArray, encodeNumericArray, decodeNumericArray, encodeDelimitedArray, decodeDelimitedArray, encodeDelimitedNumericArray, decodeDelimitedNumericArray, encodeObject, decodeObject, encodeNumericObject, decodeNumericObject */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "encodeDate", function() { return encodeDate; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "decodeDate", function() { return decodeDate; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "encodeDateTime", function() { return encodeDateTime; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "decodeDateTime", function() { return decodeDateTime; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "encodeBoolean", function() { return encodeBoolean; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "decodeBoolean", function() { return decodeBoolean; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "encodeNumber", function() { return encodeNumber; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "decodeNumber", function() { return decodeNumber; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "encodeString", function() { return encodeString; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "decodeString", function() { return decodeString; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "encodeJson", function() { return encodeJson; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "decodeJson", function() { return decodeJson; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "encodeArray", function() { return encodeArray; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "decodeArray", function() { return decodeArray; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "encodeNumericArray", function() { return encodeNumericArray; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "decodeNumericArray", function() { return decodeNumericArray; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "encodeDelimitedArray", function() { return encodeDelimitedArray; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "decodeDelimitedArray", function() { return decodeDelimitedArray; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "encodeDelimitedNumericArray", function() { return encodeDelimitedNumericArray; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "decodeDelimitedNumericArray", function() { return decodeDelimitedNumericArray; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "encodeObject", function() { return encodeObject; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "decodeObject", function() { return decodeObject; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "encodeNumericObject", function() { return encodeNumericObject; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "decodeNumericObject", function() { return decodeNumericObject; });
-/**
- * Encodes a date as a string in YYYY-MM-DD format.
- *
- * @param {Date} date
- * @return {String} the encoded date
- */
-function encodeDate(date) {
-    if (date == null) {
-        return undefined;
-    }
-    var year = date.getFullYear();
-    var month = date.getMonth() + 1;
-    var day = date.getDate();
-    return year + "-" + (month < 10 ? "0" + month : month) + "-" + (day < 10 ? "0" + day : day);
-}
-/**
- * Converts a date in the format 'YYYY-mm-dd...' into a proper date, because
- * new Date() does not do that correctly. The date can be as complete or incomplete
- * as necessary (aka, '2015', '2015-10', '2015-10-01').
- * It will not work for dates that have times included in them.
- *
- * If an array is provided, only the first entry is used.
- *
- * @param  {String} input String date form like '2015-10-01'
- * @return {Date} parsed date
- */
-function decodeDate(input) {
-    if (input == null || !input.length) {
-        return undefined;
-    }
-    var dateString = input instanceof Array ? input[0] : input;
-    if (dateString == null || !dateString.length) {
-        return undefined;
-    }
-    var parts = dateString.split('-');
-    // may only be a year so won't even have a month
-    if (parts[1] != null) {
-        parts[1] -= 1; // Note: months are 0-based
-    }
-    else {
-        // just a year, set the month and day to the first
-        parts[1] = 0;
-        parts[2] = 1;
-    }
-    var decoded = new (Date.bind.apply(Date, [void 0].concat(parts)))();
-    if (isNaN(decoded.getTime())) {
-        return undefined;
-    }
-    return decoded;
-}
-/**
- * Encodes a date as a string in ISO 8601 ("2019-05-28T10:58:40Z") format.
- *
- * @param {Date} date
- * @return {String} the encoded date
- */
-function encodeDateTime(date) {
-    if (date == null) {
-        return undefined;
-    }
-    return date.toISOString();
-}
-/**
- * Converts a date in the https://en.wikipedia.org/wiki/ISO_8601 format.
- * For allowed inputs see specs:
- *  - https://tools.ietf.org/html/rfc2822#page-14
- *  - http://www.ecma-international.org/ecma-262/5.1/#sec-15.9.1.15
- *
- * If an array is provided, only the first entry is used.
- *
- * @param  {String} input String date form like '1995-12-17T03:24:00'
- * @return {Date} parsed date
- */
-function decodeDateTime(input) {
-    if (input == null || !input.length) {
-        return undefined;
-    }
-    var dateString = input instanceof Array ? input[0] : input;
-    if (dateString == null || !dateString.length) {
-        return undefined;
-    }
-    var decoded = new Date(dateString);
-    if (isNaN(decoded.getTime())) {
-        return undefined;
-    }
-    return decoded;
-}
-/**
- * Encodes a boolean as a string. true -> "1", false -> "0".
- *
- * @param {Boolean} bool
- * @return {String} the encoded boolean
- */
-function encodeBoolean(bool) {
-    if (bool === undefined) {
-        return undefined;
-    }
-    return bool ? '1' : '0';
-}
-/**
- * Decodes a boolean from a string. "1" -> true, "0" -> false.
- * Everything else maps to undefined.
- *
- * If an array is provided, only the first entry is used.
- *
- * @param {String} input the encoded boolean string
- * @return {Boolean} the boolean value
- */
-function decodeBoolean(input) {
-    if (input == null) {
-        return undefined;
-    }
-    var boolStr = input instanceof Array ? input[0] : input;
-    if (boolStr === '1') {
-        return true;
-    }
-    else if (boolStr === '0') {
-        return false;
-    }
-    return undefined;
-}
-/**
- * Encodes a number as a string.
- *
- * @param {Number} num
- * @return {String} the encoded number
- */
-function encodeNumber(num) {
-    if (num == null) {
-        return undefined;
-    }
-    return String(num);
-}
-/**
- * Decodes a number from a string. If the number is invalid,
- * it returns undefined.
- *
- * If an array is provided, only the first entry is used.
- *
- * @param {String} input the encoded number string
- * @return {Number} the number value
- */
-function decodeNumber(input) {
-    if (input == null) {
-        return undefined;
-    }
-    var numStr = input instanceof Array ? input[0] : input;
-    if (numStr == null || numStr === '') {
-        return undefined;
-    }
-    var result = +numStr;
-    if (isNaN(result)) {
-        return undefined;
-    }
-    return result;
-}
-/**
- * Encodes a string while safely handling null and undefined values.
- *
- * @param {String} str a string to encode
- * @return {String} the encoded string
- */
-function encodeString(str) {
-    if (str == null) {
-        return undefined;
-    }
-    return String(str);
-}
-/**
- * Decodes a string while safely handling null and undefined values.
- *
- * If an array is provided, only the first entry is used.
- *
- * @param {String} input the encoded string
- * @return {String} the string value
- */
-function decodeString(input) {
-    if (input == null) {
-        return undefined;
-    }
-    var str = input instanceof Array ? input[0] : input;
-    if (str == null) {
-        return undefined;
-    }
-    return String(str);
-}
-/**
- * Encodes anything as a JSON string.
- *
- * @param {Any} any The thing to be encoded
- * @return {String} The JSON string representation of any
- */
-function encodeJson(any) {
-    if (any == null) {
-        return undefined;
-    }
-    return JSON.stringify(any);
-}
-/**
- * Decodes a JSON string into javascript
- *
- * If an array is provided, only the first entry is used.
- *
- * @param {String} input The JSON string representation
- * @return {Any} The javascript representation
- */
-function decodeJson(input) {
-    if (input == null) {
-        return undefined;
-    }
-    var jsonStr = input instanceof Array ? input[0] : input;
-    if (!jsonStr) {
-        return undefined;
-    }
-    var result;
-    try {
-        result = JSON.parse(jsonStr);
-    }
-    catch (e) {
-        /* ignore errors, returning undefined */
-    }
-    return result;
-}
-/**
- * Encodes an array as a JSON string.
- *
- * @param {Array} array The array to be encoded
- * @return {String[]} The array of strings to be put in the URL
- * as repeated query parameters
- */
-function encodeArray(array) {
-    if (!array) {
-        return undefined;
-    }
-    return array;
-}
-/**
- * Decodes an array or singular value and returns it as an array
- * or undefined if falsy. Filters out undefined values.
- *
- * @param {String | Array} input The input value
- * @return {Array} The javascript representation
- */
-function decodeArray(input) {
-    if (!input) {
-        return undefined;
-    }
-    if (!(input instanceof Array)) {
-        return [input];
-    }
-    return input
-        .map(function (item) { return (item === '' ? undefined : item); })
-        .filter(function (item) { return item !== undefined; });
-}
-/**
- * Encodes a numeric array as a JSON string.
- *
- * @param {Array} array The array to be encoded
- * @return {String[]} The array of strings to be put in the URL
- * as repeated query parameters
- */
-function encodeNumericArray(array) {
-    if (!array) {
-        return undefined;
-    }
-    return array.map(function (d) { return "" + d; });
-}
-/**
- * Decodes an array or singular value and returns it as an array
- * or undefined if falsy. Filters out undefined and NaN values.
- *
- * @param {String | Array} input The input value
- * @return {Array} The javascript representation
- */
-function decodeNumericArray(input) {
-    var arr = decodeArray(input);
-    if (!arr) {
-        return undefined;
-    }
-    return arr
-        .map(function (item) { return +item; })
-        .filter(function (item) { return item !== undefined && !isNaN(item); });
-}
-/**
- * Encodes an array as a delimited string. For example,
- * ['a', 'b'] -> 'a_b' with entrySeparator='_'
- *
- * @param array The array to be encoded
- * @param entrySeparator The string used to delimit entries
- * @return The array as a string with elements joined by the
- * entry separator
- */
-function encodeDelimitedArray(array, entrySeparator) {
-    if (entrySeparator === void 0) { entrySeparator = '_'; }
-    if (!array) {
-        return undefined;
-    }
-    return array.join(entrySeparator);
-}
-/**
- * Decodes a delimited string into javascript array. For example,
- * 'a_b' -> ['a', 'b'] with entrySeparator='_'
- *
- * If an array is provided as input, only the first entry is used.
- *
- * @param {String} input The JSON string representation
- * @param entrySeparator The array as a string with elements joined by the
- * entry separator
- * @return {Array} The javascript representation
- */
-function decodeDelimitedArray(input, entrySeparator) {
-    if (entrySeparator === void 0) { entrySeparator = '_'; }
-    if (input == null) {
-        return undefined;
-    }
-    var arrayStr = input instanceof Array ? input[0] : input;
-    if (!arrayStr) {
-        return undefined;
-    }
-    return arrayStr
-        .split(entrySeparator)
-        .map(function (item) { return (item === '' ? undefined : item); })
-        .filter(function (item) { return item !== undefined; });
-}
-/**
- * Encodes a numeric array as a delimited string. (alias of encodeDelimitedArray)
- * For example, [1, 2] -> '1_2' with entrySeparator='_'
- *
- * @param {Array} array The array to be encoded
- * @return {String} The JSON string representation of array
- */
-var encodeDelimitedNumericArray = encodeDelimitedArray;
-/**
- * Decodes a delimited string into javascript array where all entries are numbers
- * For example, '1_2' -> [1, 2] with entrySeparator='_'
- *
- * If an array is provided as input, only the first entry is used.
- *
- * @param {String} jsonStr The JSON string representation
- * @return {Array} The javascript representation
- */
-function decodeDelimitedNumericArray(arrayStr, entrySeparator) {
-    if (entrySeparator === void 0) { entrySeparator = '_'; }
-    var decoded = decodeDelimitedArray(arrayStr, entrySeparator);
-    if (!decoded) {
-        return undefined;
-    }
-    return decoded
-        .map(function (d) { return (d == null ? undefined : +d); })
-        .filter(function (d) { return d !== undefined && !isNaN(d); });
-}
-/**
- * Encode simple objects as readable strings. Works only for simple,
- * flat objects where values are numbers, strings.
- *
- * For example { foo: bar, boo: baz } -> "foo-bar_boo-baz"
- *
- * @param {Object} object The object to encode
- * @param {String} keyValSeparator="-" The separator between keys and values
- * @param {String} entrySeparator="_" The separator between entries
- * @return {String} The encoded object
- */
-function encodeObject(obj, keyValSeparator, entrySeparator) {
-    if (keyValSeparator === void 0) { keyValSeparator = '-'; }
-    if (entrySeparator === void 0) { entrySeparator = '_'; }
-    if (!obj || !Object.keys(obj).length) {
-        return undefined;
-    }
-    return Object.keys(obj)
-        .map(function (key) { return "" + key + keyValSeparator + obj[key]; })
-        .join(entrySeparator);
-}
-/**
- * Decodes a simple object to javascript. Currently works only for simple,
- * flat objects where values are strings.
- *
- * For example "foo-bar_boo-baz" -> { foo: bar, boo: baz }
- *
- * If an array is provided as input, only the first entry is used.
- *
- * @param {String} input The object string to decode
- * @param {String} keyValSeparator="-" The separator between keys and values
- * @param {String} entrySeparator="_" The separator between entries
- * @return {Object} The javascript object
- */
-function decodeObject(input, keyValSeparator, entrySeparator) {
-    if (keyValSeparator === void 0) { keyValSeparator = '-'; }
-    if (entrySeparator === void 0) { entrySeparator = '_'; }
-    if (input == null) {
-        return undefined;
-    }
-    var objStr = input instanceof Array ? input[0] : input;
-    if (!objStr || !objStr.length) {
-        return undefined;
-    }
-    var obj = {};
-    objStr.split(entrySeparator).forEach(function (entryStr) {
-        var _a = entryStr.split(keyValSeparator), key = _a[0], value = _a[1];
-        obj[key] = value === '' ? undefined : value;
-    });
-    return obj;
-}
-/**
- * Encode simple objects as readable strings. Alias of encodeObject.
- *
- * For example { foo: 123, boo: 521 } -> "foo-123_boo-521"
- *
- * @param {Object} object The object to encode
- * @param {String} keyValSeparator="-" The separator between keys and values
- * @param {String} entrySeparator="_" The separator between entries
- * @return {String} The encoded object
- */
-var encodeNumericObject = encodeObject;
-/**
- * Decodes a simple object to javascript where all values are numbers.
- * Currently works only for simple, flat objects.
- *
- * For example "foo-123_boo-521" -> { foo: 123, boo: 521 }
- *
- * If an array is provided as input, only the first entry is used.
- *
- * @param {String} input The object string to decode
- * @param {String} keyValSeparator="-" The separator between keys and values
- * @param {String} entrySeparator="_" The separator between entries
- * @return {Object} The javascript object
- */
-function decodeNumericObject(input, keyValSeparator, entrySeparator) {
-    if (keyValSeparator === void 0) { keyValSeparator = '-'; }
-    if (entrySeparator === void 0) { entrySeparator = '_'; }
-    var decoded = decodeObject(input, keyValSeparator, entrySeparator);
-    if (!decoded) {
-        return undefined;
-    }
-    // convert to numbers
-    Object.keys(decoded).forEach(function (key) {
-        if (decoded[key] !== undefined) {
-            decoded[key] = decodeNumber(decoded[key]);
-        }
-    });
-    return decoded;
-}
-
-
-/***/ }),
-
-/***/ "./node_modules/serialize-query-params/esm/updateLocation.js":
-/*!*******************************************************************!*\
-  !*** ./node_modules/serialize-query-params/esm/updateLocation.js ***!
-  \*******************************************************************/
-/*! exports provided: updateLocation, updateInLocation */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "updateLocation", function() { return updateLocation; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "updateInLocation", function() { return updateInLocation; });
-/* harmony import */ var query_string__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! query-string */ "./node_modules/serialize-query-params/node_modules/query-string/index.js");
-/* harmony import */ var query_string__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(query_string__WEBPACK_IMPORTED_MODULE_0__);
-var __assign = (undefined && undefined.__assign) || function () {
-    __assign = Object.assign || function(t) {
-        for (var s, i = 1, n = arguments.length; i < n; i++) {
-            s = arguments[i];
-            for (var p in s) if (Object.prototype.hasOwnProperty.call(s, p))
-                t[p] = s[p];
-        }
-        return t;
-    };
-    return __assign.apply(this, arguments);
-};
-
-/**
- * remove query params that are nully or an empty strings.
- * note: these values are assumed to be already encoded as strings.
- */
-function filterNully(query) {
-    var filteredQuery = Object.keys(query).reduce(function (queryAccumulator, queryParam) {
-        // get encoded value for this param
-        var encodedValue = query[queryParam];
-        // if it isn't null or empty string, add it to the accumulated obj
-        if (encodedValue != null && encodedValue !== '') {
-            queryAccumulator[queryParam] = encodedValue;
-        }
-        return queryAccumulator;
-    }, {});
-    return filteredQuery;
-}
-/**
- * Update a location, wiping out parameters not included in encodedQuery
- */
-function updateLocation(encodedQuery, location) {
-    var encodedSearchString = Object(query_string__WEBPACK_IMPORTED_MODULE_0__["stringify"])(filterNully(encodedQuery));
-    var newLocation = __assign({}, location, { key: "" + Date.now(), search: encodedSearchString.length ? "?" + encodedSearchString : '' });
-    return newLocation;
-}
-/**
- * Update a location while retaining existing parameters
- */
-function updateInLocation(encodedQueryReplacements, location) {
-    // if a query is there, use it, otherwise parse the search string
-    var currQuery = location.query || Object(query_string__WEBPACK_IMPORTED_MODULE_0__["parse"])(location.search);
-    var newQuery = __assign({}, currQuery, encodedQueryReplacements);
-    return updateLocation(filterNully(newQuery), location);
-}
-
-
-/***/ }),
-
-/***/ "./node_modules/serialize-query-params/node_modules/query-string/index.js":
-/*!********************************************************************************!*\
-  !*** ./node_modules/serialize-query-params/node_modules/query-string/index.js ***!
-  \********************************************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-var strictUriEncode = __webpack_require__(/*! strict-uri-encode */ "./node_modules/strict-uri-encode/index.js");
-var objectAssign = __webpack_require__(/*! object-assign */ "./node_modules/object-assign/index.js");
-var decodeComponent = __webpack_require__(/*! decode-uri-component */ "./node_modules/decode-uri-component/index.js");
-
-function encoderForArrayFormat(opts) {
-	switch (opts.arrayFormat) {
-		case 'index':
-			return function (key, value, index) {
-				return value === null ? [
-					encode(key, opts),
-					'[',
-					index,
-					']'
-				].join('') : [
-					encode(key, opts),
-					'[',
-					encode(index, opts),
-					']=',
-					encode(value, opts)
-				].join('');
-			};
-
-		case 'bracket':
-			return function (key, value) {
-				return value === null ? encode(key, opts) : [
-					encode(key, opts),
-					'[]=',
-					encode(value, opts)
-				].join('');
-			};
-
-		default:
-			return function (key, value) {
-				return value === null ? encode(key, opts) : [
-					encode(key, opts),
-					'=',
-					encode(value, opts)
-				].join('');
-			};
-	}
-}
-
-function parserForArrayFormat(opts) {
-	var result;
-
-	switch (opts.arrayFormat) {
-		case 'index':
-			return function (key, value, accumulator) {
-				result = /\[(\d*)\]$/.exec(key);
-
-				key = key.replace(/\[\d*\]$/, '');
-
-				if (!result) {
-					accumulator[key] = value;
-					return;
-				}
-
-				if (accumulator[key] === undefined) {
-					accumulator[key] = {};
-				}
-
-				accumulator[key][result[1]] = value;
-			};
-
-		case 'bracket':
-			return function (key, value, accumulator) {
-				result = /(\[\])$/.exec(key);
-				key = key.replace(/\[\]$/, '');
-
-				if (!result) {
-					accumulator[key] = value;
-					return;
-				} else if (accumulator[key] === undefined) {
-					accumulator[key] = [value];
-					return;
-				}
-
-				accumulator[key] = [].concat(accumulator[key], value);
-			};
-
-		default:
-			return function (key, value, accumulator) {
-				if (accumulator[key] === undefined) {
-					accumulator[key] = value;
-					return;
-				}
-
-				accumulator[key] = [].concat(accumulator[key], value);
-			};
-	}
-}
-
-function encode(value, opts) {
-	if (opts.encode) {
-		return opts.strict ? strictUriEncode(value) : encodeURIComponent(value);
-	}
-
-	return value;
-}
-
-function keysSorter(input) {
-	if (Array.isArray(input)) {
-		return input.sort();
-	} else if (typeof input === 'object') {
-		return keysSorter(Object.keys(input)).sort(function (a, b) {
-			return Number(a) - Number(b);
-		}).map(function (key) {
-			return input[key];
-		});
-	}
-
-	return input;
-}
-
-function extract(str) {
-	var queryStart = str.indexOf('?');
-	if (queryStart === -1) {
-		return '';
-	}
-	return str.slice(queryStart + 1);
-}
-
-function parse(str, opts) {
-	opts = objectAssign({arrayFormat: 'none'}, opts);
-
-	var formatter = parserForArrayFormat(opts);
-
-	// Create an object with no prototype
-	// https://github.com/sindresorhus/query-string/issues/47
-	var ret = Object.create(null);
-
-	if (typeof str !== 'string') {
-		return ret;
-	}
-
-	str = str.trim().replace(/^[?#&]/, '');
-
-	if (!str) {
-		return ret;
-	}
-
-	str.split('&').forEach(function (param) {
-		var parts = param.replace(/\+/g, ' ').split('=');
-		// Firefox (pre 40) decodes `%3D` to `=`
-		// https://github.com/sindresorhus/query-string/pull/37
-		var key = parts.shift();
-		var val = parts.length > 0 ? parts.join('=') : undefined;
-
-		// missing `=` should be `null`:
-		// http://w3.org/TR/2012/WD-url-20120524/#collect-url-parameters
-		val = val === undefined ? null : decodeComponent(val);
-
-		formatter(decodeComponent(key), val, ret);
-	});
-
-	return Object.keys(ret).sort().reduce(function (result, key) {
-		var val = ret[key];
-		if (Boolean(val) && typeof val === 'object' && !Array.isArray(val)) {
-			// Sort object keys, not values
-			result[key] = keysSorter(val);
-		} else {
-			result[key] = val;
-		}
-
-		return result;
-	}, Object.create(null));
-}
-
-exports.extract = extract;
-exports.parse = parse;
-
-exports.stringify = function (obj, opts) {
-	var defaults = {
-		encode: true,
-		strict: true,
-		arrayFormat: 'none'
-	};
-
-	opts = objectAssign(defaults, opts);
-
-	if (opts.sort === false) {
-		opts.sort = function () {};
-	}
-
-	var formatter = encoderForArrayFormat(opts);
-
-	return obj ? Object.keys(obj).sort(opts.sort).map(function (key) {
-		var val = obj[key];
-
-		if (val === undefined) {
-			return '';
-		}
-
-		if (val === null) {
-			return encode(key, opts);
-		}
-
-		if (Array.isArray(val)) {
-			var result = [];
-
-			val.slice().forEach(function (val2) {
-				if (val2 === undefined) {
-					return;
-				}
-
-				result.push(formatter(key, val2, result.length));
-			});
-
-			return result.join('&');
-		}
-
-		return encode(key, opts) + '=' + encode(val, opts);
-	}).filter(function (x) {
-		return x.length > 0;
-	}).join('&') : '';
-};
-
-exports.parseUrl = function (str, opts) {
-	return {
-		url: str.split('?')[0] || '',
-		query: parse(extract(str), opts)
-	};
-};
-
-
-/***/ }),
-
-/***/ "./node_modules/strict-uri-encode/index.js":
-/*!*************************************************!*\
-  !*** ./node_modules/strict-uri-encode/index.js ***!
-  \*************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-module.exports = function (str) {
-	return encodeURIComponent(str).replace(/[!'()*]/g, function (c) {
-		return '%' + c.charCodeAt(0).toString(16).toUpperCase();
-	});
-};
-
-
-/***/ }),
-
 /***/ "./node_modules/style-loader/lib/addStyles.js":
 /*!****************************************************!*\
   !*** ./node_modules/style-loader/lib/addStyles.js ***!
@@ -40436,394 +43099,75 @@ function warning(condition, message) {
 
 /***/ }),
 
-/***/ "./node_modules/use-query-params/esm/QueryParamProvider.js":
-/*!*****************************************************************!*\
-  !*** ./node_modules/use-query-params/esm/QueryParamProvider.js ***!
-  \*****************************************************************/
-/*! exports provided: QueryParamContext, QueryParamProvider, default */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
+/***/ "./node_modules/use-force-update/use-force-update.js":
+/*!***********************************************************!*\
+  !*** ./node_modules/use-force-update/use-force-update.js ***!
+  \***********************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "QueryParamContext", function() { return QueryParamContext; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "QueryParamProvider", function() { return QueryParamProvider; });
-/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
-/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
-var __assign = (undefined && undefined.__assign) || function () {
-    __assign = Object.assign || function(t) {
-        for (var s, i = 1, n = arguments.length; i < n; i++) {
-            s = arguments[i];
-            for (var p in s) if (Object.prototype.hasOwnProperty.call(s, p))
-                t[p] = s[p];
+
+var __read = (this && this.__read) || function (o, n) {
+    var m = typeof Symbol === "function" && o[Symbol.iterator];
+    if (!m) return o;
+    var i = m.call(o), r, ar = [], e;
+    try {
+        while ((n === void 0 || n-- > 0) && !(r = i.next()).done) ar.push(r.value);
+    }
+    catch (error) { e = { error: error }; }
+    finally {
+        try {
+            if (r && !r.done && (m = i["return"])) m.call(i);
         }
-        return t;
-    };
-    return __assign.apply(this, arguments);
+        finally { if (e) throw e.error; }
+    }
+    return ar;
 };
-
-/**
- * Adapts standard DOM window history to work with our
- * { replace, push } interface.
- *
- * @param history Standard history provided by DOM
- */
-function adaptWindowHistory(history) {
-    return {
-        replace: function (location) {
-            history.replaceState(location.state, '', location.protocol + "//" + location.host + location.pathname + location.search);
-        },
-        push: function (location) {
-            history.pushState(location.state, '', location.protocol + "//" + location.host + location.pathname + location.search);
-        },
-    };
+Object.defineProperty(exports, "__esModule", { value: true });
+var react_1 = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+function useForceUpdate() {
+    var _a = __read(react_1.useState(Object.create(null)), 2), dispatch = _a[1];
+    var memoizedDispatch = react_1.useCallback(function () {
+        dispatch(Object.create(null));
+    }, [dispatch]);
+    return memoizedDispatch;
 }
-/**
- * Adapts @reach/router history to work with our
- * { replace, push } interface.
- *
- * @param history globalHistory from @reach/router
- */
-function adaptReachHistory(history) {
-    return {
-        replace: function (location) {
-            history.navigate(location.protocol + "//" + location.host + location.pathname + location.search, { replace: true });
-        },
-        push: function (location) {
-            history.navigate(location.protocol + "//" + location.host + location.pathname + location.search, { replace: false });
-        },
-    };
-}
-/**
- * Helper to produce the context value falling back to
- * window history and location if not provided.
- */
-function getContextValue(contextValue) {
-    if (contextValue === void 0) { contextValue = {}; }
-    var value = __assign({}, contextValue);
-    var hasWindow = typeof window !== 'undefined';
-    if (hasWindow) {
-        if (!value.history) {
-            value.history = adaptWindowHistory(window.history);
-        }
-        if (!value.location) {
-            value.location = window.location;
-        }
-    }
-    return value;
-}
-var QueryParamContext = react__WEBPACK_IMPORTED_MODULE_0__["createContext"](getContextValue());
-/**
- * Context provider for query params to have access to the
- * active routing system, enabling updates to the URL.
- */
-function QueryParamProvider(_a) {
-    var children = _a.children, ReactRouterRoute = _a.ReactRouterRoute, reachHistory = _a.reachHistory, history = _a.history, location = _a.location;
-    // if we have React Router, use it to get the context value
-    if (ReactRouterRoute) {
-        return (react__WEBPACK_IMPORTED_MODULE_0__["createElement"](ReactRouterRoute, null, function (routeProps) {
-            return (react__WEBPACK_IMPORTED_MODULE_0__["createElement"](QueryParamContext.Provider, { value: getContextValue(routeProps) }, children));
-        }));
-    }
-    // if we are using reach router, use its history
-    if (reachHistory) {
-        return (react__WEBPACK_IMPORTED_MODULE_0__["createElement"](QueryParamContext.Provider, { value: getContextValue({
-                history: adaptReachHistory(reachHistory),
-                location: location,
-            }) }, children));
-    }
-    // neither reach nor react-router, so allow manual overrides
-    return (react__WEBPACK_IMPORTED_MODULE_0__["createElement"](QueryParamContext.Provider, { value: getContextValue({ history: history, location: location }) }, children));
-}
-/* harmony default export */ __webpack_exports__["default"] = (QueryParamProvider);
+exports.default = useForceUpdate;
 
 
 /***/ }),
 
-/***/ "./node_modules/use-query-params/esm/index.js":
-/*!****************************************************!*\
-  !*** ./node_modules/use-query-params/esm/index.js ***!
-  \****************************************************/
-/*! exports provided: useQueryParam, useQueryParams, updateUrlQuery, QueryParamProvider, QueryParamContext, encodeDate, decodeDate, encodeBoolean, decodeBoolean, encodeNumber, decodeNumber, encodeString, decodeString, encodeJson, decodeJson, encodeArray, decodeArray, encodeNumericArray, decodeNumericArray, encodeDelimitedArray, decodeDelimitedArray, encodeDelimitedNumericArray, decodeDelimitedNumericArray, encodeObject, decodeObject, encodeNumericObject, decodeNumericObject, StringParam, NumberParam, ObjectParam, ArrayParam, NumericArrayParam, JsonParam, DateParam, DateTimeParam, BooleanParam, NumericObjectParam, DelimitedArrayParam, DelimitedNumericArrayParam, updateLocation, updateInLocation, encodeQueryParams, decodeQueryParams, stringify, parse, parseUrl, extract */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
+/***/ "./node_modules/use-react-router/use-react-router.js":
+/*!***********************************************************!*\
+  !*** ./node_modules/use-react-router/use-react-router.js ***!
+  \***********************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony import */ var serialize_query_params__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! serialize-query-params */ "./node_modules/serialize-query-params/esm/index.js");
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "encodeDate", function() { return serialize_query_params__WEBPACK_IMPORTED_MODULE_0__["encodeDate"]; });
 
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "decodeDate", function() { return serialize_query_params__WEBPACK_IMPORTED_MODULE_0__["decodeDate"]; });
-
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "encodeBoolean", function() { return serialize_query_params__WEBPACK_IMPORTED_MODULE_0__["encodeBoolean"]; });
-
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "decodeBoolean", function() { return serialize_query_params__WEBPACK_IMPORTED_MODULE_0__["decodeBoolean"]; });
-
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "encodeNumber", function() { return serialize_query_params__WEBPACK_IMPORTED_MODULE_0__["encodeNumber"]; });
-
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "decodeNumber", function() { return serialize_query_params__WEBPACK_IMPORTED_MODULE_0__["decodeNumber"]; });
-
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "encodeString", function() { return serialize_query_params__WEBPACK_IMPORTED_MODULE_0__["encodeString"]; });
-
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "decodeString", function() { return serialize_query_params__WEBPACK_IMPORTED_MODULE_0__["decodeString"]; });
-
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "encodeJson", function() { return serialize_query_params__WEBPACK_IMPORTED_MODULE_0__["encodeJson"]; });
-
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "decodeJson", function() { return serialize_query_params__WEBPACK_IMPORTED_MODULE_0__["decodeJson"]; });
-
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "encodeArray", function() { return serialize_query_params__WEBPACK_IMPORTED_MODULE_0__["encodeArray"]; });
-
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "decodeArray", function() { return serialize_query_params__WEBPACK_IMPORTED_MODULE_0__["decodeArray"]; });
-
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "encodeNumericArray", function() { return serialize_query_params__WEBPACK_IMPORTED_MODULE_0__["encodeNumericArray"]; });
-
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "decodeNumericArray", function() { return serialize_query_params__WEBPACK_IMPORTED_MODULE_0__["decodeNumericArray"]; });
-
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "encodeDelimitedArray", function() { return serialize_query_params__WEBPACK_IMPORTED_MODULE_0__["encodeDelimitedArray"]; });
-
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "decodeDelimitedArray", function() { return serialize_query_params__WEBPACK_IMPORTED_MODULE_0__["decodeDelimitedArray"]; });
-
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "encodeDelimitedNumericArray", function() { return serialize_query_params__WEBPACK_IMPORTED_MODULE_0__["encodeDelimitedNumericArray"]; });
-
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "decodeDelimitedNumericArray", function() { return serialize_query_params__WEBPACK_IMPORTED_MODULE_0__["decodeDelimitedNumericArray"]; });
-
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "encodeObject", function() { return serialize_query_params__WEBPACK_IMPORTED_MODULE_0__["encodeObject"]; });
-
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "decodeObject", function() { return serialize_query_params__WEBPACK_IMPORTED_MODULE_0__["decodeObject"]; });
-
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "encodeNumericObject", function() { return serialize_query_params__WEBPACK_IMPORTED_MODULE_0__["encodeNumericObject"]; });
-
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "decodeNumericObject", function() { return serialize_query_params__WEBPACK_IMPORTED_MODULE_0__["decodeNumericObject"]; });
-
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "StringParam", function() { return serialize_query_params__WEBPACK_IMPORTED_MODULE_0__["StringParam"]; });
-
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "NumberParam", function() { return serialize_query_params__WEBPACK_IMPORTED_MODULE_0__["NumberParam"]; });
-
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "ObjectParam", function() { return serialize_query_params__WEBPACK_IMPORTED_MODULE_0__["ObjectParam"]; });
-
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "ArrayParam", function() { return serialize_query_params__WEBPACK_IMPORTED_MODULE_0__["ArrayParam"]; });
-
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "NumericArrayParam", function() { return serialize_query_params__WEBPACK_IMPORTED_MODULE_0__["NumericArrayParam"]; });
-
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "JsonParam", function() { return serialize_query_params__WEBPACK_IMPORTED_MODULE_0__["JsonParam"]; });
-
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "DateParam", function() { return serialize_query_params__WEBPACK_IMPORTED_MODULE_0__["DateParam"]; });
-
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "DateTimeParam", function() { return serialize_query_params__WEBPACK_IMPORTED_MODULE_0__["DateTimeParam"]; });
-
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "BooleanParam", function() { return serialize_query_params__WEBPACK_IMPORTED_MODULE_0__["BooleanParam"]; });
-
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "NumericObjectParam", function() { return serialize_query_params__WEBPACK_IMPORTED_MODULE_0__["NumericObjectParam"]; });
-
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "DelimitedArrayParam", function() { return serialize_query_params__WEBPACK_IMPORTED_MODULE_0__["DelimitedArrayParam"]; });
-
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "DelimitedNumericArrayParam", function() { return serialize_query_params__WEBPACK_IMPORTED_MODULE_0__["DelimitedNumericArrayParam"]; });
-
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "updateLocation", function() { return serialize_query_params__WEBPACK_IMPORTED_MODULE_0__["updateLocation"]; });
-
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "updateInLocation", function() { return serialize_query_params__WEBPACK_IMPORTED_MODULE_0__["updateInLocation"]; });
-
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "encodeQueryParams", function() { return serialize_query_params__WEBPACK_IMPORTED_MODULE_0__["encodeQueryParams"]; });
-
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "decodeQueryParams", function() { return serialize_query_params__WEBPACK_IMPORTED_MODULE_0__["decodeQueryParams"]; });
-
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "stringify", function() { return serialize_query_params__WEBPACK_IMPORTED_MODULE_0__["stringify"]; });
-
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "parse", function() { return serialize_query_params__WEBPACK_IMPORTED_MODULE_0__["parse"]; });
-
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "parseUrl", function() { return serialize_query_params__WEBPACK_IMPORTED_MODULE_0__["parseUrl"]; });
-
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "extract", function() { return serialize_query_params__WEBPACK_IMPORTED_MODULE_0__["extract"]; });
-
-/* harmony import */ var _useQueryParam__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./useQueryParam */ "./node_modules/use-query-params/esm/useQueryParam.js");
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "useQueryParam", function() { return _useQueryParam__WEBPACK_IMPORTED_MODULE_1__["useQueryParam"]; });
-
-/* harmony import */ var _useQueryParams__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./useQueryParams */ "./node_modules/use-query-params/esm/useQueryParams.js");
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "useQueryParams", function() { return _useQueryParams__WEBPACK_IMPORTED_MODULE_2__["useQueryParams"]; });
-
-/* harmony import */ var _updateUrlQuery__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./updateUrlQuery */ "./node_modules/use-query-params/esm/updateUrlQuery.js");
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "updateUrlQuery", function() { return _updateUrlQuery__WEBPACK_IMPORTED_MODULE_3__["updateUrlQuery"]; });
-
-/* harmony import */ var _QueryParamProvider__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./QueryParamProvider */ "./node_modules/use-query-params/esm/QueryParamProvider.js");
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "QueryParamProvider", function() { return _QueryParamProvider__WEBPACK_IMPORTED_MODULE_4__["QueryParamProvider"]; });
-
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "QueryParamContext", function() { return _QueryParamProvider__WEBPACK_IMPORTED_MODULE_4__["QueryParamContext"]; });
-
-
-
-
-
-
-
-
-/***/ }),
-
-/***/ "./node_modules/use-query-params/esm/updateUrlQuery.js":
-/*!*************************************************************!*\
-  !*** ./node_modules/use-query-params/esm/updateUrlQuery.js ***!
-  \*************************************************************/
-/*! exports provided: updateUrlQuery, default */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "updateUrlQuery", function() { return updateUrlQuery; });
-/* harmony import */ var serialize_query_params__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! serialize-query-params */ "./node_modules/serialize-query-params/esm/index.js");
-
-/**
- * Updates the URL to match the specified query changes.
- * If replaceIn or pushIn are used as the updateType, then parameters
- * not specified in queryReplacements are retained. If replace or push
- * are used, only the values in queryReplacements will be available.
- */
-function updateUrlQuery(queryReplacements, location, history, updateType) {
-    if (updateType === void 0) { updateType = 'replaceIn'; }
-    switch (updateType) {
-        case 'replaceIn':
-            history.replace(Object(serialize_query_params__WEBPACK_IMPORTED_MODULE_0__["updateInLocation"])(queryReplacements, location));
-            break;
-        case 'pushIn':
-            history.push(Object(serialize_query_params__WEBPACK_IMPORTED_MODULE_0__["updateInLocation"])(queryReplacements, location));
-            break;
-        case 'replace':
-            history.replace(Object(serialize_query_params__WEBPACK_IMPORTED_MODULE_0__["updateLocation"])(queryReplacements, location));
-            break;
-        case 'push':
-            history.push(Object(serialize_query_params__WEBPACK_IMPORTED_MODULE_0__["updateLocation"])(queryReplacements, location));
-            break;
-        default:
+Object.defineProperty(exports, "__esModule", { value: true });
+var react_1 = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+var react_router_1 = __webpack_require__(/*! react-router */ "./node_modules/react-router/esm/react-router.js");
+var use_force_update_1 = __webpack_require__(/*! use-force-update */ "./node_modules/use-force-update/use-force-update.js");
+var INCORRECT_VERSION_ERROR = new Error('use-react-router may only be used with react-router@^5.');
+var MISSING_CONTEXT_ERROR = new Error('useReactRouter may only be called within a <Router /> context.');
+function useRouter() {
+    if (!react_router_1.__RouterContext) {
+        throw INCORRECT_VERSION_ERROR;
     }
+    var context = react_1.useContext(react_router_1.__RouterContext);
+    if (!context) {
+        throw MISSING_CONTEXT_ERROR;
+    }
+    var forceUpdate = use_force_update_1.default();
+    react_1.useEffect(function () {
+        return context.history.listen(forceUpdate);
+    }, [context]);
+    return context;
 }
-/* harmony default export */ __webpack_exports__["default"] = (updateUrlQuery);
-
-
-/***/ }),
-
-/***/ "./node_modules/use-query-params/esm/useQueryParam.js":
-/*!************************************************************!*\
-  !*** ./node_modules/use-query-params/esm/useQueryParam.js ***!
-  \************************************************************/
-/*! exports provided: useQueryParam */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "useQueryParam", function() { return useQueryParam; });
-/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
-/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var serialize_query_params__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! serialize-query-params */ "./node_modules/serialize-query-params/esm/index.js");
-/* harmony import */ var _QueryParamProvider__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./QueryParamProvider */ "./node_modules/use-query-params/esm/QueryParamProvider.js");
-/* harmony import */ var _updateUrlQuery__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./updateUrlQuery */ "./node_modules/use-query-params/esm/updateUrlQuery.js");
-
-
-
-
-/**
- * Given a query param name and query parameter configuration ({ encode, decode })
- * return the decoded value and a setter for updating it.
- *
- * The setter takes two arguments (newValue, updateType) where updateType
- * is one of 'replace' | 'replaceIn' | 'push' | 'pushIn', defaulting to
- * 'replaceIn'.
- *
- * You may optionally pass in a rawQuery object, otherwise the query is derived
- * from the location available in the QueryParamContext.
- *
- * D = decoded type
- * D2 = return value from decode (typically same as D)
- */
-var useQueryParam = function (name, paramConfig, rawQuery) {
-    if (paramConfig === void 0) { paramConfig = serialize_query_params__WEBPACK_IMPORTED_MODULE_1__["StringParam"]; }
-    var _a = react__WEBPACK_IMPORTED_MODULE_0__["useContext"](_QueryParamProvider__WEBPACK_IMPORTED_MODULE_2__["QueryParamContext"]), history = _a.history, location = _a.location;
-    // read in the raw query
-    if (!rawQuery) {
-        rawQuery = react__WEBPACK_IMPORTED_MODULE_0__["useMemo"](function () { return Object(serialize_query_params__WEBPACK_IMPORTED_MODULE_1__["parse"])(location.search) || {}; }, [
-            location.search,
-        ]);
-    }
-    // read in the encoded string value
-    var encodedValue = rawQuery[name];
-    // decode if the encoded value has changed, otherwise
-    // re-use memoized value
-    var decodedValue = react__WEBPACK_IMPORTED_MODULE_0__["useMemo"](function () {
-        if (encodedValue == null) {
-            return undefined;
-        }
-        return paramConfig.decode(encodedValue);
-        // note that we use the stringified encoded value since the encoded
-        // value may be an array that is recreated if a different query param
-        // changes.
-    }, [
-        encodedValue instanceof Array
-            ? Object(serialize_query_params__WEBPACK_IMPORTED_MODULE_1__["stringify"])({ name: encodedValue })
-            : encodedValue,
-    ]);
-    // create the setter, memoizing via useCallback
-    var setValue = react__WEBPACK_IMPORTED_MODULE_0__["useCallback"](function (newValue, updateType) {
-        var _a;
-        var newEncodedValue = paramConfig.encode(newValue);
-        Object(_updateUrlQuery__WEBPACK_IMPORTED_MODULE_3__["updateUrlQuery"])((_a = {}, _a[name] = newEncodedValue, _a), location, history, updateType);
-    }, [location]);
-    return [decodedValue, setValue];
-};
-
-
-/***/ }),
-
-/***/ "./node_modules/use-query-params/esm/useQueryParams.js":
-/*!*************************************************************!*\
-  !*** ./node_modules/use-query-params/esm/useQueryParams.js ***!
-  \*************************************************************/
-/*! exports provided: useQueryParams, default */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "useQueryParams", function() { return useQueryParams; });
-/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
-/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var serialize_query_params__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! serialize-query-params */ "./node_modules/serialize-query-params/esm/index.js");
-/* harmony import */ var _useQueryParam__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./useQueryParam */ "./node_modules/use-query-params/esm/useQueryParam.js");
-/* harmony import */ var _updateUrlQuery__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./updateUrlQuery */ "./node_modules/use-query-params/esm/updateUrlQuery.js");
-/* harmony import */ var _QueryParamProvider__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./QueryParamProvider */ "./node_modules/use-query-params/esm/QueryParamProvider.js");
-
-
-
-
-
-/**
- * Given a query parameter configuration (mapping query param name to { encode, decode }),
- * return an object with the decoded values and a setter for updating them.
- */
-var useQueryParams = function (paramConfigMap) {
-    var _a = react__WEBPACK_IMPORTED_MODULE_0__["useContext"](_QueryParamProvider__WEBPACK_IMPORTED_MODULE_4__["QueryParamContext"]), history = _a.history, location = _a.location;
-    // read in the raw query
-    var rawQuery = react__WEBPACK_IMPORTED_MODULE_0__["useMemo"](function () { return Object(serialize_query_params__WEBPACK_IMPORTED_MODULE_1__["parse"])(location.search) || {}; }, [location.search]);
-    // parse each parameter via useQueryParam
-    // we reuse the logic to not recreate objects
-    var paramNames = Object.keys(paramConfigMap);
-    var paramValues = paramNames.map(function (paramName) {
-        return Object(_useQueryParam__WEBPACK_IMPORTED_MODULE_2__["useQueryParam"])(paramName, paramConfigMap[paramName], rawQuery)[0];
-    });
-    // we use a memo here to prevent recreating the containing decodedValues object
-    // which would break === comparisons even if no values changed.
-    var decodedValues = react__WEBPACK_IMPORTED_MODULE_0__["useMemo"](function () {
-        // iterate over the decoded values and build an object
-        var decodedValues = {};
-        for (var i = 0; i < paramNames.length; ++i) {
-            decodedValues[paramNames[i]] = paramValues[i];
-        }
-        return decodedValues;
-    }, paramValues);
-    // create a setter for updating multiple query params at once
-    var setQuery = react__WEBPACK_IMPORTED_MODULE_0__["useCallback"](function (changes, updateType) {
-        // encode as strings for the URL
-        var encodedChanges = Object(serialize_query_params__WEBPACK_IMPORTED_MODULE_1__["encodeQueryParams"])(paramConfigMap, changes);
-        // update the URL
-        Object(_updateUrlQuery__WEBPACK_IMPORTED_MODULE_3__["default"])(encodedChanges, location, history, updateType);
-    }, [location]);
-    // no longer Partial
-    return [decodedValues, setQuery];
-};
-/* harmony default export */ __webpack_exports__["default"] = (useQueryParams);
+exports.default = useRouter;
 
 
 /***/ }),

@@ -46,6 +46,7 @@
     "sqlite3": "^4.0.8",
     "superagent": "^3.8.3",
     "use-query-params": "^0.3.3",
+    "use-react-router": "^1.0.7",
     "webpack": "^4.31.0"
   },
   "devDependencies": {

@@ -5,9 +5,14 @@ const db = require('../galleries.js')
 const router = express.Router()
 
 router.get('/:name', (req, res) => {
-    db.getGalleryImages()
-        .then(images => {
-            res.json(images)
+    const gallery = req.body.galleryName
+    console.log(gallery)
+    db.getGallery(gallery)
+        .then(gallery => {
+            db.getGalleryImages(gallery.id)
+                .then(images => {
+                    res.json(images)
+            })
         })
         .catch(error => {
             console.error(error)
