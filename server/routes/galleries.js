@@ -5,11 +5,10 @@ const db = require('../galleries.js')
 const router = express.Router()
 
 router.get('/:name', (req, res) => {
-    const gallery = req.body.galleryName
-    console.log(gallery)
+    const gallery = req.params.name
     db.getGallery(gallery)
         .then(gallery => {
-            db.getGalleryImages(gallery.id)
+            db.getGalleryImages(gallery[0].id)
                 .then(images => {
                     res.json(images)
             })

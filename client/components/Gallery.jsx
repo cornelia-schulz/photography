@@ -31,11 +31,11 @@ function Gallery() {
     return(
         <div className="gallery container">
             <h1>{galleryName}</h1>
-            {/* <div className="gallery-container">
+            <div className="gallery-container">
                 {gallery.map(image => {
-                    return <div className="gallery-image"></div>
+                    return <div key={image.id} className="gallery-image">{image.title}</div>
                 })}
-            </div> */}
+            </div>
         </div>
     )
 }
