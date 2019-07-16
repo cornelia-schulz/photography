@@ -20,7 +20,8 @@ function getGallery(gallery) {
 }
 
 function getGalleryImages(id) {
-    return db('photos')
-    .where('id', id)
+    return db('photo_details')
+    .leftJoin('photos', 'photos.id', 'photo_details.photo_id')
+    .where('gallery_id', id)
     .select()
 }

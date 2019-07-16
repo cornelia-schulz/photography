@@ -33,7 +33,10 @@ function Gallery() {
             <h1>{galleryName}</h1>
             <div className="gallery-container">
                 {gallery.map(image => {
-                    return <div key={image.id} className="gallery-image">{image.title}</div>
+                    return <div key={image.id} className="gallery-image">
+                    {image.title}
+                    <img src={image.link}/>
+                    </div>
                 })}
             </div>
         </div>

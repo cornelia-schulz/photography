@@ -134,6 +134,10 @@ header {
     }
     .contact-left {
         display: none;
+
+        img {
+            height: 100%;
+        }
     }
     p {
         margin: 5px 0 15px;
