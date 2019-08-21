@@ -6,7 +6,7 @@ function Contact() {
     return(
         <div className="contact container">
             <div className="contact-left">
-                <Parallax className="custom-class" y={[-20, 20]} tagOuter="figure">
+                <Parallax className="custom-class" y={[-40, 0]} tagOuter="figure">
                     <img src="/images/contact.jpg" alt="Cornelia Schulz portrait with Moeraki Boulders" />
                 </Parallax>
             </div>

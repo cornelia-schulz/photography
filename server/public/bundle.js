@@ -4241,7 +4241,7 @@ function Contact() {
             { className: 'contact-left' },
             _react2.default.createElement(
                 _reactScrollParallax.Parallax,
-                { className: 'custom-class', y: [-20, 20], tagOuter: 'figure' },
+                { className: 'custom-class', y: [-40, 0], tagOuter: 'figure' },
                 _react2.default.createElement('img', { src: '/images/contact.jpg', alt: 'Cornelia Schulz portrait with Moeraki Boulders' })
             )
         ),
