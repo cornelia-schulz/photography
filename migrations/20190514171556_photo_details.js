@@ -9,6 +9,7 @@ exports.up = (knex, Promise) => {
       table.string('description')
       table.string('location')
       table.string('category')
+      table.string('favourite')
   })
 }
 
