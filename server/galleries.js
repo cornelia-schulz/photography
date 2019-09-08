@@ -23,5 +23,6 @@ function getGalleryImages(id) {
     return db('photo_details')
     .leftJoin('photos', 'photos.id', 'photo_details.photo_id')
     .where('gallery_id', id)
+    .andWhere('language_id', '1')
     .select()
 }
