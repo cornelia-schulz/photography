@@ -4503,7 +4503,6 @@ function Galleries() {
 
     (0, _react.useEffect)(function () {
         _isMounted = true;
-        console.log('running');
         (0, _apiClient.getAllGalleries)().then(function (galleries) {
             if (_isMounted) {
                 setGalleries(galleries);
@@ -4525,7 +4524,7 @@ function Galleries() {
             galleries.map(function (gallery) {
                 return _react2.default.createElement(
                     'div',
-                    { className: 'gallery-image-container' },
+                    { key: gallery.id, className: 'gallery-image-container' },
                     _react2.default.createElement('div', { className: 'gallery', style: { backgroundImage: 'url(' + gallery.cover_image + ')' } }),
                     _react2.default.createElement(
                         'a',
