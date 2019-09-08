@@ -18,6 +18,9 @@ function getAll() {
 
 function getFavourites() {
   return db('photos')
+  .leftJoin('photo_details', 'photo_details.photo_id', 'photos.id')
+  .where('favourite', 'yes')
+  .andWhere('language_id', '1')
   .select()
 }
 
