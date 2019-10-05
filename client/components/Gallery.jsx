@@ -16,26 +16,29 @@ function Gallery() {
     const [gallery, setGallery] = useState([])
     const path = location.pathname
     const splitPath = path.split('/')
-    const galleryName = splitPath[splitPath.length-1]
+    const galleryName = splitPath[splitPath.length - 1]
 
     useEffect(() => {
         _isMounted = true
         getGalleryImages(galleryName)
             .then(images => {
-                if(_isMounted) {
+                if (_isMounted) {
                     setGallery(images)
                 }
             })
     }, [])
 
-    return(
+    return (
         <div className="gallery container">
             <h1>{galleryName}</h1>
             <div className="gallery-container">
                 {gallery.map(image => {
-                    return <div key={image.id} className="gallery-image">
-                    {image.title}
-                    <img src={image.link}/>
+                    return <div key={image.id} className="gallery-image-holder">
+                        <img
+                            className="gallery-image"
+                            src={image.link}
+                            alt="image.title"
+                        />
                     </div>
                 })}
             </div>
