@@ -222,13 +222,13 @@ header {
 }
 .gallery {
     .gallery-container {
-        max-width: 1024px;
+        max-width: 1028px;
         margin: 0 auto;
         display: flex;
         flex-wrap: wrap;
       }
       .gallery-image-holder {
-        flex-grow:1;
+        flex-grow: 1;
         padding: .2rem;
       } 
       

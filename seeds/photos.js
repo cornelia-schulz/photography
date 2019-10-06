@@ -18,7 +18,20 @@ exports.seed = function(knex, Promise) {
         {id: 11, title: 'Bethells', Link: '/images/bethells.jpg'},
         {id: 12, title: 'Pakiri', Link: '/images/pakiri.jpg'},
         {id: 13, title: 'Whatipu', Link: '/images/whatipu-river.jpg'},
-        {id: 14, title: 'Milkyway over Whatipu', Link: '/images/whatipu-milkyway.jpg'}
+        {id: 14, title: 'Milkyway over Whatipu', Link: '/images/whatipu-milkyway.jpg'},
+        {id: 15, title: 'Blue Mountains', Link: '/images/blue-mountains.jpg'},
+        {id: 16, title: 'Good morning, Sydney', Link: '/images/morning-bridge.jpg'},
+        {id: 17, title: 'Pink Clouds', Link: '/images/darling-harbour-in-pink.jpg'},
+        {id: 18, title: 'Early Morning', Link: '/images/early-morning.jpg'},
+        {id: 19, title: 'Milkyway over the Fields of Light', Link: '/images/fields-of-light-tree.jpg'},
+        {id: 20, title: 'Milkyway over Uluru', Link: '/images/fields-of-light.jpg'},
+        {id: 21, title: 'Ghostly Tree', Link: '/images/kings-canyon-tree.jpg'},
+        {id: 22, title: 'Desolate', Link: '/images/kings-canyon.jpg'},
+        {id: 23, title: 'Harbour Bridge', Link: '/images/early-morning-bridge.jpg'},
+        {id: 24, title: 'City Views', Link: '/images/mrs-macquaries-chair.jpg'},
+        {id: 25, title: 'Natural Fireworks', Link: '/images/natural-fireworks.jpg'},
+        {id: 26, title: 'Bridge View', Link: '/images/sydney-cbd-bw.jpg'},
+        {id: 27, title: 'Sails', Link: '/images/sydneysails.jpg'}
       ]);
     });
 };
