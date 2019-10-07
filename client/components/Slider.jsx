@@ -1,11 +1,13 @@
 import React, { useState, useEffect } from 'react'
+import ReactDOM from 'react-dom'
 
-function Slider(props) {
-    return (
+const Slider = ({image, isShowing, hide }) => isShowing ? ReactDOM.createPortal (
+    <React.Fragment>
         <div className="slider">
-            <h1>{props.title}</h1>
+            <h1>{image.title}</h1>
+            <h2 className="test">TEST</h2>
         </div>
-    )
-}
+    </React.Fragment>, document.body
+) : null
 
 export default Slider

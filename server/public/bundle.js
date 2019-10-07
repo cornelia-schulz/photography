@@ -2363,7 +2363,7 @@ function QueryParamProvider(_a) {
 /*!*****************************************************************!*\
   !*** /usr/local/lib/node_modules/use-query-params/esm/index.js ***!
   \*****************************************************************/
-/*! exports provided: useQueryParam, useQueryParams, updateUrlQuery, QueryParamProvider, QueryParamContext, encodeDate, decodeDate, encodeBoolean, decodeBoolean, encodeNumber, decodeNumber, encodeString, decodeString, encodeJson, decodeJson, encodeArray, decodeArray, encodeNumericArray, decodeNumericArray, encodeDelimitedArray, decodeDelimitedArray, encodeDelimitedNumericArray, decodeDelimitedNumericArray, encodeObject, decodeObject, encodeNumericObject, decodeNumericObject, StringParam, NumberParam, ObjectParam, ArrayParam, NumericArrayParam, JsonParam, DateParam, DateTimeParam, BooleanParam, NumericObjectParam, DelimitedArrayParam, DelimitedNumericArrayParam, updateLocation, updateInLocation, encodeQueryParams, decodeQueryParams, stringify, parse, parseUrl, extract */
+/*! exports provided: encodeDate, decodeDate, encodeBoolean, decodeBoolean, encodeNumber, decodeNumber, encodeString, decodeString, encodeJson, decodeJson, encodeArray, decodeArray, encodeNumericArray, decodeNumericArray, encodeDelimitedArray, decodeDelimitedArray, encodeDelimitedNumericArray, decodeDelimitedNumericArray, encodeObject, decodeObject, encodeNumericObject, decodeNumericObject, StringParam, NumberParam, ObjectParam, ArrayParam, NumericArrayParam, JsonParam, DateParam, DateTimeParam, BooleanParam, NumericObjectParam, DelimitedArrayParam, DelimitedNumericArrayParam, updateLocation, updateInLocation, encodeQueryParams, decodeQueryParams, stringify, parse, parseUrl, extract, useQueryParam, useQueryParams, updateUrlQuery, QueryParamProvider, QueryParamContext */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -4579,6 +4579,14 @@ var _useReactRouter2 = __webpack_require__(/*! use-react-router */ "./node_modul
 
 var _useReactRouter3 = _interopRequireDefault(_useReactRouter2);
 
+var _Slider = __webpack_require__(/*! ./Slider */ "./client/components/Slider.jsx");
+
+var _Slider2 = _interopRequireDefault(_Slider);
+
+var _useModal2 = __webpack_require__(/*! ../hooks/useModal */ "./client/hooks/useModal.js");
+
+var _useModal3 = _interopRequireDefault(_useModal2);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 var _isMounted = false;
@@ -4599,6 +4607,16 @@ function Gallery() {
         _useState2 = _slicedToArray(_useState, 2),
         gallery = _useState2[0],
         setGallery = _useState2[1];
+
+    var _useState3 = (0, _react.useState)({}),
+        _useState4 = _slicedToArray(_useState3, 2),
+        currentImage = _useState4[0],
+        setCurrentImage = _useState4[1];
+
+    var _useModal = (0, _useModal3.default)(),
+        isShowing = _useModal.isShowing,
+        openModal = _useModal.openModal,
+        closeModal = _useModal.closeModal;
 
     var path = location.pathname;
     var splitPath = path.split('/');
@@ -4631,11 +4649,20 @@ function Gallery() {
                     _react2.default.createElement('img', {
                         className: 'gallery-image',
                         src: image.link,
-                        alt: 'image.title'
+                        alt: 'image.title',
+                        onClick: function onClick() {
+                            setCurrentImage(image);
+                            openModal();
+                        }
                     })
                 );
             })
-        )
+        ),
+        _react2.default.createElement(_Slider2.default, {
+            isShowing: isShowing,
+            hide: closeModal,
+            image: currentImage
+        })
     );
 }
 
@@ -4783,6 +4810,104 @@ function Header() {
     );
 }
 exports.default = Header;
+
+/***/ }),
+
+/***/ "./client/components/Slider.jsx":
+/*!**************************************!*\
+  !*** ./client/components/Slider.jsx ***!
+  \**************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+
+var _react = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+
+var _react2 = _interopRequireDefault(_react);
+
+var _reactDom = __webpack_require__(/*! react-dom */ "./node_modules/react-dom/index.js");
+
+var _reactDom2 = _interopRequireDefault(_reactDom);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+var Slider = function Slider(_ref) {
+    var image = _ref.image,
+        isShowing = _ref.isShowing,
+        hide = _ref.hide;
+    return isShowing ? _reactDom2.default.createPortal(_react2.default.createElement(
+        _react2.default.Fragment,
+        null,
+        _react2.default.createElement(
+            'div',
+            { className: 'slider' },
+            _react2.default.createElement(
+                'h1',
+                null,
+                image.title
+            ),
+            _react2.default.createElement(
+                'h2',
+                { className: 'test' },
+                'TEST'
+            )
+        )
+    ), document.body) : null;
+};
+
+exports.default = Slider;
+
+/***/ }),
+
+/***/ "./client/hooks/useModal.js":
+/*!**********************************!*\
+  !*** ./client/hooks/useModal.js ***!
+  \**********************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+
+var _slicedToArray = function () { function sliceIterator(arr, i) { var _arr = []; var _n = true; var _d = false; var _e = undefined; try { for (var _i = arr[Symbol.iterator](), _s; !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i["return"]) _i["return"](); } finally { if (_d) throw _e; } } return _arr; } return function (arr, i) { if (Array.isArray(arr)) { return arr; } else if (Symbol.iterator in Object(arr)) { return sliceIterator(arr, i); } else { throw new TypeError("Invalid attempt to destructure non-iterable instance"); } }; }();
+
+var _react = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+
+var useModal = function useModal() {
+    var _useState = (0, _react.useState)(false),
+        _useState2 = _slicedToArray(_useState, 2),
+        isShowing = _useState2[0],
+        setIsShowing = _useState2[1];
+
+    function openModal(image) {
+        console.log('useModal openModal');
+        setIsShowing(true);
+        console.log(isShowing);
+    }
+
+    function closeModal() {
+        console.log(closeModal);
+        setIsShowing(false);
+    }
+
+    return {
+        isShowing: isShowing,
+        openModal: openModal,
+        closeModal: closeModal
+    };
+};
+
+exports.default = useModal;
 
 /***/ }),
 
@@ -5841,7 +5966,7 @@ module.exports = exports['default'];
 
 exports = module.exports = __webpack_require__(/*! ../../../node_modules/css-loader/dist/runtime/api.js */ "./node_modules/css-loader/dist/runtime/api.js")(false);
 // Module
-exports.push([module.i, "html, body {\n  box-sizing: border-box;\n  font-family: 'Lato', sans-serif;\n  font-size: 16px;\n  line-height: 1.5rem; }\n\n*, *:before, *:after {\n  box-sizing: inherit; }\n\nh1, h2, h3, h4, h5, h6 {\n  font-family: 'Comfortaa', cursive;\n  font-weight: 600;\n  margin-bottom: 15px; }\n\nh1 {\n  font-size: 24px; }\n\na, a:visited {\n  text-decoration: none;\n  color: #111; }\n\na:hover {\n  text-decoration: none;\n  cursor: pointer; }\n\n.container {\n  width: 100%;\n  padding: 15px; }\n\n.row {\n  display: flex;\n  width: 100%; }\n\nheader .container {\n  padding: 15px; }\n\nheader .row {\n  justify-content: space-between;\n  flex-wrap: wrap; }\n\nheader .header-left {\n  width: 55%; }\n\nheader .header-left img {\n  width: 100%; }\n\nheader .header-right {\n  display: none; }\n\nheader .header-right-mobile {\n  width: 20%;\n  margin-top: auto;\n  margin-bottom: auto;\n  border: none;\n  background: transparent; }\n  header .header-right-mobile img {\n    width: 60%;\n    float: right; }\n\nheader .header-right-mobile:focus {\n  outline: none; }\n\nheader .mobile-menu {\n  width: 100%;\n  text-align: right; }\n  header .mobile-menu li {\n    list-style-type: none;\n    line-height: 2rem;\n    border-bottom: 1px solid #e5e5e5;\n    padding: 10px; }\n\n@media only screen and (min-width: 769px) {\n  header .header-left img {\n    height: 100px;\n    width: auto; }\n  header .header-right {\n    display: block; }\n    header .header-right ul {\n      display: flex;\n      flex-direction: row; }\n      header .header-right ul li {\n        height: 100px;\n        padding: 10px;\n        display: flex;\n        flex-direction: column;\n        justify-content: center;\n        font-size: 20px;\n        width: 110px;\n        text-align: center; }\n  header .header-right-mobile {\n    display: none; } }\n\n.favourites h1 {\n  padding: 60px 0;\n  font-size: 1.5rem;\n  text-align: center; }\n\n@media only screen and (min-width: 769px) {\n  .favourites h1 {\n    text-align: left; } }\n\n.about p {\n  margin: 15px 0; }\n\n.contact {\n  display: flex;\n  flex-direction: row; }\n  .contact label {\n    display: none; }\n  .contact .contact-left {\n    display: none; }\n    .contact .contact-left img {\n      height: 100%; }\n  .contact p {\n    margin: 5px 0 15px; }\n  .contact label {\n    color: #494949; }\n  .contact input {\n    width: 100%;\n    height: 2.5rem;\n    border: none;\n    border-bottom: 1px solid #494949;\n    margin: 5px 0 15px; }\n  .contact input:focus {\n    outline: none; }\n  .contact textarea {\n    width: 100%;\n    border: none;\n    border-bottom: 1px solid #494949;\n    margin: 5px 0 15px; }\n  .contact textarea:focus {\n    outline: none; }\n  @media only screen and (min-width: 769px) {\n    .contact .contact-left {\n      display: block;\n      height: 500px;\n      overflow: hidden;\n      width: 60%;\n      margin-right: 25px;\n      border-radius: 5px; }\n    .contact .contact-right {\n      padding-top: 25px; } }\n\n.galleries .gallery-image-container {\n  position: relative; }\n\n.galleries .gallery {\n  width: 100%;\n  background-image: url(\"/images/pakiri-astro.jpg\");\n  background-size: cover;\n  margin: 10px 0; }\n\n.galleries .gallery:after {\n  content: \"\";\n  display: block;\n  padding-bottom: 100%; }\n\n.galleries .gallery-overlay {\n  position: absolute;\n  background: linear-gradient(rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.7));\n  top: 0;\n  width: 100%;\n  height: 100%;\n  text-align: center;\n  display: flex;\n  flex-direction: column;\n  justify-content: flex-end; }\n\n.galleries .gallery-overlay-text {\n  color: #fff;\n  font-size: 40px;\n  margin-bottom: 20px; }\n\n@media only screen and (min-width: 769px) {\n  .galleries .galleries-container {\n    display: flex;\n    flex-direction: row; }\n  .galleries .gallery-image-container {\n    width: 33.3%;\n    margin: 5px; }\n  .galleries .gallery {\n    margin: 0; } }\n\n.gallery .gallery-container {\n  max-width: 1028px;\n  margin: 0 auto;\n  display: flex;\n  flex-wrap: wrap; }\n\n.gallery .gallery-image-holder {\n  flex-grow: 1;\n  padding: .2rem; }\n\n.gallery .gallery-image-holder img {\n  display: block;\n  min-width: 100%;\n  height: 18rem;\n  object-fit: cover; }\n\nfooter .container {\n  padding: 10px; }\n\nfooter .footer-col {\n  width: 20%;\n  border-radius: 50%;\n  padding: 2px;\n  margin: 5px; }\n\nfooter .footer-col img {\n  width: 100%;\n  padding: 10px; }\n\nfooter .bottom-row p {\n  margin: 5px auto; }\n\n@media only screen and (min-width: 769px) {\n  footer .footer-col {\n    text-align: center; }\n  footer .footer-col img {\n    width: auto;\n    height: 100px; } }\n\n@media only screen and (min-width: 1100px) {\n  .container {\n    width: 1028px;\n    margin: 0 auto; } }\n", ""]);
+exports.push([module.i, "html, body {\n  box-sizing: border-box;\n  font-family: 'Lato', sans-serif;\n  font-size: 16px;\n  line-height: 1.5rem; }\n\n*, *:before, *:after {\n  box-sizing: inherit; }\n\nh1, h2, h3, h4, h5, h6 {\n  font-family: 'Comfortaa', cursive;\n  font-weight: 600;\n  margin-bottom: 15px; }\n\nh1 {\n  font-size: 24px; }\n\na, a:visited {\n  text-decoration: none;\n  color: #111; }\n\na:hover {\n  text-decoration: none;\n  cursor: pointer; }\n\n.container {\n  width: 100%;\n  padding: 15px; }\n\n.row {\n  display: flex;\n  width: 100%; }\n\nheader .container {\n  padding: 15px; }\n\nheader .row {\n  justify-content: space-between;\n  flex-wrap: wrap; }\n\nheader .header-left {\n  width: 55%; }\n\nheader .header-left img {\n  width: 100%; }\n\nheader .header-right {\n  display: none; }\n\nheader .header-right-mobile {\n  width: 20%;\n  margin-top: auto;\n  margin-bottom: auto;\n  border: none;\n  background: transparent; }\n  header .header-right-mobile img {\n    width: 60%;\n    float: right; }\n\nheader .header-right-mobile:focus {\n  outline: none; }\n\nheader .mobile-menu {\n  width: 100%;\n  text-align: right; }\n  header .mobile-menu li {\n    list-style-type: none;\n    line-height: 2rem;\n    border-bottom: 1px solid #e5e5e5;\n    padding: 10px; }\n\n@media only screen and (min-width: 769px) {\n  header .header-left img {\n    height: 100px;\n    width: auto; }\n  header .header-right {\n    display: block; }\n    header .header-right ul {\n      display: flex;\n      flex-direction: row; }\n      header .header-right ul li {\n        height: 100px;\n        padding: 10px;\n        display: flex;\n        flex-direction: column;\n        justify-content: center;\n        font-size: 20px;\n        width: 110px;\n        text-align: center; }\n  header .header-right-mobile {\n    display: none; } }\n\n.favourites h1 {\n  padding: 60px 0;\n  font-size: 1.5rem;\n  text-align: center; }\n\n@media only screen and (min-width: 769px) {\n  .favourites h1 {\n    text-align: left; } }\n\n.about p {\n  margin: 15px 0; }\n\n.contact {\n  display: flex;\n  flex-direction: row; }\n  .contact label {\n    display: none; }\n  .contact .contact-left {\n    display: none; }\n    .contact .contact-left img {\n      height: 100%; }\n  .contact p {\n    margin: 5px 0 15px; }\n  .contact label {\n    color: #494949; }\n  .contact input {\n    width: 100%;\n    height: 2.5rem;\n    border: none;\n    border-bottom: 1px solid #494949;\n    margin: 5px 0 15px; }\n  .contact input:focus {\n    outline: none; }\n  .contact textarea {\n    width: 100%;\n    border: none;\n    border-bottom: 1px solid #494949;\n    margin: 5px 0 15px; }\n  .contact textarea:focus {\n    outline: none; }\n  @media only screen and (min-width: 769px) {\n    .contact .contact-left {\n      display: block;\n      height: 500px;\n      overflow: hidden;\n      width: 60%;\n      margin-right: 25px;\n      border-radius: 5px; }\n    .contact .contact-right {\n      padding-top: 25px; } }\n\n.galleries .gallery-image-container {\n  position: relative; }\n\n.galleries .gallery {\n  width: 100%;\n  background-image: url(\"/images/pakiri-astro.jpg\");\n  background-size: cover;\n  margin: 10px 0; }\n\n.galleries .gallery:after {\n  content: \"\";\n  display: block;\n  padding-bottom: 100%; }\n\n.galleries .gallery-overlay {\n  position: absolute;\n  background: linear-gradient(rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.7));\n  top: 0;\n  width: 100%;\n  height: 100%;\n  text-align: center;\n  display: flex;\n  flex-direction: column;\n  justify-content: flex-end; }\n\n.galleries .gallery-overlay-text {\n  color: #fff;\n  font-size: 40px;\n  margin-bottom: 20px; }\n\n@media only screen and (min-width: 769px) {\n  .galleries .galleries-container {\n    display: flex;\n    flex-direction: row; }\n  .galleries .gallery-image-container {\n    width: 33.3%;\n    margin: 5px; }\n  .galleries .gallery {\n    margin: 0; } }\n\n.gallery .gallery-container {\n  max-width: 1028px;\n  margin: 0 auto;\n  display: flex;\n  flex-wrap: wrap; }\n\n.gallery .gallery-image-holder {\n  flex-grow: 1;\n  padding: .2rem; }\n\n.gallery .gallery-image-holder img {\n  display: block;\n  min-width: 100%;\n  height: 18rem;\n  object-fit: cover; }\n\nfooter .container {\n  padding: 10px; }\n\nfooter .footer-col {\n  width: 20%;\n  border-radius: 50%;\n  padding: 2px;\n  margin: 5px; }\n\nfooter .footer-col img {\n  width: 100%;\n  padding: 10px; }\n\nfooter .bottom-row p {\n  margin: 5px auto; }\n\n@media only screen and (min-width: 769px) {\n  footer .footer-col {\n    text-align: center; }\n  footer .footer-col img {\n    width: auto;\n    height: 100px; } }\n\n@media only screen and (min-width: 1100px) {\n  .container {\n    width: 1028px;\n    margin: 0 auto; } }\n\n.test {\n  background: red;\n  color: green;\n  line-height: 3em; }\n", ""]);
 
 
 
@@ -34193,7 +34318,7 @@ var setLifecycleMethods = function setLifecycleMethods(component, methods, injec
 /*!***************************************************************!*\
   !*** ./node_modules/react-router-dom/esm/react-router-dom.js ***!
   \***************************************************************/
-/*! exports provided: BrowserRouter, HashRouter, Link, NavLink, MemoryRouter, Prompt, Redirect, Route, Router, StaticRouter, Switch, generatePath, matchPath, withRouter, __RouterContext */
+/*! exports provided: MemoryRouter, Prompt, Redirect, Route, Router, StaticRouter, Switch, generatePath, matchPath, withRouter, __RouterContext, BrowserRouter, HashRouter, Link, NavLink */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
