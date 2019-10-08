@@ -4608,7 +4608,7 @@ function Gallery() {
         gallery = _useState2[0],
         setGallery = _useState2[1];
 
-    var _useState3 = (0, _react.useState)({}),
+    var _useState3 = (0, _react.useState)(0),
         _useState4 = _slicedToArray(_useState3, 2),
         currentImage = _useState4[0],
         setCurrentImage = _useState4[1];
@@ -4626,6 +4626,7 @@ function Gallery() {
         _isMounted = true;
         (0, _apiClient.getGalleryImages)(galleryName).then(function (images) {
             if (_isMounted) {
+                console.log(images);
                 setGallery(images);
             }
         });
@@ -4651,7 +4652,7 @@ function Gallery() {
                         src: image.link,
                         alt: 'image.title',
                         onClick: function onClick() {
-                            setCurrentImage(image);
+                            setCurrentImage(image.id);
                             openModal();
                         }
                     })
@@ -4661,7 +4662,8 @@ function Gallery() {
         _react2.default.createElement(_Slider2.default, {
             isShowing: isShowing,
             hide: closeModal,
-            image: currentImage
+            currentImage: currentImage,
+            images: gallery
         })
     );
 }
@@ -4838,7 +4840,8 @@ var _reactDom2 = _interopRequireDefault(_reactDom);
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 var Slider = function Slider(_ref) {
-    var image = _ref.image,
+    var images = _ref.images,
+        currentImage = _ref.currentImage,
         isShowing = _ref.isShowing,
         hide = _ref.hide;
     return isShowing ? _reactDom2.default.createPortal(_react2.default.createElement(
@@ -4850,7 +4853,9 @@ var Slider = function Slider(_ref) {
             _react2.default.createElement(
                 'h1',
                 null,
-                image.title
+                images.find(function (i) {
+                    return i.id === currentImage;
+                }).title
             ),
             _react2.default.createElement(
                 'h2',
@@ -4889,14 +4894,11 @@ var useModal = function useModal() {
         isShowing = _useState2[0],
         setIsShowing = _useState2[1];
 
-    function openModal(image) {
-        console.log('useModal openModal');
+    function openModal() {
         setIsShowing(true);
-        console.log(isShowing);
     }
 
     function closeModal() {
-        console.log(closeModal);
         setIsShowing(false);
     }
 

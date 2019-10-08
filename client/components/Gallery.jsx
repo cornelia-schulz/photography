@@ -16,7 +16,7 @@ const methods = {
 function Gallery() {
     const { history, location, match } = useReactRouter()
     const [gallery, setGallery] = useState([])
-    const [currentImage, setCurrentImage] = useState({})
+    const [currentImage, setCurrentImage] = useState(0)
     const {isShowing, openModal, closeModal} = useModal();
     const path = location.pathname
     const splitPath = path.split('/')
@@ -27,6 +27,7 @@ function Gallery() {
         getGalleryImages(galleryName)
             .then(images => {
                 if (_isMounted) {
+                    console.log(images)
                     setGallery(images)
                 }
             })
@@ -43,7 +44,7 @@ function Gallery() {
                             src={image.link}
                             alt="image.title"
                             onClick={()=>{
-                                setCurrentImage(image) 
+                                setCurrentImage(image.id) 
                                 openModal()
                             }}
                         />
@@ -53,7 +54,8 @@ function Gallery() {
             <Slider
                 isShowing={isShowing}
                 hide={closeModal}
-                image={currentImage}
+                currentImage={currentImage}
+                images={gallery}
             />
         </div>
     )
