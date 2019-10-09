@@ -4815,6 +4815,104 @@ exports.default = Header;
 
 /***/ }),
 
+/***/ "./client/components/LeftArrow.jsx":
+/*!*****************************************!*\
+  !*** ./client/components/LeftArrow.jsx ***!
+  \*****************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+
+var _react = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+
+var _react2 = _interopRequireDefault(_react);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function LeftArrow(props) {
+    return _react2.default.createElement(
+        "div",
+        { className: "previous-arrow", onClick: props.goToPreviousImage },
+        _react2.default.createElement("i", { className: "fa fa-arrow-left fa-2x", "aria-hidden": "true" })
+    );
+}
+
+exports.default = LeftArrow;
+
+/***/ }),
+
+/***/ "./client/components/RightArrow.jsx":
+/*!******************************************!*\
+  !*** ./client/components/RightArrow.jsx ***!
+  \******************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+
+var _react = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+
+var _react2 = _interopRequireDefault(_react);
+
+var _reactI18next = __webpack_require__(/*! react-i18next */ "./node_modules/react-i18next/dist/es/index.js");
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function RightArrow(props) {
+    return _react2.default.createElement(
+        'div',
+        { className: 'next-arrow', onClick: props.goToNextImage },
+        _react2.default.createElement('i', { className: 'fa fa-arrow-right fa-2x', 'aria-hidden': 'true' })
+    );
+}
+
+exports.default = RightArrow;
+
+/***/ }),
+
+/***/ "./client/components/Slide.jsx":
+/*!*************************************!*\
+  !*** ./client/components/Slide.jsx ***!
+  \*************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+
+var _react = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+
+var _react2 = _interopRequireDefault(_react);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function Slide(props) {
+    return _react2.default.createElement(
+        "div",
+        { className: "slide" },
+        "SLIDE SLIDE SLIDE"
+    );
+}
+
+exports.default = Slide;
+
+/***/ }),
+
 /***/ "./client/components/Slider.jsx":
 /*!**************************************!*\
   !*** ./client/components/Slider.jsx ***!
@@ -4833,11 +4931,31 @@ var _react = __webpack_require__(/*! react */ "./node_modules/react/index.js");
 
 var _react2 = _interopRequireDefault(_react);
 
+var _Slide = __webpack_require__(/*! ./Slide */ "./client/components/Slide.jsx");
+
+var _Slide2 = _interopRequireDefault(_Slide);
+
+var _LeftArrow = __webpack_require__(/*! ./LeftArrow */ "./client/components/LeftArrow.jsx");
+
+var _LeftArrow2 = _interopRequireDefault(_LeftArrow);
+
+var _RightArrow = __webpack_require__(/*! ./RightArrow */ "./client/components/RightArrow.jsx");
+
+var _RightArrow2 = _interopRequireDefault(_RightArrow);
+
 var _reactDom = __webpack_require__(/*! react-dom */ "./node_modules/react-dom/index.js");
 
 var _reactDom2 = _interopRequireDefault(_reactDom);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+var goToPreviousImage = function goToPreviousImage() {
+    // click left arrow
+};
+
+var goToNextImage = function goToNextImage() {
+    // click right arrow
+};
 
 var Slider = function Slider(_ref) {
     var images = _ref.images,
@@ -4850,6 +4968,9 @@ var Slider = function Slider(_ref) {
         _react2.default.createElement(
             'div',
             { className: 'slider' },
+            _react2.default.createElement(_Slide2.default, null),
+            _react2.default.createElement(_LeftArrow2.default, { goToPreviousImage: goToPreviousImage }),
+            _react2.default.createElement(_RightArrow2.default, { goToNextImage: goToNextImage }),
             _react2.default.createElement(
                 'h1',
                 null,

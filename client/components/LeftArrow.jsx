@@ -1,8 +1,8 @@
 import React from 'react'
 
-function LeftArrow() {
+function LeftArrow(props) {
     return (
-        <div className="previous-arrow">
+        <div className="previous-arrow" onClick={props.goToPreviousImage}>
             <i className="fa fa-arrow-left fa-2x" aria-hidden="true"></i>
         </div>
     )
