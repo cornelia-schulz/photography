@@ -108,8 +108,12 @@ header {
 .favourites {
     h1{
         padding: 60px 0;
-    font-size: 1.5rem;
-    text-align: center;
+        font-size: 1.5rem;
+        text-align: center;
+    }
+
+    img {
+        width: 100%;
     }
 
     @media only screen and (min-width: 769px) {
