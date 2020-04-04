@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react'
 import lifecycle from 'react-pure-lifecycle'
 import { getGalleryImages } from '../apiClient'
 import useReactRouter from 'use-react-router'
+import Carousel, { Modal, ModalGateway } from 'react-images';
 import Slider from './Slider'
 import useModal from '../hooks/useModal'
 
@@ -45,18 +46,27 @@ function Gallery() {
                             alt="image.title"
                             onClick={()=>{
                                 setCurrentImage(image.id) 
+                                console.log(currentImage)
                                 openModal()
                             }}
                         />
                 </div>
                 })}
             </div>
-            <Slider
-                isShowing={isShowing}
-                hide={closeModal}
-                currentImage={currentImage}
-                images={gallery}
-            />
+            <ModalGateway>
+                {isShowing ? (
+                    <Modal onClose={closeModal}>
+                        <Carousel
+                            currentIndex={currentImage}
+                            views={gallery.map(x => ({
+                                ...x,
+                                src: x.link,
+                                caption: x.title
+                              }))}
+                        />
+                    </Modal>
+                ) : null}
+            </ModalGateway>
         </div>
     )
 }

@@ -11,7 +11,8 @@
     "presets": [
       "env",
       "react"
-    ]
+    ],
+    "plugins": ["transform-object-rest-spread"]
   },
   "scripts": {
     "dev": "nodemon server & webpack --watch",
@@ -34,11 +35,12 @@
     "i18next-xhr-backend": "^2.0.1",
     "jest": "^24.8.0",
     "jquery": "^3.4.1",
-    "knex": "^0.14.6",
+    "knex": "^0.20.13",
     "pug": "^2.0.4",
     "react": "^16.8.6",
     "react-dom": "^16.8.6",
     "react-i18next": "^10.9.0",
+    "react-images": "^1.1.0",
     "react-pure-lifecycle": "^3.0.0",
     "react-router-dom": "^5.0.0",
     "react-scroll-parallax": "^2.1.2",
@@ -51,9 +53,10 @@
   },
   "devDependencies": {
     "autoprefixer": "^9.5.1",
+    "babel-plugin-transform-object-rest-spread": "^6.26.0",
     "css-loader": "^2.1.1",
     "mini-css-extract-plugin": "^0.7.0",
-    "node-sass": "^4.12.0",
+    "node-sass": "^4.13.1",
     "nodemon": "^1.19.0",
     "postcss-loader": "^3.0.0",
     "sass-loader": "^7.1.0",
