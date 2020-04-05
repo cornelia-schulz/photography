@@ -18,8 +18,8 @@
   },
   "scripts": {
     "dev": "nodemon server & webpack --watch",
-    "start": "webpack",
-    "build": "webpack",
+    "start": "webpack && node server",
+    "build": "webpack --config ./webpack.config.js",
     "knex": "knex --knexfile ./knexfile.js",
     "postinstall": "webpack && knex migrate:latest"
   },
