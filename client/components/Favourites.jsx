@@ -28,7 +28,7 @@ function Favourites() {
         <ul>
             {photos.map(photo => {
               return <li key={photo.id}>
-                <img src={photo.link} alt={photo.title} />
+                <img src={photo.src} alt={photo.title} />
               </li>
             })}
         </ul>
