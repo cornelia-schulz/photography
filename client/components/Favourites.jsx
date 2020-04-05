@@ -26,11 +26,11 @@ function Favourites() {
         <div className="favourites container">
         <h1>Personal Favourites</h1>
         <ul>
-            {photos.map(photo => {
+            {photos && photos.length > 0 && photos.map(photo => {
               return <li key={photo.id}>
                 <img src={photo.src} alt={photo.title} />
               </li>
-            })}
+            })}}
         </ul>
         </div>
     )
