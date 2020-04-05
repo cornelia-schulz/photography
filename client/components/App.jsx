@@ -9,7 +9,7 @@ import About from './About'
 import Contact from './Contact'
 import Galleries from './Galleries'
 import Banner from './Banner'
-import Gallery from './Gallery'
+import IndividualGallery from './IndividualGallery'
 import { useTranslation, Trans } from 'react-i18next'
 
 class App extends React.Component {
@@ -22,7 +22,7 @@ class App extends React.Component {
         <Route path='/about' component={Banner} />
         <Route path='/about' component={About} />
         <Route path='/contact' component={Contact} />
-        <Route path='/galleries/:name' component={Gallery} />
+        <Route path='/galleries/:name' component={IndividualGallery} />
         <Route exact path='/galleries' component={Galleries} />
         <Route exact path='/' component={Favourites} />
         <Route path='/' component={Footer} />

@@ -12,12 +12,15 @@
       "env",
       "react"
     ],
-    "plugins": ["transform-object-rest-spread"]
+    "plugins": [
+      "transform-object-rest-spread"
+    ]
   },
   "scripts": {
     "dev": "nodemon server & webpack --watch",
     "start": "webpack",
-    "build": "webpack"
+    "build": "webpack",
+    "knex": "knex --knexfile ./knexfile.js"
   },
   "dependencies": {
     "@alienfast/i18next-loader": "^1.0.18",
@@ -36,16 +39,18 @@
     "jest": "^24.8.0",
     "jquery": "^3.4.1",
     "knex": "^0.20.13",
+    "mssql": "^6.2.0",
     "pug": "^2.0.4",
     "react": "^16.8.6",
     "react-dom": "^16.8.6",
     "react-i18next": "^10.9.0",
     "react-images": "^1.1.0",
+    "react-photo-gallery": "^8.0.0",
     "react-pure-lifecycle": "^3.0.0",
     "react-router-dom": "^5.0.0",
     "react-scroll-parallax": "^2.1.2",
     "service-worker": "0.0.0",
-    "sqlite3": "^4.0.8",
+    "sqlite3": "^4.1.1",
     "superagent": "^3.8.3",
     "use-query-params": "^0.3.3",
     "use-react-router": "^1.0.7",
