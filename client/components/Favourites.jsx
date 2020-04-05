@@ -30,7 +30,7 @@ function Favourites() {
               return <li key={photo.id}>
                 <img src={photo.src} alt={photo.title} />
               </li>
-            })}}
+            })}
         </ul>
         </div>
     )
