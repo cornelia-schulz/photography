@@ -20,7 +20,8 @@
     "dev": "nodemon server & webpack --watch",
     "start": "webpack",
     "build": "webpack",
-    "knex": "knex --knexfile ./knexfile.js"
+    "knex": "knex --knexfile ./knexfile.js",
+    "postinstall": "webpack && knex migrate:latest"
   },
   "dependencies": {
     "@alienfast/i18next-loader": "^1.0.18",
@@ -40,6 +41,7 @@
     "jquery": "^3.4.1",
     "knex": "^0.20.13",
     "mssql": "^6.2.0",
+    "pg": "^8.0.0",
     "pug": "^2.0.4",
     "react": "^16.8.6",
     "react-dom": "^16.8.6",
