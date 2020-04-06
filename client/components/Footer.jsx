@@ -1,6 +1,8 @@
 import React from 'react'
 
 function Footer() {
+    const currentDate = new Date();
+    const currentYear = currentDate.getFullYear();
     
     return (
         <footer>
@@ -23,7 +25,7 @@ function Footer() {
                     </div>
                 </div>
                 <div className="row bottom-row">
-                    <p>&copy; Cornelia Schulz 2019</p>
+                    <p>&copy; Cornelia Schulz 2019 - {currentYear}</p>
                 </div>
             </div>
         </footer>
