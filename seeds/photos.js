@@ -30,8 +30,9 @@ exports.seed = function(knex, Promise) {
         {id: 23, title: 'Harbour Bridge', src: '/images/early-morning-bridge.jpg', width: 4, height: 2},
         {id: 24, title: 'City Views', src: '/images/mrs-macquaries-chair.jpg', width: 4, height: 1},
         {id: 25, title: 'Natural Fireworks', src: '/images/natural-fireworks.jpg', width: 4, height: 1},
-        {id: 26, title: 'Bridge View', src: '/images/sydney-cbd-bw.jpg', width: 4, height: 3},
-        {id: 27, title: 'Sails', src: '/images/sydney-sails.jpg', width: 4, height: 2}
+        {id: 26, title: 'Bridge View', src: '/images/sydney-cbd-bw.jpg', width: 3, height: 4},
+        {id: 27, title: 'Sails', src: '/images/sydney-sails.jpg', width: 4, height: 2},
+        {id: 28, title: 'Rainbow Parikeet', src: '/images/rainbow-parikeet.jpg', width: 4, height: 3}
       ]);
     });
 };

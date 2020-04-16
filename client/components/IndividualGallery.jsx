@@ -4,6 +4,7 @@ import { getGalleryImages } from '../apiClient'
 import useReactRouter from 'use-react-router'
 import Carousel, { Modal, ModalGateway } from 'react-images'
 import Gallery from 'react-photo-gallery'
+import dompurify from 'dompurify'
 
 let _isMounted = false
 
@@ -38,6 +39,16 @@ function IndividualGallery() {
   const openLightbox = useCallback((event, { photo, index }) => {
     setCurrentImage(index)
     setViewerIsOpen(true)
+    _renderCustomControls
+    const footer = document.getElementsByClassName('react-images__footer')
+    if(footer) {
+      // const sanitizer = dompurify.sanitize
+      const title ='<h1>Hello</h1>'
+      const cleanTitle = dompurify.sanitize(title)
+      footer.innerHTML = cleanTitle
+      // return <footer dangerouslySetInnerHTML={{__html: sanitizer(title)}} />
+    }
+    console.log(footer)
   }, []);
 
   const closeLightbox = () => {
@@ -45,12 +56,17 @@ function IndividualGallery() {
     setViewerIsOpen(false)
   };
 
+  const _renderCustomControls = () => {
+    console.log('here')
+    return <a href='' className='image-gallery-custom-action' onClick={this._customAction.bind(this)}>Click me</a>
+  }
+
   return (
     <div>
       <div className="container">
         <h1>{galleryName}</h1>
+        <Gallery photos={gallery} onClick={openLightbox} />
       </div>
-      <Gallery photos={gallery} onClick={openLightbox} />
       <ModalGateway>
         {viewerIsOpen ? (
           <Modal onClose={closeLightbox}>
@@ -59,7 +75,8 @@ function IndividualGallery() {
               views={gallery.map(x => ({
                 ...x,
                 srcset: x.srcSet,
-                caption: x.title
+                caption: x.title,
+                showThumbnails: true
               }))}
             />
           </Modal>

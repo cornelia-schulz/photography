@@ -213,15 +213,17 @@ header {
     .gallery-overlay-text {
         color: #fff;
         font-size: 40px;
+        line-height: 2.5rem;
         margin-bottom: 20px;
     }
     @media only screen and (min-width: 769px) {
         .galleries-container {
             display: flex;
+            flex-wrap: wrap;
             flex-direction: row;
         }
         .gallery-image-container {
-            width: 33.3%;
+            width: 32%;
             margin: 5px;
         }
         .gallery {
