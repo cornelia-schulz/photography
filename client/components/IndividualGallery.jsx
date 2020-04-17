@@ -39,16 +39,6 @@ function IndividualGallery() {
   const openLightbox = useCallback((event, { photo, index }) => {
     setCurrentImage(index)
     setViewerIsOpen(true)
-    _renderCustomControls
-    const footer = document.getElementsByClassName('react-images__footer')
-    if(footer) {
-      // const sanitizer = dompurify.sanitize
-      const title ='<h1>Hello</h1>'
-      const cleanTitle = dompurify.sanitize(title)
-      footer.innerHTML = cleanTitle
-      // return <footer dangerouslySetInnerHTML={{__html: sanitizer(title)}} />
-    }
-    console.log(footer)
   }, []);
 
   const closeLightbox = () => {
