@@ -6,11 +6,17 @@ const router = express.Router()
 
 router.get('/:name', (req, res) => {
     const gallery = req.params.name
+    let galleryDetails = {}
     db.getGallery(gallery)
         .then(gallery => {
+            galleryDetails = gallery[0]
             db.getGalleryImages(gallery[0].id)
                 .then(images => {
-                    res.json(images)
+                    const response = {
+                        images: images,
+                        galleryDetails: galleryDetails
+                    }
+                    res.json(response)
             })
         })
         .catch(error => {

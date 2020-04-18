@@ -4,6 +4,7 @@ exports.up = (knex, Promise) => {
       table.increments('id').primary()
       table.string('name')
       table.string('cover_image')
+      table.string('shop_link')
   })
 }
 

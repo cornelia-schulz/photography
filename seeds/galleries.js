@@ -5,12 +5,12 @@ exports.seed = function(knex, Promise) {
     .then(function () {
       // Inserts seed entries
       return knex('galleries').insert([
-        {id: 1, name: 'Landscapes New Zealand', cover_image: '/images/maraetai-pier.jpg'},
-        {id: 2, name: 'Astro', cover_image: '/images/pakiri-astro.jpg'},
-        {id: 3, name: 'Cityscapes', cover_image: '/images/sydney-cbd.jpg'},
-        {id: 4, name: 'Landscapes Australia', cover_image: '/images/gold-coast.jpg'},
-        {id: 5, name: 'Wildlife', cover_image: '/images/rainbow-parikeets.jpg'},
-        {id: 6, name: 'Monochrome', cover_image: '/images/in-flight-cover.jpg'}
+        {id: 1, name: 'Landscapes New Zealand', cover_image: '/images/maraetai-pier.jpg', shop_link: ''},
+        {id: 2, name: 'Astro', cover_image: '/images/pakiri-astro.jpg', shop_link: 'https://www.redbubble.com/people/firzhugh/shop?artistUserName=firzhugh&asc=u&collections=1354121&iaCode=all-departments&sortOrder=relevant'},
+        {id: 3, name: 'Cityscapes', cover_image: '/images/sydney-cbd.jpg', shop_link: 'https://www.redbubble.com/people/firzhugh/shop?artistUserName=firzhugh&asc=u&collections=1354119&iaCode=all-departments&sortOrder=relevant'},
+        {id: 4, name: 'Landscapes Australia', cover_image: '/images/gold-coast.jpg', shop_link: 'https://www.redbubble.com/people/firzhugh/shop?artistUserName=firzhugh&asc=u&collections=1354118&iaCode=all-departments&sortOrder=relevant'},
+        {id: 5, name: 'Wildlife', cover_image: '/images/rainbow-parikeets.jpg', shop_link: ''},
+        {id: 6, name: 'Monochrome', cover_image: '/images/in-flight-cover.jpg', shop_link: ''}
       ]);
     });
 };

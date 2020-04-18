@@ -4,7 +4,6 @@ import { getGalleryImages } from '../apiClient'
 import useReactRouter from 'use-react-router'
 import Carousel, { Modal, ModalGateway } from 'react-images'
 import Gallery from 'react-photo-gallery'
-import dompurify from 'dompurify'
 
 let _isMounted = false
 
@@ -17,6 +16,7 @@ const methods = {
 function IndividualGallery() {
     const { history, location, match } = useReactRouter()
     const [gallery, setGallery] = useState([])
+    const [shopLink, setShopLink] = useState('')
     const path = location.pathname
     const splitPath = path.split('/')
     const galleryName = splitPath[splitPath.length - 1]
@@ -26,10 +26,10 @@ function IndividualGallery() {
     useEffect(() => {
         _isMounted = true
         getGalleryImages(galleryName)
-            .then(images => {
+            .then(gallery => {
                 if (_isMounted) {
-                    console.log(images)
-                    setGallery(images)
+                    setGallery(gallery.images)
+                    setShopLink(gallery.galleryDetails.shop_link)
                 }
             })
     }, [])
@@ -39,23 +39,28 @@ function IndividualGallery() {
   const openLightbox = useCallback((event, { photo, index }) => {
     setCurrentImage(index)
     setViewerIsOpen(true)
-  }, []);
+  }, [])
 
   const closeLightbox = () => {
     setCurrentImage(0)
     setViewerIsOpen(false)
-  };
-
-  const _renderCustomControls = () => {
-    console.log('here')
-    return <a href='' className='image-gallery-custom-action' onClick={this._customAction.bind(this)}>Click me</a>
   }
 
   return (
     <div>
       <div className="container">
+        <button className="goToShopBtn">
+          <a target="_blank" href={shopLink}>
+            Buy {galleryName} images
+          </a>
+        </button>
         <h1>{galleryName}</h1>
         <Gallery photos={gallery} onClick={openLightbox} />
+        <button className="goToShopBtn">
+          <a target="_blank" href={shopLink}>
+            Buy {galleryName} images
+          </a>
+        </button>
       </div>
       <ModalGateway>
         {viewerIsOpen ? (
