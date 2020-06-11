@@ -238,17 +238,45 @@ header {
 
 .goToShopBtn {
     background-color: #8abe56;
-    border: none;
+    border: 1px solid transparent;
     border-radius: 7px;
-    float: right;
     letter-spacing: 2px;
-    line-height: 2rem;
-    padding: 0.1rem 2rem;
+    line-height: 1.5rem;
+    margin-bottom: 2rem;
+    padding: 0.6rem 2rem;
     text-transform: uppercase;
+    transition-property: background-color;
+    transition-duration: 1000ms;
 
     a {
         color: #fff;
         font-size: 1.2em;
+    }
+
+    &:hover {
+      border: 1px solid #8abe56;
+      background-color: transparent;
+
+      a {
+          color: #8abe56;
+      }
+    }
+}
+
+.sendMessage {
+    border-radius: 7px;
+    font-size: 1.1rem;
+    letter-spacing: 2px;
+    line-height: 1.2rem;
+    margin-bottom: 2rem;
+    padding: 0.6rem 2rem;
+    text-transform: uppercase;
+}
+
+@media only screen and (min-width: 768px) {
+    .goToShopBtn {
+        float: right;
+        margin-bottom: 0;
     }
 }
 

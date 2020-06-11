@@ -2,7 +2,9 @@ import React, { useState, useEffect } from 'react'
 import { Parallax } from 'react-scroll-parallax'
 
 function Contact() {
-
+    const send = () => {
+        // send
+      }
     return(
         <div className="contact container">
             <div className="contact-left">
@@ -20,6 +22,7 @@ function Contact() {
                     <input id="contactEmail" type="email" placeholder="Your email" required/>
                     <label htmlFor="contactMessage">Your message:</label>
                     <textarea rows="8" placeholder="Your message"></textarea>
+                    <button className="sendMessage" type="submit">Send</button>
                 </form>
             </div>
         </div>
