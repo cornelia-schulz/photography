@@ -1,0 +1,102 @@
+Arguments: 
+  /usr/local/bin/node /usr/local/Cellar/yarn/1.16.0/libexec/bin/yarn.js
+
+PATH: 
+  /usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:/Users/corneliaschulz/opt/anaconda3/bin:/Users/corneliaschulz/opt/anaconda3/condabin
+
+Yarn version: 
+  1.16.0
+
+Node version: 
+  12.18.1
+
+Platform: 
+  darwin x64
+
+Trace: 
+  Error: EACCES: permission denied, mkdir '/Users/corneliaschulz/workspace/photography/node_modules/react-view-pager/node_modules'
+
+npm manifest: 
+  {
+    "name": "cornelia-schulz-photography",
+    "version": "0.1.0",
+    "description": "My photographic adventures",
+    "main": "server/index.js",
+    "repository": "https://github.com/cornelia-schulz/photography.git",
+    "author": "Cornelia Schulz",
+    "license": "ISC",
+    "private": true,
+    "babel": {
+      "presets": [
+        "@babel/preset-react",
+        "@babel/preset-env"
+      ],
+      "plugins": [
+        "transform-object-rest-spread"
+      ]
+    },
+    "scripts": {
+      "dev": "nodemon server & webpack --watch",
+      "start": "webpack && node server",
+      "build": "webpack --config ./webpack.config.js",
+      "knex": "knex --knexfile ./knexfile.js",
+      "postinstall": "webpack && knex migrate:latest",
+      "test": "jest --watch",
+      "test:coverage": "test --coverage"
+    },
+    "dependencies": {
+      "@alienfast/i18next-loader": "^1.0.18",
+      "@emotion/babel-preset-css-prop": "^10.0.27",
+      "@emotion/core": "^10.0.28",
+      "core-js": "^3.0.1",
+      "express": "^4.16.4",
+      "i18next": "^15.1.0",
+      "i18next-browser-languagedetector": "^3.0.1",
+      "i18next-xhr-backend": "^2.0.1",
+      "jquery": "^3.4.1",
+      "knex": "^0.20.13",
+      "mssql": "^6.2.0",
+      "pg": "^8.0.0",
+      "pug": "^2.0.4",
+      "react": "^16.8.6",
+      "react-dom": "^16.8.6",
+      "react-i18next": "^10.9.0",
+      "react-images": "^1.1.0",
+      "react-photo-gallery": "^8.0.0",
+      "react-pure-lifecycle": "^3.0.0",
+      "react-router-dom": "^5.0.0",
+      "react-scroll-parallax": "^2.1.2",
+      "service-worker": "0.0.0",
+      "sqlite3": "^4.1.1",
+      "superagent": "^3.8.3",
+      "use-query-params": "^0.3.3",
+      "use-react-router": "^1.0.7",
+      "webpack": "^4.31.0"
+    },
+    "devDependencies": {
+      "@babel/core": "^7.9.0",
+      "@babel/plugin-proposal-class-properties": "^7.8.3",
+      "@babel/polyfill": "^7.4.4",
+      "@babel/preset-env": "^7.9.5",
+      "@babel/preset-react": "^7.9.4",
+      "@testing-library/react": "^10.0.2",
+      "autoprefixer": "^9.5.1",
+      "babel-loader": "^8.0.4",
+      "babel-plugin-transform-object-rest-spread": "^6.26.0",
+      "css-loader": "^2.1.1",
+      "jest": "^24.8.0",
+      "mini-css-extract-plugin": "^0.7.0",
+      "node-sass": "^4.13.1",
+      "nodemon": "^1.19.0",
+      "postcss-loader": "^3.0.0",
+      "sass-loader": "^7.1.0",
+      "style-loader": "^0.23.1",
+      "webpack-cli": "^3.3.2"
+    }
+  }
+
+yarn manifest: 
+  No manifest
+
+Lockfile: 
+  No lockfile
