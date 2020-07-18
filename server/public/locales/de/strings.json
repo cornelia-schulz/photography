@@ -1,3 +1,19 @@
 {
-    "test": "Test"
+  "en": "Englisch",
+  "de": "Deutsch",
+  "home": "Startseite",
+  "galleries": "Galerien",
+  "about": "Über",
+  "contact": "Kontakt",
+  "personalFavourites": "Persönliche Favoriten",
+  "aboutMe": "Über mich",
+  "about1": "Ich liebe die Fotografie. Meine Inspiration finde ich meistens, wenn ich irgendwo unterwegs bin.",
+  "about2": "In den letzten Jahren habe ich sehr viel Zeit in Neuseeland und Australien verbracht. Beide Länder haben unendlich viel zu bieten und ich schätze mich glücklich, hier soviel gesehen zu haben.",
+  "about3": "Meine Philosophie ist ganz einfach - keep things simple! Mit meiner Fotografie versuche ich Stimmungen und Emotionen einzufangen und sie Ihnen als Geschichten in meinen Bildern zu vermitteln.",
+  "sayHello": "Einfach mal Hallo sagen!",
+  "questions": "Schreiben Sie mir, falls Sie Fragen haben oder einfach nur mal hallo sagen möchten!",
+  "yourName": "Name",
+  "yourEmail": "E-Mail",
+  "yourMessage": "Nachricht",
+  "send": "Abschicken"
 }

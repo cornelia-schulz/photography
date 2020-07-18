@@ -33,12 +33,6 @@ module.exports = {
       exclude: /node_modules/
     },
     {
-      test: /locales/,
-      loader: '@alienfast/i18next-loader',
-      // options here
-      //query: { overrides: [ '../node_modules/lib/locales' ] }
-    },
-    {
       test: /\.(sass|scss|css)$/,
       use: [
         {

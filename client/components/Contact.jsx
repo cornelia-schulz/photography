@@ -1,7 +1,9 @@
 import React, { useState, useEffect } from 'react'
 import { Parallax } from 'react-scroll-parallax'
+import { useTranslation } from 'react-i18next'
 
 function Contact() {
+    const { t, i18next } = useTranslation()
     const send = () => {
         // send
       }
@@ -13,16 +15,16 @@ function Contact() {
                 </Parallax>
             </div>
             <div className="contact-right">
-                <h1>Say hello!</h1>
-                <p>If you have any questions or just want to say hello, drop me a line below!</p>
+                <h1>{t('sayHello')}</h1>
+                <p>{t('questions')}</p>
                 <form>
-                    <label htmlFor="contactName">Your name:</label>
-                    <input id="contactName" type="text" placeholder="Your name" />
-                    <label htmlFor="contactEmail">Your email:</label>
-                    <input id="contactEmail" type="email" placeholder="Your email" required/>
-                    <label htmlFor="contactMessage">Your message:</label>
-                    <textarea rows="8" placeholder="Your message"></textarea>
-                    <button className="sendMessage" type="submit">Send</button>
+                    <label htmlFor="contactName">{t('yourName')}</label>
+                    <input id="contactName" type="text" placeholder={t('yourName')} />
+                    <label htmlFor="contactEmail">{t('yourEmail')}</label>
+                    <input id="contactEmail" type="email" placeholder={t('yourEmail')} required/>
+                    <label htmlFor="contactMessage">{t('yourMessage')}</label>
+                    <textarea rows="8" placeholder={t('yourMessage')}></textarea>
+                    <button className="sendMessage" type="submit">{t('send')}</button>
                 </form>
             </div>
         </div>
