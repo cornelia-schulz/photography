@@ -1,9 +1,10 @@
 import React, { useState, useEffect } from 'react'
 import { Parallax } from 'react-scroll-parallax'
 import { useTranslation } from 'react-i18next'
+// import { LanguageProvider, useLanguage } from '../hooks/useLanguage'
 
 function Contact() {
-    const { t, i18next } = useTranslation()
+    const { t } = useTranslation()
     const send = () => {
         // send
       }

@@ -50,6 +50,7 @@
     "service-worker": "0.0.0",
     "sqlite3": "^4.1.1",
     "superagent": "^3.8.3",
+    "use-global-hook": "^0.1.12",
     "use-query-params": "^0.3.3",
     "use-react-router": "^1.0.7",
     "webpack": "^4.31.0"

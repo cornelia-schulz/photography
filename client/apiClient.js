@@ -22,9 +22,9 @@ export function getAllFavourites() {
     })
 }
 
-export function getAllGalleries() {
+export function getAllGalleries(locale) {
   return request
-    .get('/api/v1/galleries')
+    .get(`/api/v1/galleries/lang/${locale}`)
     .then(res => {
       return res.body
     })
@@ -33,9 +33,10 @@ export function getAllGalleries() {
     })
 }
 
-export function getGalleryImages(gallery) {
+export function getGalleryImages(gallery, locale) {
+  console.log(`/api/v1/galleries/${gallery}/${locale}`)
   return request
-    .get(`/api/v1/galleries/${gallery}`)
+    .get(`/api/v1/galleries/${gallery}/${locale}`)
     .then(res => {
       return res.body
     })
