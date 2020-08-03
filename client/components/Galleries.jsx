@@ -7,43 +7,43 @@ import { LanguageProvider, useLanguage } from '../hooks/useLanguage'
 let _isMounted = false
 
 const methods = {
-    componentWillUnmount() {
-        _isMounted = false
-    }
+  componentWillUnmount() {
+    _isMounted = false
+  }
 }
 
 function Galleries() {
-    const [galleries, setGalleries] = useState([])
-    const { t, i18n } = useTranslation()
-    const { language } = useLanguage()
+  const [galleries, setGalleries] = useState([])
+  const { t, i18n } = useTranslation()
+  const { language } = useLanguage()
 
-    useEffect(() => {
-        _isMounted = true
-        getAllGalleries(i18n.language)
-            .then(galleries => {
-                if(_isMounted) {
-                    setGalleries(galleries)
-                }
-            })
-    }, [language])
+  useEffect(() => {
+    _isMounted = true
+    getAllGalleries(i18n.language)
+      .then(galleries => {
+        if(_isMounted) {
+          setGalleries(galleries)
+        }
+      })
+  }, [language])
 
-    return(
-        <div className="galleries container">
-            <h1>{t('galleries')}</h1>
-            <div className="galleries-container">
-                {galleries.map(gallery => {
-                    return <div key={gallery.id} className="gallery-image-container">
-                        <div className="gallery" style={{backgroundImage: `url(${gallery.cover_image})`}}></div>
-                        <a href={'/galleries/' + gallery.name}>
-                            <div className="gallery-overlay">
-                                <p className="gallery-overlay-text">{gallery.name}</p>
-                            </div>
-                        </a>
-                    </div>
-                })}
-            </div> 
-        </div>
-    )
+  return(
+    <div className="galleries container">
+      <h1>{t('galleries')}</h1>
+      <div className="galleries-container">
+        {galleries.map(gallery => {
+          return <div key={gallery.id} className="gallery-image-container">
+            <div className="gallery" style={{backgroundImage: `url(${gallery.cover_image})`}}></div>
+            <a href={'/galleries/' + gallery.name}>
+              <div className="gallery-overlay">
+                <p className="gallery-overlay-text">{gallery.name}</p>
+              </div>
+            </a>
+          </div>
+        })}
+      </div> 
+    </div>
+  )
 }
 
 export default lifecycle(methods)(Galleries)

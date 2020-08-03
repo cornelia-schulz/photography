@@ -15,9 +15,8 @@ server.set('views', path.join(__dirname, './views'))
 server.use('/api/v1/photos', photoRoutes)
 server.use('/api/v1/galleries', galleryRoutes)
 
-server.get('*', (req, res) => {    
-    res.render('index')      
-  })
-  
+server.get('*', (req, res) => {  
+  res.render('index')    
+})
 
 module.exports = server

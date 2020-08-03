@@ -8,21 +8,21 @@ i18n
 .use(LanguageDetector)
 .use(initReactI18next)
   .init({
-    fallbackLng: 'en',
+  fallbackLng: 'en',
 
-    // have a common namespace used around the full app
-    ns: ['strings'],
-    defaultNS: 'strings',
+  // have a common namespace used around the full app
+  ns: ['strings'],
+  defaultNS: 'strings',
 
-    debug: true,
+  debug: true,
 
-    interpolation: {
-      escapeValue: false,
-    },
+  interpolation: {
+    escapeValue: false,
+  },
 
-    react: {
-      wait: true
-    }
+  react: {
+    wait: true
+  }
   })
 
 

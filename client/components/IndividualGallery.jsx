@@ -10,78 +10,78 @@ import Gallery from 'react-photo-gallery'
 let _isMounted = false
 
 const methods = {
-    componentWillUnmount() {
-        _isMounted = false
-    }
+  componentWillUnmount() {
+    _isMounted = false
+  }
 }
 
 function IndividualGallery() {
-    const { history, location, match } = useReactRouter()
-    const [gallery, setGallery] = useState([])
-    const [shopLink, setShopLink] = useState('')
-    const path = location.pathname
-    const splitPath = path.split('/')
-    const galleryName = splitPath[splitPath.length - 1]
-    const [currentImage, setCurrentImage] = useState(0)
-    const [viewerIsOpen, setViewerIsOpen] = useState(false)
-    const { language } = useLanguage()
+  const { history, location, match } = useReactRouter()
+  const [gallery, setGallery] = useState([])
+  const [shopLink, setShopLink] = useState('')
+  const path = location.pathname
+  const splitPath = path.split('/')
+  const galleryName = splitPath[splitPath.length - 1]
+  const [currentImage, setCurrentImage] = useState(0)
+  const [viewerIsOpen, setViewerIsOpen] = useState(false)
+  const { language } = useLanguage()
 
-    useEffect(() => {
-        _isMounted = true
-        console.log('gallery name:', galleryName)
-        getGalleryImages(galleryName, language)
-            .then(gallery => {
-                if (_isMounted) {
-                    setGallery(gallery.images)
-                    setShopLink(gallery.galleryDetails.shop_link)
-                }
-            })
-    }, [language])
+  useEffect(() => {
+    _isMounted = true
+    console.log('gallery name:', galleryName)
+    getGalleryImages(galleryName, language)
+      .then(gallery => {
+        if (_isMounted) {
+          setGallery(gallery.images)
+          setShopLink(gallery.galleryDetails.shop_link)
+        }
+      })
+  }, [language])
 
-    
+  
 
   const openLightbox = useCallback((event, { photo, index }) => {
-    setCurrentImage(index)
-    setViewerIsOpen(true)
+  setCurrentImage(index)
+  setViewerIsOpen(true)
   }, [])
 
   const closeLightbox = () => {
-    setCurrentImage(0)
-    setViewerIsOpen(false)
+  setCurrentImage(0)
+  setViewerIsOpen(false)
   }
 
   return (
-    <div>
-      <div className="container">
-        <button className="goToShopBtn">
-          <a target="_blank" href={shopLink}>
-            Buy {galleryName} images
-          </a>
-        </button>
-        <h1>{galleryName}</h1>
-        <Gallery photos={gallery} onClick={openLightbox} />
-        <button className="goToShopBtn">
-          <a target="_blank" href={shopLink}>
-            Buy {galleryName} images
-          </a>
-        </button>
-      </div>
-      <ModalGateway>
-        {viewerIsOpen ? (
-          <Modal onClose={closeLightbox}>
-            <Carousel
-              currentIndex={currentImage}
-              views={gallery.map(x => ({
-                ...x,
-                srcset: x.srcSet,
-                caption: x.title,
-                showThumbnails: true
-              }))}
-            />
-          </Modal>
-        ) : null}
-      </ModalGateway>
+  <div>
+    <div className="container">
+    <button className="goToShopBtn">
+      <a target="_blank" href={shopLink}>
+      Buy {galleryName} images
+      </a>
+    </button>
+    <h1>{galleryName}</h1>
+    <Gallery photos={gallery} onClick={openLightbox} />
+    <button className="goToShopBtn">
+      <a target="_blank" href={shopLink}>
+      Buy {galleryName} images
+      </a>
+    </button>
     </div>
+    <ModalGateway>
+    {viewerIsOpen ? (
+      <Modal onClose={closeLightbox}>
+      <Carousel
+        currentIndex={currentImage}
+        views={gallery.map(x => ({
+        ...x,
+        srcset: x.srcSet,
+        caption: x.title,
+        showThumbnails: true
+        }))}
+      />
+      </Modal>
+    ) : null}
+    </ModalGateway>
+  </div>
   );
 }
 
