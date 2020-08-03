@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import { Link } from 'react-router-dom'
 import { useTranslation } from 'react-i18next'
-import { LanguageProvider, useLanguage } from '../hooks/useLanguage'
 
 function Header() {
   const [menuIsOpen, setMenuIsOpen] = useState(false)
@@ -19,7 +18,6 @@ function Header() {
 
   return (
     <header>
-      <LanguageProvider>
       <div className="container">
         <div className="row">
           <div className="header-left">
@@ -53,7 +51,6 @@ function Header() {
           </div>
         </div>
       </div>
-      </LanguageProvider>
     </header>
   )
 }

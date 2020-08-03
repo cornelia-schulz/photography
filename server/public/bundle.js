@@ -178,28 +178,14 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react_i18next__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! react-i18next */ "./node_modules/react-i18next/dist/es/index.js");
 /* harmony import */ var _server_public_css_style_scss__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../server/public/css/style.scss */ "./server/public/css/style.scss");
 /* harmony import */ var _server_public_css_style_scss__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(_server_public_css_style_scss__WEBPACK_IMPORTED_MODULE_3__);
-/* harmony import */ var _hooks_useLanguage__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../hooks/useLanguage */ "./client/hooks/useLanguage.js");
-/* harmony import */ var _Header__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./Header */ "./client/components/Header.jsx");
-/* harmony import */ var _Footer__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./Footer */ "./client/components/Footer.jsx");
-/* harmony import */ var _Favourites__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./Favourites */ "./client/components/Favourites.jsx");
-/* harmony import */ var _About__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ./About */ "./client/components/About.jsx");
-/* harmony import */ var _Contact__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ./Contact */ "./client/components/Contact.jsx");
-/* harmony import */ var _Galleries__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ./Galleries */ "./client/components/Galleries.jsx");
-/* harmony import */ var _Banner__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! ./Banner */ "./client/components/Banner.jsx");
-/* harmony import */ var _IndividualGallery__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! ./IndividualGallery */ "./client/components/IndividualGallery.jsx");
-function _slicedToArray(arr, i) { return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _unsupportedIterableToArray(arr, i) || _nonIterableRest(); }
-
-function _nonIterableRest() { throw new TypeError("Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
-
-function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return _arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen); }
-
-function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) { arr2[i] = arr[i]; } return arr2; }
-
-function _iterableToArrayLimit(arr, i) { if (typeof Symbol === "undefined" || !(Symbol.iterator in Object(arr))) return; var _arr = []; var _n = true; var _d = false; var _e = undefined; try { for (var _i = arr[Symbol.iterator](), _s; !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i["return"] != null) _i["return"](); } finally { if (_d) throw _e; } } return _arr; }
-
-function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
-
-
+/* harmony import */ var _Header__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./Header */ "./client/components/Header.jsx");
+/* harmony import */ var _Footer__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./Footer */ "./client/components/Footer.jsx");
+/* harmony import */ var _Favourites__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./Favourites */ "./client/components/Favourites.jsx");
+/* harmony import */ var _About__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./About */ "./client/components/About.jsx");
+/* harmony import */ var _Contact__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ./Contact */ "./client/components/Contact.jsx");
+/* harmony import */ var _Galleries__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ./Galleries */ "./client/components/Galleries.jsx");
+/* harmony import */ var _Banner__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ./Banner */ "./client/components/Banner.jsx");
+/* harmony import */ var _IndividualGallery__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! ./IndividualGallery */ "./client/components/IndividualGallery.jsx");
 
 
 
@@ -214,52 +200,37 @@ function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
 
 
 function App() {
-  var _useTranslation = Object(react_i18next__WEBPACK_IMPORTED_MODULE_2__["useTranslation"])(),
-      i18n = _useTranslation.i18n;
-
-  var _useState = Object(react__WEBPACK_IMPORTED_MODULE_0__["useState"])(''),
-      _useState2 = _slicedToArray(_useState, 2),
-      language = _useState2[0],
-      setLanguage = _useState2[1];
-
-  var changeLanguage = function changeLanguage() {
-    console.log('language change', language);
-    console.log(document.getElementById('language-picker').checked);
-    setLanguage(language);
-    i18n.changeLanguage(language);
-  };
-
-  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_1__["BrowserRouter"], null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_hooks_useLanguage__WEBPACK_IMPORTED_MODULE_4__["LanguageProvider"], null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_1__["Route"], {
+  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_1__["BrowserRouter"], null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_1__["Route"], {
     path: "/",
-    component: _Header__WEBPACK_IMPORTED_MODULE_5__["default"]
+    component: _Header__WEBPACK_IMPORTED_MODULE_4__["default"]
   }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_1__["Route"], {
     exact: true,
     path: "/",
-    component: _Banner__WEBPACK_IMPORTED_MODULE_11__["default"]
+    component: _Banner__WEBPACK_IMPORTED_MODULE_10__["default"]
   }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_1__["Route"], {
     path: "/about",
-    component: _Banner__WEBPACK_IMPORTED_MODULE_11__["default"]
+    component: _Banner__WEBPACK_IMPORTED_MODULE_10__["default"]
   }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_1__["Route"], {
     path: "/about",
-    component: _About__WEBPACK_IMPORTED_MODULE_8__["default"]
+    component: _About__WEBPACK_IMPORTED_MODULE_7__["default"]
   }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_1__["Route"], {
     path: "/contact",
-    component: _Contact__WEBPACK_IMPORTED_MODULE_9__["default"]
+    component: _Contact__WEBPACK_IMPORTED_MODULE_8__["default"]
   }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_1__["Route"], {
     path: "/galleries/:name",
-    component: _IndividualGallery__WEBPACK_IMPORTED_MODULE_12__["default"]
+    component: _IndividualGallery__WEBPACK_IMPORTED_MODULE_11__["default"]
   }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_1__["Route"], {
     exact: true,
     path: "/galleries",
-    component: _Galleries__WEBPACK_IMPORTED_MODULE_10__["default"]
+    component: _Galleries__WEBPACK_IMPORTED_MODULE_9__["default"]
   }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_1__["Route"], {
     exact: true,
     path: "/",
-    component: _Favourites__WEBPACK_IMPORTED_MODULE_7__["default"]
+    component: _Favourites__WEBPACK_IMPORTED_MODULE_6__["default"]
   }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_1__["Route"], {
     path: "/",
-    component: _Footer__WEBPACK_IMPORTED_MODULE_6__["default"]
-  })));
+    component: _Footer__WEBPACK_IMPORTED_MODULE_5__["default"]
+  }));
 }
 
 /* harmony default export */ __webpack_exports__["default"] = (App);
@@ -512,7 +483,6 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _apiClient__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../apiClient */ "./client/apiClient.js");
 /* harmony import */ var react_pure_lifecycle__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! react-pure-lifecycle */ "./node_modules/react-pure-lifecycle/es/index.js");
 /* harmony import */ var react_i18next__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! react-i18next */ "./node_modules/react-i18next/dist/es/index.js");
-/* harmony import */ var _hooks_useLanguage__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../hooks/useLanguage */ "./client/hooks/useLanguage.js");
 function _slicedToArray(arr, i) { return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _unsupportedIterableToArray(arr, i) || _nonIterableRest(); }
 
 function _nonIterableRest() { throw new TypeError("Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
@@ -524,7 +494,6 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
 function _iterableToArrayLimit(arr, i) { if (typeof Symbol === "undefined" || !(Symbol.iterator in Object(arr))) return; var _arr = []; var _n = true; var _d = false; var _e = undefined; try { for (var _i = arr[Symbol.iterator](), _s; !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i["return"] != null) _i["return"](); } finally { if (_d) throw _e; } } return _arr; }
 
 function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
-
 
 
 
@@ -547,9 +516,6 @@ function Galleries() {
       t = _useTranslation.t,
       i18n = _useTranslation.i18n;
 
-  var _useLanguage = Object(_hooks_useLanguage__WEBPACK_IMPORTED_MODULE_4__["useLanguage"])(),
-      language = _useLanguage.language;
-
   Object(react__WEBPACK_IMPORTED_MODULE_0__["useEffect"])(function () {
     _isMounted = true;
     Object(_apiClient__WEBPACK_IMPORTED_MODULE_1__["getAllGalleries"])(i18n.language).then(function (galleries) {
@@ -557,7 +523,7 @@ function Galleries() {
         setGalleries(galleries);
       }
     });
-  }, [language]);
+  }, [i18n.language]);
   return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
     className: "galleries container"
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h1", null, t('galleries')), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
@@ -598,7 +564,6 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var react_router_dom__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react-router-dom */ "./node_modules/react-router-dom/esm/react-router-dom.js");
 /* harmony import */ var react_i18next__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! react-i18next */ "./node_modules/react-i18next/dist/es/index.js");
-/* harmony import */ var _hooks_useLanguage__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../hooks/useLanguage */ "./client/hooks/useLanguage.js");
 function _slicedToArray(arr, i) { return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _unsupportedIterableToArray(arr, i) || _nonIterableRest(); }
 
 function _nonIterableRest() { throw new TypeError("Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
@@ -610,7 +575,6 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
 function _iterableToArrayLimit(arr, i) { if (typeof Symbol === "undefined" || !(Symbol.iterator in Object(arr))) return; var _arr = []; var _n = true; var _d = false; var _e = undefined; try { for (var _i = arr[Symbol.iterator](), _s; !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i["return"] != null) _i["return"](); } finally { if (_d) throw _e; } } return _arr; }
 
 function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
-
 
 
 
@@ -640,7 +604,7 @@ function Header() {
     setSelectedLanguage(e.target.value);
   };
 
-  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("header", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_hooks_useLanguage__WEBPACK_IMPORTED_MODULE_3__["LanguageProvider"], null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("header", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
     className: "container"
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
     className: "row"
@@ -707,7 +671,7 @@ function Header() {
     onClick: toggleMenu
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_1__["Link"], {
     to: "/contact"
-  }, t('contact')))))))));
+  }, t('contact'))))))));
 }
 
 /* harmony default export */ __webpack_exports__["default"] = (Header);
@@ -730,7 +694,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var use_react_router__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! use-react-router */ "./node_modules/use-react-router/use-react-router.js");
 /* harmony import */ var use_react_router__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(use_react_router__WEBPACK_IMPORTED_MODULE_3__);
 /* harmony import */ var react_images__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! react-images */ "./node_modules/react-images/dist/react-images.es.js");
-/* harmony import */ var _hooks_useLanguage__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../hooks/useLanguage */ "./client/hooks/useLanguage.js");
+/* harmony import */ var react_i18next__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! react-i18next */ "./node_modules/react-i18next/dist/es/index.js");
 /* harmony import */ var react_photo_gallery__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! react-photo-gallery */ "./node_modules/react-photo-gallery/dist/react-photo-gallery.esm.js");
 function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); keys.push.apply(keys, symbols); } return keys; }
 
@@ -754,7 +718,6 @@ function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
 
 
 
- // import { useTranslation } from 'react-i18next'
 
 
 
@@ -795,19 +758,19 @@ function IndividualGallery() {
       viewerIsOpen = _useState8[0],
       setViewerIsOpen = _useState8[1];
 
-  var _useLanguage = Object(_hooks_useLanguage__WEBPACK_IMPORTED_MODULE_5__["useLanguage"])(),
-      language = _useLanguage.language;
+  var _useTranslation = Object(react_i18next__WEBPACK_IMPORTED_MODULE_5__["useTranslation"])(),
+      i18n = _useTranslation.i18n;
 
   Object(react__WEBPACK_IMPORTED_MODULE_0__["useEffect"])(function () {
     _isMounted = true;
     console.log('gallery name:', galleryName);
-    Object(_apiClient__WEBPACK_IMPORTED_MODULE_2__["getGalleryImages"])(galleryName, language).then(function (gallery) {
+    Object(_apiClient__WEBPACK_IMPORTED_MODULE_2__["getGalleryImages"])(galleryName, i18n.language).then(function (gallery) {
       if (_isMounted) {
         setGallery(gallery.images);
         setShopLink(gallery.galleryDetails.shop_link);
       }
     });
-  }, [language]);
+  }, [i18n.language]);
   var openLightbox = Object(react__WEBPACK_IMPORTED_MODULE_0__["useCallback"])(function (event, _ref) {
     var photo = _ref.photo,
         index = _ref.index;
@@ -850,72 +813,6 @@ function IndividualGallery() {
 }
 
 /* harmony default export */ __webpack_exports__["default"] = (Object(react_pure_lifecycle__WEBPACK_IMPORTED_MODULE_1__["default"])(methods)(IndividualGallery));
-
-/***/ }),
-
-/***/ "./client/hooks/useLanguage.js":
-/*!*************************************!*\
-  !*** ./client/hooks/useLanguage.js ***!
-  \*************************************/
-/*! exports provided: LanguageProvider, useLanguage */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "LanguageProvider", function() { return LanguageProvider; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "useLanguage", function() { return useLanguage; });
-/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
-/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
-function _extends() { _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; }; return _extends.apply(this, arguments); }
-
-function _slicedToArray(arr, i) { return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _unsupportedIterableToArray(arr, i) || _nonIterableRest(); }
-
-function _nonIterableRest() { throw new TypeError("Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
-
-function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return _arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen); }
-
-function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) { arr2[i] = arr[i]; } return arr2; }
-
-function _iterableToArrayLimit(arr, i) { if (typeof Symbol === "undefined" || !(Symbol.iterator in Object(arr))) return; var _arr = []; var _n = true; var _d = false; var _e = undefined; try { for (var _i = arr[Symbol.iterator](), _s; !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i["return"] != null) _i["return"](); } finally { if (_d) throw _e; } } return _arr; }
-
-function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
-
-
-var LanguageContext = /*#__PURE__*/Object(react__WEBPACK_IMPORTED_MODULE_0__["createContext"])();
-
-function useLanguage() {
-  var context = Object(react__WEBPACK_IMPORTED_MODULE_0__["useContext"])(LanguageContext);
-  console.log('context', context);
-
-  if (!context) {
-    throw new Error("useLanguage must be used within a LanguageProvider");
-  }
-
-  var _context = _slicedToArray(context, 2),
-      language = _context[0],
-      setLanguage = _context[1];
-
-  return {
-    language: language,
-    setLanguage: setLanguage
-  };
-}
-
-function LanguageProvider(props) {
-  var _useState = Object(react__WEBPACK_IMPORTED_MODULE_0__["useState"])(''),
-      _useState2 = _slicedToArray(_useState, 2),
-      language = _useState2[0],
-      setLanguage = _useState2[1];
-
-  var value = Object(react__WEBPACK_IMPORTED_MODULE_0__["useMemo"])(function () {
-    return [language, setLanguage];
-  }, [language]);
-  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(LanguageContext.Provider, _extends({
-    value: value
-  }, props));
-}
-
-
 
 /***/ }),
 

@@ -3,8 +3,7 @@ import lifecycle from 'react-pure-lifecycle'
 import { getGalleryImages } from '../apiClient'
 import useReactRouter from 'use-react-router'
 import Carousel, { Modal, ModalGateway } from 'react-images'
-// import { useTranslation } from 'react-i18next'
-import { LanguageProvider, useLanguage } from '../hooks/useLanguage'
+import { useTranslation } from 'react-i18next'
 import Gallery from 'react-photo-gallery'
 
 let _isMounted = false
@@ -24,19 +23,19 @@ function IndividualGallery() {
   const galleryName = splitPath[splitPath.length - 1]
   const [currentImage, setCurrentImage] = useState(0)
   const [viewerIsOpen, setViewerIsOpen] = useState(false)
-  const { language } = useLanguage()
+  const { i18n } = useTranslation()
 
   useEffect(() => {
     _isMounted = true
     console.log('gallery name:', galleryName)
-    getGalleryImages(galleryName, language)
+    getGalleryImages(galleryName, i18n.language)
       .then(gallery => {
         if (_isMounted) {
           setGallery(gallery.images)
           setShopLink(gallery.galleryDetails.shop_link)
         }
       })
-  }, [language])
+  }, [i18n.language])
 
   
 

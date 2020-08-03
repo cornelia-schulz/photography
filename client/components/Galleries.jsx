@@ -2,7 +2,6 @@ import React, { useState, useEffect } from 'react'
 import { getAllGalleries, getAllPhotos } from '../apiClient'
 import lifecycle from 'react-pure-lifecycle'
 import { useTranslation } from 'react-i18next'
-import { LanguageProvider, useLanguage } from '../hooks/useLanguage'
 
 let _isMounted = false
 
@@ -15,7 +14,6 @@ const methods = {
 function Galleries() {
   const [galleries, setGalleries] = useState([])
   const { t, i18n } = useTranslation()
-  const { language } = useLanguage()
 
   useEffect(() => {
     _isMounted = true
@@ -25,7 +23,7 @@ function Galleries() {
           setGalleries(galleries)
         }
       })
-  }, [language])
+  }, [i18n.language])
 
   return(
     <div className="galleries container">
