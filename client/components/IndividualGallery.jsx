@@ -51,32 +51,32 @@ function IndividualGallery() {
 
   return (
   <div>
-    <div className="container">
-    <button className="goToShopBtn">
-      <a target="_blank" href={shopLink}>
-      Buy {galleryName} images
-      </a>
-    </button>
-    <h1>{galleryName}</h1>
-    <Gallery photos={gallery} onClick={openLightbox} />
-    <button className="goToShopBtn">
-      <a target="_blank" href={shopLink}>
-      Buy {galleryName} images
-      </a>
-    </button>
+    <div className="individual-gallery container">
+      <button className="goToShopBtn">
+        <a target="_blank" href={shopLink}>
+          Buy {galleryName} images
+        </a>
+      </button>
+      <h1>{galleryName}</h1>
+      <Gallery photos={gallery} onClick={openLightbox} />
+      <button className="goToShopBtn">
+        <a target="_blank" href={shopLink}>
+          Buy {galleryName} images
+        </a>
+      </button>
     </div>
     <ModalGateway>
     {viewerIsOpen ? (
       <Modal onClose={closeLightbox}>
-      <Carousel
-        currentIndex={currentImage}
-        views={gallery.map(x => ({
-        ...x,
-        srcset: x.srcSet,
-        caption: x.title,
-        showThumbnails: true
-        }))}
-      />
+        <Carousel
+          currentIndex={currentImage}
+          views={gallery.map(x => ({
+          ...x,
+          srcset: x.srcSet,
+          caption: x.title,
+          showThumbnails: true
+          }))}
+        />
       </Modal>
     ) : null}
     </ModalGateway>

@@ -49,6 +49,12 @@ a:hover {
 }
 
 header {
+  background-color: #fff;
+  box-shadow: 1px 1px 4px 0 rgba(0,0,0,.1);
+  position: fixed;
+  width: 100%;
+  z-index: 3;
+
   .container {
     padding: 15px;
   }
@@ -97,14 +103,30 @@ header {
   }
 
   .mobile-menu {
-    width: 100%;
-    text-align: right;
+      clear: both;
+      margin-right: -15px;
+      max-height: 0;
+      text-align: right;
+      transition: max-height .2s ease-out;
+      width: 100vw;
 
     li {
+      background-color: #ffffff;
+      border-bottom: 1px solid #e5e5e5;
       list-style-type: none;
       line-height: 2rem;
-      border-bottom: 1px solid #e5e5e5;
       padding: 10px;
+      padding-right: 25px;
+      
+      &:last-child {
+        border-bottom: none;
+      }
+    }
+
+
+
+    li:hover {
+      background-color: #f4f4f4;
     }
   }
 
@@ -165,8 +187,16 @@ header {
 }
 
 .banner {
+  padding-top: 11rem;
+
   img {
     width: 100%;
+  }
+}
+
+@media only screen and (min-width: 769px) {
+  .banner {
+    padding-top: 10rem;
   }
 }
 
@@ -258,6 +288,8 @@ header {
 }
 
 .galleries {
+  padding-top: 13rem;
+
   .gallery-image-container {
     position: relative;
   }
@@ -266,7 +298,6 @@ header {
     width: 100%;
     background-image: url('/images/pakiri-astro.jpg');
     background-size: cover;
-    margin: 10px 0;
   }
 
   .gallery:after {
@@ -293,23 +324,31 @@ header {
     line-height: 2.5rem;
     margin-bottom: 20px;
   }
+}
 
-  @media only screen and (min-width: 769px) {
-    .galleries-container {
-      display: flex;
-      flex-wrap: wrap;
-      flex-direction: row;
-    }
-
-    .gallery-image-container {
-      width: 32%;
-      margin: 5px;
-    }
-
-    .gallery {
-      margin: 0;
-    }
+@media only screen and (min-width: 769px) {
+  .galleries {
+    padding-top: 12rem;
   }
+
+  .galleries-container {
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: row;
+  }
+
+  .gallery-image-container {
+    width: 32%;
+    margin: 5px;
+  }
+
+  .gallery {
+    margin: 0;
+  }
+}
+
+.individual-gallery {
+  padding-top: 13rem;
 }
 
 .react-photo-gallery--gallery {
