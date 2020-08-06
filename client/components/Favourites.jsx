@@ -23,7 +23,7 @@ function Favourites() {
               setPhotos(photos)
             }
           })
-      }, [])
+      }, [i18n.language])
 
     return (
         <div className="favourites container">

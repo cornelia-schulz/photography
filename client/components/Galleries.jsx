@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react'
-import { getAllGalleries, getAllPhotos } from '../apiClient'
+import { getAllGalleries } from '../apiClient'
 import lifecycle from 'react-pure-lifecycle'
 import { useTranslation } from 'react-i18next'
 

@@ -2,7 +2,7 @@ import React from 'react'
 function Banner() {
     return (
         <div className="banner">
-            <img src="images/Mt-cook-banner.jpg" alt="Mt Cook banner image" />
+            <img src="images/Mt-cook-banner.jpg" alt="View over Mt Cook" />
         </div>
     )
 }

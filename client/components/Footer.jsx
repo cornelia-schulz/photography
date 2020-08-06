@@ -9,19 +9,49 @@ function Footer() {
       <div className="container">
         <div className="row">
           <div className="footer-col">
-            <a href="https://www.facebook.com/corneliaschulzphotography/" target="_blank"><img src="/images/facebook.png" alt="Link to Facebook" /></a>
+            <a
+              href="https://www.facebook.com/corneliaschulzphotography/"
+              rel="noreferrer"
+              target="_blank"
+            >
+              <img src="/images/facebook.png" alt="Link to Facebook" />
+            </a>
           </div>
           <div className="footer-col">
-            <a href="https://twitter.com/Schulz_Images" target="_blank"><img src="/images/twitter.png" alt="Link to Twitter" /></a>
+            <a
+              href="https://twitter.com/Schulz_Images"
+              rel="noreferrer"
+              target="_blank"
+            >
+              <img src="/images/twitter.png" alt="Link to Twitter" />
+            </a>
           </div>
           <div className="footer-col">
-            <a href="https://500px.com/corneliaschulz" target="_blank"><img src="/images/500px-logo.png" alt="Link to 500px" /></a>
+            <a
+              href="https://500px.com/corneliaschulz"
+              rel="noreferrer"
+              target="_blank"
+            >
+              <img src="/images/500px-logo.png" alt="Link to 500px" />
+            </a>
           </div>
           <div className="footer-col">
-            <a href="https://www.flickr.com/photos/cornelia-schulz/" target="_blank"><img src="/images/flickr.png" alt="Link to Flickr" /></a>
+            <a
+              href="https://www.flickr.com/photos/cornelia-schulz/"
+              rel="noreferrer"
+              target="_blank"
+            >
+              <img src="/images/flickr.png" alt="Link to Flickr" />
+            </a>
           </div>
           <div className="footer-col">
-            <a href="https://www.instagram.com/corneliaschulzphotography/?hl=en" target="_blank"><img src="/images/instagram.png" alt="Link to Instagram" /></a>
+            <a
+              href="https://www.instagram.com/corneliaschulzphotography/?hl=en"
+              rel="noreferrer"
+              target="_blank"
+            >
+              <img src="/images/instagram.png" alt="Link to Instagram" />
+            </a>
           </div>
         </div>
         <div className="row bottom-row">

@@ -15,52 +15,60 @@ const methods = {
 }
 
 function IndividualGallery() {
-  const { history, location, match } = useReactRouter()
+  const { location } = useReactRouter()
   const [gallery, setGallery] = useState([])
   const [shopLink, setShopLink] = useState('')
   const path = location.pathname
   const splitPath = path.split('/')
-  const galleryName = splitPath[splitPath.length - 1]
+  const [galleryName, setGalleryName] = useState(splitPath[splitPath.length - 1])
   const [currentImage, setCurrentImage] = useState(0)
   const [viewerIsOpen, setViewerIsOpen] = useState(false)
   const { i18n } = useTranslation()
 
   useEffect(() => {
     _isMounted = true
-    console.log('gallery name:', galleryName)
     getGalleryImages(galleryName, i18n.language)
       .then(gallery => {
         if (_isMounted) {
           setGallery(gallery.images)
           setShopLink(gallery.galleryDetails.shop_link)
+          setGalleryName(gallery.galleryDetails.name)
         }
       })
-  }, [i18n.language])
+  }, [galleryName, i18n.language])
 
   
 
-  const openLightbox = useCallback((event, { photo, index }) => {
-  setCurrentImage(index)
-  setViewerIsOpen(true)
+  const openLightbox = useCallback((event, { index }) => {
+    setCurrentImage(index)
+    setViewerIsOpen(true)
   }, [])
 
   const closeLightbox = () => {
-  setCurrentImage(0)
-  setViewerIsOpen(false)
+    setCurrentImage(0)
+    setViewerIsOpen(false)
   }
 
   return (
   <div>
     <div className="individual-gallery container">
       <button className="goToShopBtn">
-        <a target="_blank" href={shopLink}>
+        <a
+          rel="noreferrer"
+          target="_blank"
+          href={shopLink}
+        >
           Buy {galleryName} images
         </a>
       </button>
       <h1>{galleryName}</h1>
       <Gallery photos={gallery} onClick={openLightbox} />
       <button className="goToShopBtn">
-        <a target="_blank" href={shopLink}>
+        <a
+          rel="noreferrer"
+          target="_blank" 
+          href={shopLink}
+        >
           Buy {galleryName} images
         </a>
       </button>

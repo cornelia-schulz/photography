@@ -1,15 +1,15 @@
-import React, { Suspense, useState } from 'react'
+import React from 'react'
 import { BrowserRouter as Router, Route } from 'react-router-dom'
-import { useTranslation } from 'react-i18next'
+// eslint-disable-next-line
 import styles from '../../server/public/css/style.scss'
-import Header from './Header'
-import Footer from './Footer'
-import Favourites from './Favourites'
-import About from './About'
-import Contact from './Contact'
-import Galleries from './Galleries'
-import Banner from './Banner'
-import IndividualGallery from './IndividualGallery'
+import Header from './Header.jsx'
+import Footer from './Footer.jsx'
+import Favourites from './Favourites.jsx'
+import About from './About.jsx'
+import Contact from './Contact.jsx'
+import Galleries from './Galleries.jsx'
+import Banner from './Banner.jsx'
+import IndividualGallery from './IndividualGallery.jsx'
 
 function App () {
     return(

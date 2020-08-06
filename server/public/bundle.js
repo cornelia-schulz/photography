@@ -151,8 +151,7 @@ __webpack_require__.r(__webpack_exports__);
 
 function About() {
   var _useTranslation = Object(react_i18next__WEBPACK_IMPORTED_MODULE_1__["useTranslation"])(),
-      t = _useTranslation.t,
-      i18n = _useTranslation.i18n;
+      t = _useTranslation.t;
 
   return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
     className: "about container"
@@ -175,19 +174,18 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var react_router_dom__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react-router-dom */ "./node_modules/react-router-dom/esm/react-router-dom.js");
-/* harmony import */ var react_i18next__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! react-i18next */ "./node_modules/react-i18next/dist/es/index.js");
-/* harmony import */ var _server_public_css_style_scss__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../server/public/css/style.scss */ "./server/public/css/style.scss");
-/* harmony import */ var _server_public_css_style_scss__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(_server_public_css_style_scss__WEBPACK_IMPORTED_MODULE_3__);
-/* harmony import */ var _Header__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./Header */ "./client/components/Header.jsx");
-/* harmony import */ var _Footer__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./Footer */ "./client/components/Footer.jsx");
-/* harmony import */ var _Favourites__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./Favourites */ "./client/components/Favourites.jsx");
-/* harmony import */ var _About__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./About */ "./client/components/About.jsx");
-/* harmony import */ var _Contact__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ./Contact */ "./client/components/Contact.jsx");
-/* harmony import */ var _Galleries__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ./Galleries */ "./client/components/Galleries.jsx");
-/* harmony import */ var _Banner__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ./Banner */ "./client/components/Banner.jsx");
-/* harmony import */ var _IndividualGallery__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! ./IndividualGallery */ "./client/components/IndividualGallery.jsx");
+/* harmony import */ var _server_public_css_style_scss__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../server/public/css/style.scss */ "./server/public/css/style.scss");
+/* harmony import */ var _server_public_css_style_scss__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(_server_public_css_style_scss__WEBPACK_IMPORTED_MODULE_2__);
+/* harmony import */ var _Header_jsx__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./Header.jsx */ "./client/components/Header.jsx");
+/* harmony import */ var _Footer_jsx__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./Footer.jsx */ "./client/components/Footer.jsx");
+/* harmony import */ var _Favourites_jsx__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./Favourites.jsx */ "./client/components/Favourites.jsx");
+/* harmony import */ var _About_jsx__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./About.jsx */ "./client/components/About.jsx");
+/* harmony import */ var _Contact_jsx__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./Contact.jsx */ "./client/components/Contact.jsx");
+/* harmony import */ var _Galleries_jsx__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ./Galleries.jsx */ "./client/components/Galleries.jsx");
+/* harmony import */ var _Banner_jsx__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ./Banner.jsx */ "./client/components/Banner.jsx");
+/* harmony import */ var _IndividualGallery_jsx__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ./IndividualGallery.jsx */ "./client/components/IndividualGallery.jsx");
 
-
+ // eslint-disable-next-line
 
 
 
@@ -202,34 +200,34 @@ __webpack_require__.r(__webpack_exports__);
 function App() {
   return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_1__["BrowserRouter"], null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_1__["Route"], {
     path: "/",
-    component: _Header__WEBPACK_IMPORTED_MODULE_4__["default"]
+    component: _Header_jsx__WEBPACK_IMPORTED_MODULE_3__["default"]
   }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_1__["Route"], {
     exact: true,
     path: "/",
-    component: _Banner__WEBPACK_IMPORTED_MODULE_10__["default"]
+    component: _Banner_jsx__WEBPACK_IMPORTED_MODULE_9__["default"]
   }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_1__["Route"], {
     path: "/about",
-    component: _Banner__WEBPACK_IMPORTED_MODULE_10__["default"]
+    component: _Banner_jsx__WEBPACK_IMPORTED_MODULE_9__["default"]
   }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_1__["Route"], {
     path: "/about",
-    component: _About__WEBPACK_IMPORTED_MODULE_7__["default"]
+    component: _About_jsx__WEBPACK_IMPORTED_MODULE_6__["default"]
   }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_1__["Route"], {
     path: "/contact",
-    component: _Contact__WEBPACK_IMPORTED_MODULE_8__["default"]
+    component: _Contact_jsx__WEBPACK_IMPORTED_MODULE_7__["default"]
   }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_1__["Route"], {
     path: "/galleries/:name",
-    component: _IndividualGallery__WEBPACK_IMPORTED_MODULE_11__["default"]
+    component: _IndividualGallery_jsx__WEBPACK_IMPORTED_MODULE_10__["default"]
   }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_1__["Route"], {
     exact: true,
     path: "/galleries",
-    component: _Galleries__WEBPACK_IMPORTED_MODULE_9__["default"]
+    component: _Galleries_jsx__WEBPACK_IMPORTED_MODULE_8__["default"]
   }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_1__["Route"], {
     exact: true,
     path: "/",
-    component: _Favourites__WEBPACK_IMPORTED_MODULE_6__["default"]
+    component: _Favourites_jsx__WEBPACK_IMPORTED_MODULE_5__["default"]
   }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_1__["Route"], {
     path: "/",
-    component: _Footer__WEBPACK_IMPORTED_MODULE_5__["default"]
+    component: _Footer_jsx__WEBPACK_IMPORTED_MODULE_4__["default"]
   }));
 }
 
@@ -255,7 +253,7 @@ function Banner() {
     className: "banner"
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("img", {
     src: "images/Mt-cook-banner.jpg",
-    alt: "Mt Cook banner image"
+    alt: "View over Mt Cook"
   }));
 }
 
@@ -283,10 +281,10 @@ __webpack_require__.r(__webpack_exports__);
 
 function Contact() {
   var _useTranslation = Object(react_i18next__WEBPACK_IMPORTED_MODULE_2__["useTranslation"])(),
-      t = _useTranslation.t;
+      t = _useTranslation.t; // const send = () => {
+  //     // send
+  //   }
 
-  var send = function send() {// send
-  };
 
   return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
     className: "contact container"
@@ -383,7 +381,7 @@ function Favourites() {
         setPhotos(photos);
       }
     });
-  }, []);
+  }, [i18n.language]);
   return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
     className: "favourites container"
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h1", null, t('personalFavourites')), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("ul", null, photos && photos.length > 0 && photos.map(function (photo) {
@@ -424,6 +422,7 @@ function Footer() {
     className: "footer-col"
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("a", {
     href: "https://www.facebook.com/corneliaschulzphotography/",
+    rel: "noreferrer",
     target: "_blank"
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("img", {
     src: "/images/facebook.png",
@@ -432,6 +431,7 @@ function Footer() {
     className: "footer-col"
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("a", {
     href: "https://twitter.com/Schulz_Images",
+    rel: "noreferrer",
     target: "_blank"
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("img", {
     src: "/images/twitter.png",
@@ -440,6 +440,7 @@ function Footer() {
     className: "footer-col"
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("a", {
     href: "https://500px.com/corneliaschulz",
+    rel: "noreferrer",
     target: "_blank"
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("img", {
     src: "/images/500px-logo.png",
@@ -448,6 +449,7 @@ function Footer() {
     className: "footer-col"
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("a", {
     href: "https://www.flickr.com/photos/cornelia-schulz/",
+    rel: "noreferrer",
     target: "_blank"
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("img", {
     src: "/images/flickr.png",
@@ -456,6 +458,7 @@ function Footer() {
     className: "footer-col"
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("a", {
     href: "https://www.instagram.com/corneliaschulzphotography/?hl=en",
+    rel: "noreferrer",
     target: "_blank"
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("img", {
     src: "/images/instagram.png",
@@ -619,12 +622,12 @@ function Header() {
     className: "header-content"
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
     className: "language-selectors"
-  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("label", {
-    htmlFor: "languages"
-  }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("select", {
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("select", {
+    "aria-label": "Search",
     name: "languages",
     id: "languages",
-    value: selectedLanguage,
+    defaultValue: selectedLanguage,
+    onBlur: changeLanguage,
     onChange: changeLanguage
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("option", {
     value: "English"
@@ -655,22 +658,22 @@ function Header() {
     alt: "Close mobile menu"
   })), menuIsOpen && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("ul", {
     className: "mobile-menu hidden"
-  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("li", {
-    onClick: toggleMenu
-  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_1__["Link"], {
-    to: "/"
-  }, t('home'))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("li", {
-    onClick: toggleMenu
-  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_1__["Link"], {
-    to: "/galleries"
-  }, t('galleries'))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("li", {
-    onClick: toggleMenu
-  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_1__["Link"], {
-    to: "/about"
-  }, t('about'))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("li", {
-    onClick: toggleMenu
-  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_1__["Link"], {
-    to: "/contact"
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("li", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_1__["Link"], {
+    to: "/",
+    onClick: toggleMenu,
+    onKeyUp: toggleMenu
+  }, t('home'))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("li", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_1__["Link"], {
+    to: "/galleries",
+    onClick: toggleMenu,
+    onKeyUp: toggleMenu
+  }, t('galleries'))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("li", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_1__["Link"], {
+    to: "/about",
+    onClick: toggleMenu,
+    onKeyUp: toggleMenu
+  }, t('about'))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("li", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_1__["Link"], {
+    to: "/contact",
+    onClick: toggleMenu,
+    onKeyUp: toggleMenu
   }, t('contact'))))))));
 }
 
@@ -730,9 +733,7 @@ var methods = {
 
 function IndividualGallery() {
   var _useReactRouter = use_react_router__WEBPACK_IMPORTED_MODULE_3___default()(),
-      history = _useReactRouter.history,
-      location = _useReactRouter.location,
-      match = _useReactRouter.match;
+      location = _useReactRouter.location;
 
   var _useState = Object(react__WEBPACK_IMPORTED_MODULE_0__["useState"])([]),
       _useState2 = _slicedToArray(_useState, 2),
@@ -746,34 +747,37 @@ function IndividualGallery() {
 
   var path = location.pathname;
   var splitPath = path.split('/');
-  var galleryName = splitPath[splitPath.length - 1];
 
-  var _useState5 = Object(react__WEBPACK_IMPORTED_MODULE_0__["useState"])(0),
+  var _useState5 = Object(react__WEBPACK_IMPORTED_MODULE_0__["useState"])(splitPath[splitPath.length - 1]),
       _useState6 = _slicedToArray(_useState5, 2),
-      currentImage = _useState6[0],
-      setCurrentImage = _useState6[1];
+      galleryName = _useState6[0],
+      setGalleryName = _useState6[1];
 
-  var _useState7 = Object(react__WEBPACK_IMPORTED_MODULE_0__["useState"])(false),
+  var _useState7 = Object(react__WEBPACK_IMPORTED_MODULE_0__["useState"])(0),
       _useState8 = _slicedToArray(_useState7, 2),
-      viewerIsOpen = _useState8[0],
-      setViewerIsOpen = _useState8[1];
+      currentImage = _useState8[0],
+      setCurrentImage = _useState8[1];
+
+  var _useState9 = Object(react__WEBPACK_IMPORTED_MODULE_0__["useState"])(false),
+      _useState10 = _slicedToArray(_useState9, 2),
+      viewerIsOpen = _useState10[0],
+      setViewerIsOpen = _useState10[1];
 
   var _useTranslation = Object(react_i18next__WEBPACK_IMPORTED_MODULE_5__["useTranslation"])(),
       i18n = _useTranslation.i18n;
 
   Object(react__WEBPACK_IMPORTED_MODULE_0__["useEffect"])(function () {
     _isMounted = true;
-    console.log('gallery name:', galleryName);
     Object(_apiClient__WEBPACK_IMPORTED_MODULE_2__["getGalleryImages"])(galleryName, i18n.language).then(function (gallery) {
       if (_isMounted) {
         setGallery(gallery.images);
         setShopLink(gallery.galleryDetails.shop_link);
+        setGalleryName(gallery.galleryDetails.name);
       }
     });
-  }, [i18n.language]);
+  }, [galleryName, i18n.language]);
   var openLightbox = Object(react__WEBPACK_IMPORTED_MODULE_0__["useCallback"])(function (event, _ref) {
-    var photo = _ref.photo,
-        index = _ref.index;
+    var index = _ref.index;
     setCurrentImage(index);
     setViewerIsOpen(true);
   }, []);
@@ -788,6 +792,7 @@ function IndividualGallery() {
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
     className: "goToShopBtn"
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("a", {
+    rel: "noreferrer",
     target: "_blank",
     href: shopLink
   }, "Buy ", galleryName, " images")), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h1", null, galleryName), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_photo_gallery__WEBPACK_IMPORTED_MODULE_6__["default"], {
@@ -796,6 +801,7 @@ function IndividualGallery() {
   }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
     className: "goToShopBtn"
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("a", {
+    rel: "noreferrer",
     target: "_blank",
     href: shopLink
   }, "Buy ", galleryName, " images"))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_images__WEBPACK_IMPORTED_MODULE_4__["ModalGateway"], null, viewerIsOpen ? /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_images__WEBPACK_IMPORTED_MODULE_4__["Modal"], {
@@ -865,7 +871,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react_dom__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(react_dom__WEBPACK_IMPORTED_MODULE_1__);
 /* harmony import */ var react_router_dom__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! react-router-dom */ "./node_modules/react-router-dom/esm/react-router-dom.js");
 /* harmony import */ var _i18n__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./i18n */ "./client/i18n.js");
-/* harmony import */ var _components_App__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./components/App */ "./client/components/App.jsx");
+/* harmony import */ var _components_App_jsx__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./components/App.jsx */ "./client/components/App.jsx");
 /* harmony import */ var react_scroll_parallax__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! react-scroll-parallax */ "./node_modules/react-scroll-parallax/cjs/index.js");
 /* harmony import */ var react_scroll_parallax__WEBPACK_IMPORTED_MODULE_5___default = /*#__PURE__*/__webpack_require__.n(react_scroll_parallax__WEBPACK_IMPORTED_MODULE_5__);
 /* harmony import */ var use_query_params__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! use-query-params */ "./node_modules/use-query-params/esm/index.js");
@@ -880,7 +886,7 @@ react_dom__WEBPACK_IMPORTED_MODULE_1___default.a.render( /*#__PURE__*/react__WEB
   fallback: "loading"
 }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(use_query_params__WEBPACK_IMPORTED_MODULE_6__["QueryParamProvider"], {
   ReactRouterRoute: react_router_dom__WEBPACK_IMPORTED_MODULE_2__["Route"]
-}, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_scroll_parallax__WEBPACK_IMPORTED_MODULE_5__["ParallaxProvider"], null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_components_App__WEBPACK_IMPORTED_MODULE_4__["default"], null))))), document.getElementById('app'));
+}, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_scroll_parallax__WEBPACK_IMPORTED_MODULE_5__["ParallaxProvider"], null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_components_App_jsx__WEBPACK_IMPORTED_MODULE_4__["default"], null))))), document.getElementById('app'));
 
 /***/ }),
 
@@ -2088,7 +2094,7 @@ module.exports = exports['default'];
 
 exports = module.exports = __webpack_require__(/*! ../../../node_modules/css-loader/dist/runtime/api.js */ "./node_modules/css-loader/dist/runtime/api.js")(false);
 // Module
-exports.push([module.i, "html,\nbody {\n  box-sizing: border-box;\n  font-family: 'Lato', sans-serif;\n  font-size: 16px;\n  line-height: 1.5rem; }\n\n*,\n*:before,\n*:after {\n  box-sizing: inherit; }\n\nh1,\nh2,\nh3,\nh4,\nh5,\nh6 {\n  font-family: 'Comfortaa', cursive;\n  font-weight: 600;\n  margin-bottom: 15px; }\n\nh1 {\n  font-size: 24px; }\n\na,\na:visited {\n  text-decoration: none;\n  color: #111; }\n\na:hover {\n  text-decoration: none;\n  cursor: pointer; }\n\n.container {\n  width: 100%;\n  padding: 15px; }\n\n.row {\n  display: flex;\n  width: 100%; }\n\nheader {\n  background-color: #fff;\n  box-shadow: 1px 1px 4px 0 rgba(0, 0, 0, 0.1);\n  position: fixed;\n  width: 100%;\n  z-index: 3; }\n  header .container {\n    padding: 15px; }\n  header .row {\n    justify-content: space-between;\n    flex-wrap: wrap; }\n  header .header-left {\n    margin-top: 35px;\n    width: 55%; }\n  header .header-left img {\n    width: 100%; }\n  header .header-content {\n    align-items: flex-end;\n    display: flex;\n    flex-direction: column;\n    width: 35%; }\n  header .header-right {\n    display: none; }\n  header .header-right-mobile {\n    margin-top: auto;\n    margin-bottom: auto;\n    border: none;\n    background: transparent;\n    display: flex;\n    justify-content: flex-end; }\n    header .header-right-mobile img {\n      margin-bottom: 1.5rem;\n      width: 15%; }\n  header .header-right-mobile:focus {\n    outline: none; }\n  header .mobile-menu {\n    clear: both;\n    margin-right: -15px;\n    max-height: 0;\n    text-align: right;\n    transition: max-height .2s ease-out;\n    width: 100vw; }\n    header .mobile-menu li {\n      background-color: #ffffff;\n      border-bottom: 1px solid #e5e5e5;\n      list-style-type: none;\n      line-height: 2rem;\n      padding: 10px;\n      padding-right: 25px; }\n      header .mobile-menu li:last-child {\n        border-bottom: none; }\n    header .mobile-menu li:hover {\n      background-color: #f4f4f4; }\n  header .language-selectors {\n    font-size: 18px;\n    margin-bottom: 10px;\n    position: relative; }\n  header #languages {\n    padding: 0.4rem; }\n  @media only screen and (min-width: 769px) {\n    header .header-left {\n      width: 50%; }\n    header .header-left img {\n      height: 100px;\n      width: auto; }\n    header .header-content {\n      align-items: flex-end;\n      width: 50%; }\n    header .language-selectors {\n      margin-right: 20px; }\n    header .header-right {\n      display: block; }\n      header .header-right ul {\n        display: flex;\n        flex-direction: row; }\n        header .header-right ul li {\n          height: 100px;\n          padding: 10px;\n          display: flex;\n          flex-direction: column;\n          justify-content: center;\n          font-size: 20px;\n          width: 110px;\n          text-align: center; }\n    header .header-right-mobile {\n      display: none; } }\n\n.banner {\n  padding-top: 11rem; }\n  .banner img {\n    width: 100%; }\n\n@media only screen and (min-width: 769px) {\n  .banner {\n    padding-top: 10rem; } }\n\n.favourites h1 {\n  padding: 60px 0;\n  font-size: 1.5rem;\n  text-align: center; }\n\n.favourites img {\n  width: 100%; }\n\n@media only screen and (min-width: 769px) {\n  .favourites h1 {\n    text-align: left; } }\n\n.about p {\n  margin: 15px 0; }\n\n.contact {\n  display: flex;\n  flex-direction: row;\n  padding-top: 12rem; }\n  .contact label {\n    display: none; }\n  .contact .contact-left {\n    display: none; }\n    .contact .contact-left img {\n      height: 100%; }\n  .contact p {\n    margin: 5px 0 15px; }\n  .contact label {\n    color: #494949; }\n  .contact input {\n    width: 100%;\n    height: 2.5rem;\n    border: none;\n    border-bottom: 1px solid #494949;\n    margin: 5px 0 15px; }\n  .contact input:focus {\n    outline: none; }\n  .contact textarea {\n    width: 100%;\n    border: none;\n    border-bottom: 1px solid #494949;\n    margin: 5px 0 15px; }\n  .contact textarea:focus {\n    outline: none; }\n  @media only screen and (min-width: 769px) {\n    .contact .contact-left {\n      display: block;\n      height: 500px;\n      overflow: hidden;\n      width: 60%;\n      margin-right: 25px;\n      border-radius: 5px; }\n    .contact .contact-right {\n      padding-top: 25px; } }\n\n.galleries {\n  padding-top: 13rem; }\n  .galleries .gallery-image-container {\n    position: relative; }\n  .galleries .gallery {\n    width: 100%;\n    background-image: url(\"/images/pakiri-astro.jpg\");\n    background-size: cover; }\n  .galleries .gallery:after {\n    content: \"\";\n    display: block;\n    padding-bottom: 100%; }\n  .galleries .gallery-overlay {\n    position: absolute;\n    background: linear-gradient(rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.7));\n    top: 0;\n    width: 100%;\n    height: 100%;\n    text-align: center;\n    display: flex;\n    flex-direction: column;\n    justify-content: flex-end; }\n  .galleries .gallery-overlay-text {\n    color: #fff;\n    font-size: 40px;\n    line-height: 2.5rem;\n    margin-bottom: 20px; }\n\n@media only screen and (min-width: 769px) {\n  .galleries {\n    padding-top: 12rem; }\n  .galleries-container {\n    display: flex;\n    flex-wrap: wrap;\n    flex-direction: row; }\n  .gallery-image-container {\n    width: 32%;\n    margin: 5px; }\n  .gallery {\n    margin: 0; } }\n\n.individual-gallery {\n  padding-top: 13rem; }\n\n.react-photo-gallery--gallery {\n  margin: 2rem 0; }\n\n.goToShopBtn {\n  background-color: #8abe56;\n  border: 1px solid transparent;\n  border-radius: 7px;\n  letter-spacing: 2px;\n  line-height: 1.5rem;\n  margin-bottom: 2rem;\n  padding: 0.6rem 2rem;\n  text-transform: uppercase;\n  transition-property: background-color;\n  transition-duration: 1000ms; }\n  .goToShopBtn a {\n    color: #fff;\n    font-size: 1.2em; }\n  .goToShopBtn:hover {\n    border: 1px solid #8abe56;\n    background-color: transparent; }\n    .goToShopBtn:hover a {\n      color: #8abe56; }\n\n.sendMessage {\n  border-radius: 7px;\n  font-size: 1.1rem;\n  letter-spacing: 2px;\n  line-height: 1.2rem;\n  margin-bottom: 2rem;\n  padding: 0.6rem 2rem;\n  text-transform: uppercase; }\n\n@media only screen and (min-width: 768px) {\n  .goToShopBtn {\n    float: right;\n    margin-bottom: 0; } }\n\nfooter .container {\n  padding: 10px; }\n\nfooter .footer-col {\n  width: 20%;\n  border-radius: 50%;\n  padding: 2px;\n  margin: 5px; }\n\nfooter .footer-col img {\n  width: 100%;\n  padding: 10px; }\n\nfooter .bottom-row p {\n  margin: 5px auto; }\n\n@media only screen and (min-width: 769px) {\n  footer .footer-col {\n    text-align: center; }\n  footer .footer-col img {\n    width: auto;\n    height: 100px; } }\n\n@media only screen and (min-width: 1100px) {\n  .container {\n    width: 1028px;\n    margin: 0 auto; } }\n\n.test {\n  background: red;\n  color: green;\n  line-height: 3em; }\n", ""]);
+exports.push([module.i, "html,\nbody {\n  box-sizing: border-box;\n  font-family: 'Lato', sans-serif;\n  font-size: 16px;\n  line-height: 1.5rem; }\n\n*,\n*:before,\n*:after {\n  box-sizing: inherit; }\n\nh1,\nh2,\nh3,\nh4,\nh5,\nh6 {\n  font-family: 'Comfortaa', cursive;\n  font-weight: 600;\n  margin-bottom: 15px; }\n\nh1 {\n  font-size: 24px; }\n\na,\na:visited {\n  text-decoration: none;\n  color: #111; }\n\na:hover {\n  text-decoration: none;\n  cursor: pointer; }\n\n.container {\n  width: 100%;\n  padding: 15px; }\n\n.row {\n  display: flex;\n  width: 100%; }\n\nheader {\n  background-color: #fff;\n  box-shadow: 1px 1px 4px 0 rgba(0, 0, 0, 0.1);\n  position: fixed;\n  width: 100%;\n  z-index: 3; }\n  header .container {\n    padding: 15px; }\n  header .row {\n    justify-content: space-between;\n    flex-wrap: wrap; }\n  header .header-left {\n    margin-top: 35px;\n    width: 55%; }\n  header .header-left img {\n    width: 100%; }\n  header .header-content {\n    align-items: flex-end;\n    display: flex;\n    flex-direction: column;\n    width: 35%; }\n  header .header-right {\n    display: none; }\n  header .header-right-mobile {\n    margin-top: auto;\n    margin-bottom: auto;\n    border: none;\n    background: transparent;\n    display: flex;\n    justify-content: flex-end; }\n    header .header-right-mobile img {\n      margin-bottom: 1.5rem;\n      width: 15%; }\n  header .header-right-mobile:focus {\n    outline: none; }\n  header .mobile-menu {\n    clear: both;\n    margin-right: -15px;\n    max-height: 0;\n    text-align: right;\n    transition: max-height .2s ease-out;\n    width: 100vw; }\n    header .mobile-menu li {\n      background-color: #ffffff;\n      border-bottom: 1px solid #e5e5e5;\n      list-style-type: none;\n      line-height: 2rem;\n      padding: 10px;\n      padding-right: 25px; }\n      header .mobile-menu li:last-child {\n        border-bottom: none; }\n    header .mobile-menu li:hover {\n      background-color: #f4f4f4; }\n  header .language-selectors {\n    font-size: 18px;\n    margin-bottom: 10px;\n    position: relative; }\n  header #languages {\n    font-family: 'lato', sans-serif;\n    padding: 0.4rem; }\n  @media only screen and (min-width: 769px) {\n    header .header-left {\n      width: 50%; }\n    header .header-left img {\n      height: 100px;\n      width: auto; }\n    header .header-content {\n      align-items: flex-end;\n      width: 50%; }\n    header .language-selectors {\n      margin-right: 20px; }\n    header .header-right {\n      display: block; }\n      header .header-right ul {\n        display: flex;\n        flex-direction: row; }\n        header .header-right ul li {\n          height: 100px;\n          padding: 10px;\n          display: flex;\n          flex-direction: column;\n          justify-content: center;\n          font-size: 20px;\n          width: 110px;\n          text-align: center; }\n    header .header-right-mobile {\n      display: none; } }\n\n.banner {\n  padding-top: 11rem; }\n  .banner img {\n    width: 100%; }\n\n@media only screen and (min-width: 769px) {\n  .banner {\n    padding-top: 10rem; } }\n\n.favourites h1 {\n  padding: 60px 0;\n  font-size: 1.5rem;\n  text-align: center; }\n\n.favourites img {\n  width: 100%; }\n\n@media only screen and (min-width: 769px) {\n  .favourites h1 {\n    text-align: left; } }\n\n.about p {\n  margin: 15px 0; }\n\n.contact {\n  display: flex;\n  flex-direction: row;\n  padding-top: 12rem; }\n  .contact label {\n    display: none; }\n  .contact .contact-left {\n    display: none; }\n    .contact .contact-left img {\n      height: 100%; }\n  .contact p {\n    margin: 5px 0 15px; }\n  .contact label {\n    color: #494949; }\n  .contact input {\n    width: 100%;\n    height: 2.5rem;\n    border: none;\n    border-bottom: 1px solid #494949;\n    margin: 5px 0 15px; }\n  .contact input:focus {\n    outline: none; }\n  .contact textarea {\n    width: 100%;\n    border: none;\n    border-bottom: 1px solid #494949;\n    margin: 5px 0 15px; }\n  .contact textarea:focus {\n    outline: none; }\n  @media only screen and (min-width: 769px) {\n    .contact .contact-left {\n      display: block;\n      height: 500px;\n      overflow: hidden;\n      width: 60%;\n      margin-right: 25px;\n      border-radius: 5px; }\n    .contact .contact-right {\n      padding-top: 25px; } }\n\n.galleries {\n  padding-top: 13rem; }\n  .galleries .gallery-image-container {\n    position: relative; }\n  .galleries .gallery {\n    width: 100%;\n    background-image: url(\"/images/pakiri-astro.jpg\");\n    background-size: cover; }\n  .galleries .gallery:after {\n    content: \"\";\n    display: block;\n    padding-bottom: 100%; }\n  .galleries .gallery-overlay {\n    position: absolute;\n    background: linear-gradient(rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.7));\n    top: 0;\n    width: 100%;\n    height: 100%;\n    text-align: center;\n    display: flex;\n    flex-direction: column;\n    justify-content: flex-end; }\n  .galleries .gallery-overlay-text {\n    color: #fff;\n    font-size: 40px;\n    line-height: 2.5rem;\n    margin-bottom: 20px; }\n\n@media only screen and (min-width: 769px) {\n  .galleries {\n    padding-top: 12rem; }\n  .galleries-container {\n    display: flex;\n    flex-wrap: wrap;\n    flex-direction: row; }\n  .gallery-image-container {\n    width: 32%;\n    margin: 5px; }\n  .gallery {\n    margin: 0; } }\n\n.individual-gallery {\n  padding-top: 13rem; }\n\n.react-photo-gallery--gallery {\n  margin: 2rem 0; }\n\n.goToShopBtn {\n  background-color: #8abe56;\n  border: 1px solid transparent;\n  border-radius: 7px;\n  letter-spacing: 2px;\n  line-height: 1.5rem;\n  margin-bottom: 2rem;\n  padding: 0.6rem 2rem;\n  text-transform: uppercase;\n  transition-property: background-color;\n  transition-duration: 1000ms; }\n  .goToShopBtn a {\n    color: #fff;\n    font-size: 1.2em; }\n  .goToShopBtn:hover {\n    border: 1px solid #8abe56;\n    background-color: transparent; }\n    .goToShopBtn:hover a {\n      color: #8abe56; }\n\n.sendMessage {\n  border-radius: 7px;\n  font-size: 1.1rem;\n  letter-spacing: 2px;\n  line-height: 1.2rem;\n  margin-bottom: 2rem;\n  padding: 0.6rem 2rem;\n  text-transform: uppercase; }\n\n@media only screen and (min-width: 768px) {\n  .goToShopBtn {\n    float: right;\n    margin-bottom: 0; } }\n\nfooter .container {\n  padding: 10px; }\n\nfooter .footer-col {\n  width: 20%;\n  border-radius: 50%;\n  padding: 2px;\n  margin: 5px; }\n\nfooter .footer-col img {\n  width: 100%;\n  padding: 10px; }\n\nfooter .bottom-row p {\n  margin: 5px auto; }\n\n@media only screen and (min-width: 769px) {\n  footer .footer-col {\n    text-align: center; }\n  footer .footer-col img {\n    width: auto;\n    height: 100px; } }\n\n@media only screen and (min-width: 1100px) {\n  .container {\n    width: 1028px;\n    margin: 0 auto; } }\n\n.test {\n  background: red;\n  color: green;\n  line-height: 3em; }\n", ""]);
 
 
 

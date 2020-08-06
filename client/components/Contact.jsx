@@ -1,13 +1,13 @@
-import React, { useState, useEffect } from 'react'
+import React from 'react'
 import { Parallax } from 'react-scroll-parallax'
 import { useTranslation } from 'react-i18next'
 // import { LanguageProvider, useLanguage } from '../hooks/useLanguage'
 
 function Contact() {
     const { t } = useTranslation()
-    const send = () => {
-        // send
-      }
+    // const send = () => {
+    //     // send
+    //   }
     return(
         <div className="contact container">
             <div className="contact-left">

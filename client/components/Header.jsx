@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState } from 'react'
 import { Link } from 'react-router-dom'
 import { useTranslation } from 'react-i18next'
 
@@ -25,8 +25,7 @@ function Header() {
           </div>
           <div className="header-content">
             <div className="language-selectors">
-              <label htmlFor="languages"></label>
-              <select name="languages" id="languages" value={selectedLanguage} onChange={changeLanguage}>
+              <select aria-label="Search" name="languages" id="languages" defaultValue={selectedLanguage} onBlur={changeLanguage} onChange={changeLanguage}>
                 <option value="English">{t('en')}</option>
                 <option value="German">{t('de')}</option>
               </select>
@@ -43,10 +42,10 @@ function Header() {
               {menuIsOpen &&<img src="/images/close.png" alt="Close mobile menu" />}
             </button>
             {menuIsOpen &&<ul className="mobile-menu hidden">
-              <li onClick={toggleMenu}><Link to="/">{t('home')}</Link></li>
-              <li onClick={toggleMenu}><Link to="/galleries">{t('galleries')}</Link></li>
-              <li onClick={toggleMenu}><Link to="/about">{t('about')}</Link></li>
-              <li onClick={toggleMenu}><Link to="/contact">{t('contact')}</Link></li>
+              <li><Link to="/" onClick={toggleMenu} onKeyUp={toggleMenu}>{t('home')}</Link></li>
+              <li><Link to="/galleries" onClick={toggleMenu} onKeyUp={toggleMenu}>{t('galleries')}</Link></li>
+              <li><Link to="/about" onClick={toggleMenu} onKeyUp={toggleMenu}>{t('about')}</Link></li>
+              <li><Link to="/contact" onClick={toggleMenu} onKeyUp={toggleMenu}>{t('contact')}</Link></li>
             </ul>}
           </div>
         </div>

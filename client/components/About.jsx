@@ -1,10 +1,10 @@
-import React, { useState, useEffect } from 'react'
+import React from 'react'
 import { useTranslation } from 'react-i18next'
 
 
 
 function About() {
-    const { t, i18n } = useTranslation()
+    const { t } = useTranslation()
 
     return(
         <div className="about container">
