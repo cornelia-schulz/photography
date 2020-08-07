@@ -32,7 +32,7 @@ function Footer() {
               rel="noreferrer"
               target="_blank"
             >
-              <img src="/images/500px-logo.png" alt="Link to 500px" />
+              <img className="logo-500px" src="/images/500px-logo.png" alt="Link to 500px" />
             </a>
           </div>
           <div className="footer-col">
