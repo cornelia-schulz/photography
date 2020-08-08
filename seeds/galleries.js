@@ -10,7 +10,7 @@ exports.seed = function(knex, Promise) {
     {id: 3, cover_image: '/images/sydney-cbd.jpg', shop_link: 'https://www.redbubble.com/people/firzhugh/shop?artistUserName=firzhugh&asc=u&collections=1354119&iaCode=all-departments&sortOrder=relevant'},
     {id: 4, cover_image: '/images/gold-coast.jpg', shop_link: 'https://www.redbubble.com/people/firzhugh/shop?artistUserName=firzhugh&asc=u&collections=1354118&iaCode=all-departments&sortOrder=relevant'},
     {id: 5, cover_image: '/images/rainbow-parikeets.jpg', shop_link: ''},
-    {id: 6, cover_image: '/images/in-flight-cover.jpg', shop_link: ''}
+    {id: 6, cover_image: '/images/black-and-white.jpg', shop_link: ''}
     ]);
   });
 };
