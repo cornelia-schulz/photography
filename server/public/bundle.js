@@ -389,7 +389,8 @@ function Favourites() {
       key: photo.id
     }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("img", {
       src: photo.src,
-      alt: photo.title
+      alt: photo.title,
+      loading: "lazy"
     }));
   })));
 }
