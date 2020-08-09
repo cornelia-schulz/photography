@@ -17,7 +17,7 @@
     ]
   },
   "scripts": {
-    "dev": "nodemon server & webpack --watch",
+    "dev": "nodemon server & webpack --mode=development --watch",
     "start": "webpack && node server",
     "build": "webpack --mode=production",
     "format": "prettier \"client/**/*.{js,html}\"",
