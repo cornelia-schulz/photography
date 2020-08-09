@@ -19,7 +19,7 @@
   "scripts": {
     "dev": "nodemon server & webpack --watch",
     "start": "webpack && node server",
-    "build": "webpack --config ./webpack.config.js",
+    "build": "webpack --mode=production",
     "format": "prettier \"client/**/*.{js,html}\"",
     "lint": "eslint \"client/**/*.{js,jsx}\" --quiet",
     "knex": "knex --knexfile ./knexfile.js",

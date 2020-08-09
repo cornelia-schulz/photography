@@ -1,5 +1,5 @@
 const path = require('path')
-const autoprefixer = require('autoprefixer');
+const autoprefixer = require('autoprefixer')
 const CSSModuleLoader = {
   loader: 'css-loader',
   options: {
@@ -20,7 +20,6 @@ const CSSLoader = {
 }
 
 module.exports = {
-  mode: 'development',
   entry: './client/index.js',
   output: {
     path: path.join(__dirname, 'server/public'),
