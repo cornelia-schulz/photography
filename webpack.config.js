@@ -1,29 +1,15 @@
 const path = require('path')
-const autoprefixer = require('autoprefixer')
-const CSSModuleLoader = {
-  loader: 'css-loader',
-  options: {
-    modules: true,
-    sourceMap: true,
-    localIdentName: '[local]__[hash:base64:5]',
-    minimize: true
-  }
-}
-
-const CSSLoader = {
-  loader: 'css-loader',
-  options: {
-    modules: false,
-    sourceMap: true,
-    minimize: true
-  }
-}
 
 module.exports = {
   entry: './client/index.js',
   output: {
     path: path.join(__dirname, 'server/public'),
     filename: 'bundle.js'
+  },
+  optimization: {
+    splitChunks: {
+      chunks: 'all',
+    },
   },
   module: {
     rules: [{
