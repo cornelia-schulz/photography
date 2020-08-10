@@ -6,11 +6,11 @@ module.exports = {
     path: path.join(__dirname, 'server/public'),
     filename: 'bundle.js'
   },
-  optimization: {
-    splitChunks: {
-      chunks: 'all',
-    },
-  },
+  // optimization: {
+  //   splitChunks: {
+  //     chunks: 'all',
+  //   },
+  // },
   module: {
     rules: [{
       test: /\.jsx?$/,
