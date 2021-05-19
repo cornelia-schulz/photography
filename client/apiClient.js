@@ -23,6 +23,7 @@ export function getAllFavourites() {
 }
 
 export function getAllGalleries(locale) {
+  console.log('get all galleries: ', locale)
   return request
     .get(`/api/v1/galleries/lang/${locale}`)
     .then(res => {

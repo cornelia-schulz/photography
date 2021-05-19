@@ -6,24 +6,26 @@ import LanguageDetector from 'i18next-browser-languagedetector'
 i18n
 .use(Backend)
 .use(LanguageDetector)
-.use(initReactI18next)
+.use(initReactI18next)   // passes i18n down to react-i18next
   .init({
-  fallbackLng: 'en',
+    react: {
+      useSuspense: false
+    },
+    fallbackLng: 'en',
 
-  // have a common namespace used around the full app
-  ns: ['strings'],
-  defaultNS: 'strings',
+    // have a common namespace used around the full app
+    ns: ['strings'],
+    defaultNS: 'strings',
 
-  debug: true,
+    debug: false,
 
-  interpolation: {
-    escapeValue: false,
-  },
+    interpolation: {
+      escapeValue: false,
+    },
 
-  react: {
-    wait: true
-  }
+    react: {
+      wait: true
+    }
   })
-
 
 export default i18n
