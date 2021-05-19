@@ -29,7 +29,7 @@ function Galleries() {
     <div className="galleries container">
       <h1>{t('galleries')}</h1>
       <div className="galleries-container">
-        {galleries.map(gallery => {
+        {galleries && galleries.map(gallery => {
           return <div key={gallery.id} className="gallery-image-container">
             <div className="gallery" style={{backgroundImage: `url(${gallery.cover_image})`}}></div>
             <a href={'/galleries/' + gallery.name}>

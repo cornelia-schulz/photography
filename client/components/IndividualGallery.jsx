@@ -58,7 +58,7 @@ function IndividualGallery() {
           target="_blank"
           href={shopLink}
         >
-          Buy {galleryName} images
+          {galleryName} Shop
         </a>
       </button>
       <h1>{galleryName}</h1>

@@ -25,6 +25,5 @@ function App () {
         <Route path='/' component={Footer} />
       </Router>
     )
-
 }
 export default App
