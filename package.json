@@ -23,7 +23,6 @@
     "format": "prettier \"client/**/*.{js,html}\"",
     "lint": "eslint \"client/**/*.{js,jsx}\" --quiet",
     "knex": "knex --knexfile ./knexfile.js",
-    "postinstall": "webpack && knex migrate:latest",
     "test": "jest --watch",
     "test:coverage": "test --coverage"
   },
