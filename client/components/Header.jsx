@@ -21,7 +21,7 @@ function Header() {
       <div className="container">
         <div className="row">
           <div className="header-left">
-            <a href="/"><img src="/images/CS_photgraphy_black.png" alt="Cornelia Schulz Photography Logo" /></a>
+            <a href="/"><img src="/images/CS_photgraphy_black-100.png" alt="Cornelia Schulz Photography Logo" loading="lazy" /></a>
           </div>
           <div className="header-content">
             <div className="language-selectors">

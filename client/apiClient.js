@@ -23,7 +23,6 @@ export function getAllFavourites() {
 }
 
 export function getAllGalleries(locale) {
-  console.log('get all galleries: ', locale)
   return request
     .get(`/api/v1/galleries/lang/${locale}`)
     .then(res => {
@@ -35,7 +34,6 @@ export function getAllGalleries(locale) {
 }
 
 export function getGalleryImages(gallery, locale) {
-  console.log(`/api/v1/galleries/${gallery}/${locale}`)
   return request
     .get(`/api/v1/galleries/${gallery}/${locale}`)
     .then(res => {

@@ -14,7 +14,7 @@ function Footer() {
               rel="noreferrer"
               target="_blank"
             >
-              <img src="/images/facebook.png" alt="Link to Facebook" />
+              <img src="/images/facebook.png" alt="Link to Facebook" loading="lazy" />
             </a>
           </div>
           <div className="footer-col">
@@ -23,7 +23,7 @@ function Footer() {
               rel="noreferrer"
               target="_blank"
             >
-              <img src="/images/twitter.png" alt="Link to Twitter" />
+              <img src="/images/twitter.png" alt="Link to Twitter" loading="lazy" />
             </a>
           </div>
           <div className="footer-col">
@@ -32,7 +32,7 @@ function Footer() {
               rel="noreferrer"
               target="_blank"
             >
-              <img className="logo-500px" src="/images/500px-logo.png" alt="Link to 500px" />
+              <img className="logo-500px" src="/images/500px-logo.png" alt="Link to 500px" loading="lazy" />
             </a>
           </div>
           <div className="footer-col">
@@ -41,7 +41,7 @@ function Footer() {
               rel="noreferrer"
               target="_blank"
             >
-              <img src="/images/flickr.png" alt="Link to Flickr" />
+              <img src="/images/flickr.png" alt="Link to Flickr" loading="lazy" />
             </a>
           </div>
           <div className="footer-col">
@@ -50,7 +50,7 @@ function Footer() {
               rel="noreferrer"
               target="_blank"
             >
-              <img src="/images/instagram.png" alt="Link to Instagram" />
+              <img src="/images/instagram.png" alt="Link to Instagram" loading="lazy" />
             </a>
           </div>
         </div>

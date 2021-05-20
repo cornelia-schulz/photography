@@ -17,6 +17,7 @@ function Galleries() {
 
   useEffect(() => {
     _isMounted = true
+    setGalleries([])
     getAllGalleries(i18n.language)
       .then(galleries => {
         if(_isMounted) {
